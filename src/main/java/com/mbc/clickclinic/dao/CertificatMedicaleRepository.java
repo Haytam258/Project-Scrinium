@@ -1,0 +1,9 @@
+package com.mbc.clickclinic.dao;
+
+import com.mbc.clickclinic.entities.CertificatMedicale;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+
+public interface CertificatMedicaleRepository extends JpaRepository<CertificatMedicale,Long> {
+
+}
