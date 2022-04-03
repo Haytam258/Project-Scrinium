@@ -2,8 +2,11 @@ package com.mbc.clickclinic.service;
 
 
 import com.mbc.clickclinic.entities.Secretaire;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 
+@Service
 public interface SecretaireService {
     Secretaire saveSecretaire(Secretaire medecin);
     void deleteSecretaire(Secretaire medecin);
