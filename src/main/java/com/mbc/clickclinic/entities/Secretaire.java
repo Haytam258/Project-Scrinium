@@ -9,7 +9,7 @@ import lombok.ToString;
 import javax.persistence.Entity;
 
 @Entity
-@AllArgsConstructor @NoArgsConstructor @Data @ToString
+@Data @ToString
 public class Secretaire extends Personne {
 
 }

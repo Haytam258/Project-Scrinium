@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Entity;
 
 @Entity
-@Data @AllArgsConstructor @NoArgsConstructor
+@Data
 public class Patient extends Personne{
     private String groupSanguin;
 }

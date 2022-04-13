@@ -12,6 +12,7 @@ import javax.persistence.Id;
 @Data @AllArgsConstructor @NoArgsConstructor
 public class Ordonnance {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
     //private List<Medicament> medicaments;
     private String posologie; //Nombre de géllule à prendre à la fois par exemple
     private int nbrFoisParJour;

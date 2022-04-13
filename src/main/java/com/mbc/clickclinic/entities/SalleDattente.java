@@ -12,8 +12,8 @@ public class SalleDattente {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany
-    private Patient patient;
+   // @OneToMany
+   // private Patient patient;
 
     private String nomMedecin;
     private String heure; // Look for hour datetime

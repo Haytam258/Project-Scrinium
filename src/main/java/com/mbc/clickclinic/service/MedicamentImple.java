@@ -35,8 +35,8 @@ public class MedicamentImple implements MedicamentService{
     }
 
     @Override
-    public Medicament findMedicamentByNom(String nom) {
-        return medicamentRepository.findMedicamentByNom(nom);
+    public Medicament findMedicamentByNom(String libelle) {
+        return medicamentRepository.findMedicamentByLibelle(libelle);
     }
 
     @Override
