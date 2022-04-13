@@ -14,6 +14,6 @@ import java.util.Date;
 public class CertificatMedicale {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Date date;
-    private String text;
+    private Date dateCreation;
+    private String repos;
 }

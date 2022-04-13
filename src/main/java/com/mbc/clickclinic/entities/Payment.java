@@ -8,17 +8,18 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.util.Date;
+
 @Entity
 @Data @AllArgsConstructor @NoArgsConstructor
 public class Payment {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private double totalePartiel;
-    private double remise;
-    private double sommeFinale;
+    private double totalBrut;
     private double MontantDepose;
     private double equilibre;
     private String remarque;
+    private Date datePaiement;
 
 
 }

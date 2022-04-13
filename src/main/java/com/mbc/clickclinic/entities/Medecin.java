@@ -10,6 +10,5 @@ import java.util.Date;
 @Entity
 @Data @AllArgsConstructor @NoArgsConstructor
 public class Medecin extends Personne {
-    private String specialite;
-    private Date dateEntre;
+    private String specialite; //profil
 }

@@ -13,16 +13,12 @@ import javax.persistence.Id;
 public class Medicament {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nom;
-    private String presentation;
-    private int dosage;
-    private String form;
-    private String composition;
-    private String classeTherapeutique;
+    private String libelle;
+    private String form; // Le type de médicament
+    private String classeTherapeutique; // La catégorie de médicament
     private String fabriquant;
-    private String statut;
     private String codeATC;
-    private double ppv;
-    private double ph;
-    private String indication;
+    private String nomGenerique;
+    private int prixAchat; //ppv
+
 }

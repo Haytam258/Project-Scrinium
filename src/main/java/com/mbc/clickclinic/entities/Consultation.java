@@ -13,16 +13,14 @@ import javax.persistence.Id;
 public class Consultation {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id ;
-    private String motif;
-    private String antecedent;
+    private String motif; //Raison de la visite
     private String diagnostique;
-    private String ResultatExmentClinique;
+    private String ResultatExmentClinique; //ResultatsDanalyses
+    private String remarques;
     private double poids;
     private double talle;
     private double imc;
     private double temperature;
     private int frequenceCardiaque;
     private String pressionArterielle;
-    private String observation;
-
 }

@@ -16,4 +16,8 @@ public class Agenda {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Date date;
+    private String jour;
+    private int heureDebut;
+    private int heureFin;
+    private String description;
 }

@@ -16,6 +16,6 @@ public class Rendezvous {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id ;
     private Date dateRv;
-    private String heureRv;
-    private String description;
+    private String heure;
+    private String statut;
 }

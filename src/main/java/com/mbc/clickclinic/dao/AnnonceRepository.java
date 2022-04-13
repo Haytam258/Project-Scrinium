@@ -1,9 +1,9 @@
 package com.mbc.clickclinic.dao;
 
-import com.mbc.clickclinic.entities.Notification;
+import com.mbc.clickclinic.entities.Annonce;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface NotificationRepository extends JpaRepository<Notification,Long> {
+public interface AnnonceRepository extends JpaRepository<Annonce,Long> {
 }

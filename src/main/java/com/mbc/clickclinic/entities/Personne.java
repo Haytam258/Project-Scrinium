@@ -18,10 +18,10 @@ public class Personne {
     private Date dateNaissance;
     private String mobil;
     private String email;
-    private String etatCivile;
+    private String etatCivile; //Célibataire, Mariée etc
     private String assurance;
     private String addresse;
-    private String region;
+    private String region; //Ville
     private String role;
     private String sexe;
 

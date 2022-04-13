@@ -13,7 +13,8 @@ import javax.persistence.Id;
 public class Ordonnance {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     //private List<Medicament> medicaments;
-    private String posologie;
-    private int nbrUnite;
-    private int duree;
+    private String posologie; //Nombre de géllule à prendre à la fois par exemple
+    private int nbrFoisParJour;
+    private String dureeTraitement;
+    private int dose;
 }
