@@ -4,10 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Data @AllArgsConstructor @NoArgsConstructor
 public class Ordonnance {
@@ -18,4 +18,17 @@ public class Ordonnance {
     private int nbrFoisParJour;
     private String dureeTraitement;
     private int dose;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "medicament_ordonance",
+    joinColumns = @JoinColumn(name = "ordonnance_id"),
+    inverseJoinColumns = @JoinColumn(name = "medicament_id"))
+    private List<Medicament> medicamentList;
+
+    public void add(Medicament medicament){
+        if(this.medicamentList == null ){
+            medicamentList = new ArrayList<>();
+        }
+        medicamentList.add(medicament);
+    }
 }

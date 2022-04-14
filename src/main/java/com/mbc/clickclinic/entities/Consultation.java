@@ -1,13 +1,12 @@
 package com.mbc.clickclinic.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+
 @Entity
 @Data @AllArgsConstructor @NoArgsConstructor
 public class Consultation {
@@ -23,4 +22,22 @@ public class Consultation {
     private double temperature;
     private int frequenceCardiaque;
     private String pressionArterielle;
+
+    @ManyToOne
+    @JoinColumn(name = "dossier_id")
+    @JsonManagedReference
+    private DossierMedicale dossierMedicale;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name ="paiement_id")
+    private Payment payment;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "rendez_id")
+    private Rendezvous rendezvous;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "certificat_id")
+    private CertificatMedicale certificatMedicale;
+
 }
