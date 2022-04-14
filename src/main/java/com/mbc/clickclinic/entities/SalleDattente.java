@@ -19,7 +19,6 @@ public class SalleDattente {
    // @OneToMany
    // private Patient patient;
 
-    private String nomMedecin;
     private String heure; // Look for hour datetime
 
     @OneToMany(mappedBy = "salleDattente")
@@ -32,4 +31,8 @@ public class SalleDattente {
         }
         patientList.add(patient);
     }
+
+    @OneToOne(mappedBy = "salleDattente")
+    @JoinColumn(name = "medecin_id")
+    private Medecin medecin;
 }

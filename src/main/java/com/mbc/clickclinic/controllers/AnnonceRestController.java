@@ -34,7 +34,7 @@ public class AnnonceRestController {
         return annonceService.getAllAnnonce();
     }
 
-    @PostMapping("/annonces/{id}")
+    @GetMapping("/annonces/{id}")
     public Annonce getAnnonce(@PathVariable Long id){
         return annonceService.getAnnonce(id);
     }

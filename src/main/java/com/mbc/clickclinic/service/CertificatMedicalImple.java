@@ -59,4 +59,8 @@ public class CertificatMedicalImple implements CertificatMedicaleService {
     public CertificatMedicale CertificatMedicalOfPatientInDate(Date date) {
         return null;
     }
+
+    public List<CertificatMedicale> getCertificats(){
+        return certifRepo.findAll();
+    }
 }

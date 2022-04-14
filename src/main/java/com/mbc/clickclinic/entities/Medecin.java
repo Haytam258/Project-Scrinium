@@ -20,9 +20,8 @@ public class Medecin extends Personne {
     @JoinColumn(name = "agenda_id")
     private Agenda agenda;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "salle_id")
-    @JsonManagedReference
     private SalleDattente salleDattente;
 
     @OneToMany(mappedBy = "medecin")

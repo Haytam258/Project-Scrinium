@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AnnonceImple implements AnnonceService {
@@ -36,6 +37,12 @@ public class AnnonceImple implements AnnonceService {
     }
 
     public Annonce getAnnonce(Long id){
-        return annonceRepository.findById(id).get();
+        Optional<Annonce> annonce = annonceRepository.findById(id);
+        if(annonce.isPresent()){
+            return annonce.get();
+        }
+        else {
+            return null;
+        }
     }
 }
