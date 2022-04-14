@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
+
 public interface SecretaireService {
     Secretaire saveSecretaire(Secretaire medecin);
     void deleteSecretaire(Secretaire medecin);

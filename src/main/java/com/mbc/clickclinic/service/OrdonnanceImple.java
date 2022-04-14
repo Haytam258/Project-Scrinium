@@ -3,9 +3,11 @@ package com.mbc.clickclinic.service;
 import com.mbc.clickclinic.dao.OrdonnanceRepository;
 import com.mbc.clickclinic.entities.Ordonnance;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class OrdonnanceImple implements OrdonnanceService{
 
     private final OrdonnanceRepository ordonnanceRepository;

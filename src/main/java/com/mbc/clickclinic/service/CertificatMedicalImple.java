@@ -4,10 +4,12 @@ import com.mbc.clickclinic.dao.CertificatMedicaleRepository;
 import com.mbc.clickclinic.dao.PatientRepository;
 import com.mbc.clickclinic.entities.CertificatMedicale;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
 
+@Service
 public class CertificatMedicalImple implements CertificatMedicaleService {
 
     private final CertificatMedicaleRepository certifRepo;

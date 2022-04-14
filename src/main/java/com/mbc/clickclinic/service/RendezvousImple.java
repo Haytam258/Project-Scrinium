@@ -3,10 +3,12 @@ package com.mbc.clickclinic.service;
 import com.mbc.clickclinic.dao.RendezvousRepository;
 import com.mbc.clickclinic.entities.Rendezvous;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
 
+@Service
 public class RendezvousImple implements RendezvousService{
 
     private final RendezvousRepository rendezvousRepository;

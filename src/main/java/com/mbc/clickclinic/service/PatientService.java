@@ -4,7 +4,7 @@ import com.mbc.clickclinic.entities.Patient;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
-@Service
+
 public interface PatientService {
     Patient savePatient(Patient patient);
     void deletePatient(Patient patient);

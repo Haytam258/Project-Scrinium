@@ -6,7 +6,7 @@ import com.mbc.clickclinic.entities.Payment;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
-@Service
+
 public interface PaymentService {
     Payment savePayment(Payment payment);
     void deletePayment(Payment payment);

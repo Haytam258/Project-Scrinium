@@ -3,9 +3,11 @@ package com.mbc.clickclinic.service;
 import com.mbc.clickclinic.dao.ConsultationRepository;
 import com.mbc.clickclinic.entities.Consultation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class ConsultationImpl implements ConsultationService{
 
     private final ConsultationRepository consultationRepository;

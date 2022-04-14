@@ -3,7 +3,9 @@ package com.mbc.clickclinic.service;
 import com.mbc.clickclinic.dao.SalleDattentRepository;
 import com.mbc.clickclinic.entities.SalleDattente;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class SalleDattenteImple implements SalleDattenteService{
 
     private final SalleDattentRepository salleDattentRepository;
