@@ -14,7 +14,7 @@ public class CertificatMedicale {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Date dateCreation;
-    private String repos;
+    private String repos; //La raison pour le certificat
 
     @ManyToOne
     @JoinColumn(name = "patient_id")
