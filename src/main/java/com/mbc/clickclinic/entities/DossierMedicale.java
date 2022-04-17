@@ -1,6 +1,7 @@
 package com.mbc.clickclinic.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,7 +21,7 @@ public class DossierMedicale {
     private String observations;
 
     @OneToMany(mappedBy = "dossierMedicale")
-    @JsonBackReference
+    @JsonManagedReference(value = "dossier_consultation")
     private List<Consultation> consultationList;
 
     public void add(Consultation consultation){

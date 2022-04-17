@@ -11,7 +11,7 @@ import java.util.Date;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Personne {
     @Id @GeneratedValue(strategy = GenerationType.TABLE)
-    private Long id;
+    private int id;
     private String nom;
     private String prenom;
     private String cin;

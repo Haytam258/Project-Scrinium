@@ -1,6 +1,7 @@
 package com.mbc.clickclinic.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,7 +20,7 @@ public class TypeCertification {
     private String type;
 
     @OneToMany(mappedBy = "typeCertification")
-    @JsonBackReference
+    @JsonManagedReference(value = "type_certificat")
     private List<CertificatMedicale> certificatMedicaleList;
 
     public void add(CertificatMedicale certificatMedicale){

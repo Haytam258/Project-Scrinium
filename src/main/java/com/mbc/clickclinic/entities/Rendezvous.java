@@ -20,15 +20,16 @@ public class Rendezvous {
 
     @ManyToOne
     @JoinColumn(name = "medecin_id")
-    @JsonManagedReference
+    @JsonBackReference(value = "medecin_rendez")
     private Medecin medecin;
 
     @ManyToOne
     @JoinColumn(name = "patient_id")
-    @JsonManagedReference
+    @JsonBackReference(value = "patient_rendez")
     private Patient patient;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "consultation_id")
+    @JsonBackReference(value = "consultation_rendez")
     private Consultation consultation;
 }

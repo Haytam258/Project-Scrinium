@@ -25,7 +25,7 @@ public class PatientRestController {
 
     @GetMapping("/patients/{id}")
     public Patient getPatient(@PathVariable Long id){
-        return patientService.PatientById(id);
+        return patientService.PatientById(Math.toIntExact(id));
     }
 
     @PostMapping("/createPatient")
@@ -40,7 +40,8 @@ public class PatientRestController {
 
     @PostMapping("/deletePatient/{id}")
     public void deletePatient(@PathVariable Long id){
-        patientService.deletePatient(patientService.PatientById(id));
+        patientService.deletePatient(patientService.PatientById(Math.toIntExact(id)));
     }
+
 
 }

@@ -1,5 +1,6 @@
 package com.mbc.clickclinic.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,7 +26,7 @@ public class Consultation {
 
     @ManyToOne
     @JoinColumn(name = "dossier_id")
-    @JsonManagedReference
+    @JsonBackReference(value = "dossier_consultation")
     private DossierMedicale dossierMedicale;
 
     @OneToOne(cascade = CascadeType.ALL)

@@ -1,6 +1,7 @@
 package com.mbc.clickclinic.service;
 
 import com.mbc.clickclinic.dao.OrdonnanceRepository;
+import com.mbc.clickclinic.entities.Medicament;
 import com.mbc.clickclinic.entities.Ordonnance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,9 +13,12 @@ public class OrdonnanceImple implements OrdonnanceService{
 
     private final OrdonnanceRepository ordonnanceRepository;
 
+    private final MedicamentService medicamentService;
+
     @Autowired
-    public OrdonnanceImple(OrdonnanceRepository ordonnanceRepository){
+    public OrdonnanceImple(OrdonnanceRepository ordonnanceRepository, MedicamentService medicamentService){
         this.ordonnanceRepository = ordonnanceRepository;
+        this.medicamentService = medicamentService;
     }
 
     @Override
@@ -40,5 +44,15 @@ public class OrdonnanceImple implements OrdonnanceService{
     @Override
     public Ordonnance OrdonnanceById(Long id) {
         return ordonnanceRepository.findById(id).get();
+    }
+
+    public Ordonnance addMedicamentToOrdonnance(Medicament medicament, Ordonnance ordonnance){
+        if(ordonnance.getMedicamentList().contains(medicament)){
+            return ordonnance;
+        }
+        else {
+            ordonnance.getMedicamentList().add(medicament);
+            return ordonnanceRepository.saveAndFlush(ordonnance);
+        }
     }
 }

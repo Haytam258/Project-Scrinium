@@ -1,5 +1,7 @@
 package com.mbc.clickclinic.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,6 +27,7 @@ public class Medicament {
     @JoinTable(name = "medicament_ordonance",
     joinColumns = @JoinColumn(name = "ordonnance_id"),
     inverseJoinColumns = @JoinColumn(name = "medicament_id"))
+    @JsonManagedReference(value = "medicament_ordonnance")
     private List<Ordonnance> ordonnanceList;
 
     public void add(Ordonnance ordonnance){
@@ -36,10 +39,12 @@ public class Medicament {
 
     @ManyToOne
     @JoinColumn(name = "type_id")
+    @JsonBackReference(value = "type_medicament")
     private TypeMedicament typeMedicament;
 
     @ManyToOne
     @JoinColumn(name = "categorie_id")
+    @JsonBackReference(value = "categorie_medicament")
     private CategorieMedicament categorieMedicament;
 
 }

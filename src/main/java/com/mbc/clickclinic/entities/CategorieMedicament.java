@@ -1,5 +1,6 @@
 package com.mbc.clickclinic.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,6 +20,7 @@ public class CategorieMedicament {
     private String classeTherapeutique;
 
     @OneToMany(mappedBy = "categorieMedicament")
+    @JsonManagedReference(value = "categorie_medicament")
     private List<Medicament> medicamentList;
 
     public void add(Medicament medicament){

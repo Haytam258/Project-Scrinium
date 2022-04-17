@@ -47,7 +47,7 @@ public class PatientImple implements PatientService{
     }
 
     @Override
-    public Patient PatientById(Long id) {
-        return patientRepository.findById(Math.toIntExact(id)).get();
+    public Patient PatientById(int id) {
+        return patientRepository.findById(id).get();
     }
 }

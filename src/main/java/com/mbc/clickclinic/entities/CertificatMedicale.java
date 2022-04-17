@@ -18,11 +18,11 @@ public class CertificatMedicale {
 
     @ManyToOne
     @JoinColumn(name = "patient_id")
-    @JsonManagedReference
+    @JsonBackReference(value = "patient_certificat")
     private Patient patient;
 
     @ManyToOne
     @JoinColumn(name = "type_id")
-    @JsonManagedReference
+    @JsonBackReference(value = "type_certificat")
     private TypeCertification typeCertification;
 }

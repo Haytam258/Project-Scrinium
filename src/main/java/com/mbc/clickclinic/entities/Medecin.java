@@ -25,7 +25,7 @@ public class Medecin extends Personne {
     private SalleDattente salleDattente;
 
     @OneToMany(mappedBy = "medecin")
-    @JsonBackReference
+    @JsonManagedReference(value = "medecin_rendez")
     private List<Rendezvous> rendezvousList;
 
     public void add(Rendezvous rendezvous){

@@ -1,6 +1,7 @@
 package com.mbc.clickclinic.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,7 +23,7 @@ public class SalleDattente {
     private String heure; // Look for hour datetime
 
     @OneToMany(mappedBy = "salleDattente")
-    @JsonBackReference
+    @JsonManagedReference(value = "salle_patient")
     private List<Patient> patientList;
 
     public void add(Patient patient){

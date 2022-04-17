@@ -12,5 +12,5 @@ public interface PatientService {
     Patient findPatientBykw(String kw);
     Patient findPatientByNom(String pName);
     List<Patient> patients();
-    Patient PatientById(Long id);
+    public Patient PatientById(int id);
 }
