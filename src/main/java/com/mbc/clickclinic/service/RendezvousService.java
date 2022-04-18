@@ -2,6 +2,8 @@ package com.mbc.clickclinic.service;
 
 
 
+import com.mbc.clickclinic.entities.Medecin;
+import com.mbc.clickclinic.entities.Patient;
 import com.mbc.clickclinic.entities.Rendezvous;
 import org.springframework.stereotype.Service;
 
@@ -16,5 +18,7 @@ public interface RendezvousService {
     List<Rendezvous> Rendezvouss();
     Rendezvous RendezvousById(Long id);
     Rendezvous RendezvousByDate(Date dateRv);
+    public Rendezvous AddPatientToRendezVous(Patient patient, Rendezvous rendezvous);
+    public Rendezvous AddMedecinToPatient(Medecin medecin, Rendezvous rendezvous);
 
 }
