@@ -35,5 +35,6 @@ public class SalleDattente {
 
     @OneToOne(mappedBy = "salleDattente")
     @JoinColumn(name = "medecin_id")
+    @JsonBackReference(value = "medecin_salle")
     private Medecin medecin;
 }

@@ -25,7 +25,6 @@ public class Ordonnance {
     @JoinTable(name = "medicament_ordonance",
     joinColumns = @JoinColumn(name = "ordonnance_id"),
     inverseJoinColumns = @JoinColumn(name = "medicament_id"))
-    @JsonBackReference(value = "medicament_ordonnance")
     private List<Medicament> medicamentList;
 
     public void add(Medicament medicament){

@@ -1,5 +1,6 @@
 package com.mbc.clickclinic.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,9 +22,11 @@ public class DemandeCertificat {
     // (CascadeType.DELETE (REMOVE) est responsable de cela.
     @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH})
     @JoinColumn(name = "patient_id")
+    @JsonBackReference(value = "patient_demande")
     private Patient patient;
 
     @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH})
     @JoinColumn(name = "medecin_id")
+    @JsonBackReference(value = "medecin_demande")
     private Medecin medecin;
 }

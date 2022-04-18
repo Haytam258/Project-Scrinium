@@ -46,10 +46,12 @@ public class Patient extends Personne{
 
     @OneToOne
     @JoinColumn(name = "dossier_id")
+    @JsonManagedReference(value = "patient_dossier")
     private DossierMedicale dossierMedicale;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "demandeCert_id")
+    @JsonManagedReference(value = "patient_demande")
     private DemandeCertificat demandeCertificat;
 
 }

@@ -33,6 +33,7 @@ public class DossierMedicale {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "patient_id")
+    @JsonBackReference(value = "patient_dossier")
     private Patient patient;
 
 

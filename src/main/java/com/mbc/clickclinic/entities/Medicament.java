@@ -23,19 +23,6 @@ public class Medicament {
     private String nomGenerique;
     private int prixAchat; //ppv
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "medicament_ordonance",
-    joinColumns = @JoinColumn(name = "ordonnance_id"),
-    inverseJoinColumns = @JoinColumn(name = "medicament_id"))
-    @JsonManagedReference(value = "medicament_ordonnance")
-    private List<Ordonnance> ordonnanceList;
-
-    public void add(Ordonnance ordonnance){
-        if(this.ordonnanceList == null){
-            ordonnanceList = new ArrayList<>();
-        }
-        ordonnanceList.add(ordonnance);
-    }
 
     @ManyToOne
     @JoinColumn(name = "type_id")
