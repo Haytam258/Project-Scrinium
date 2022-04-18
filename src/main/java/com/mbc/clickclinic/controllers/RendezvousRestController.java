@@ -2,6 +2,7 @@ package com.mbc.clickclinic.controllers;
 
 
 import com.mbc.clickclinic.entities.Rendezvous;
+import com.mbc.clickclinic.service.ConsultationService;
 import com.mbc.clickclinic.service.MedecinService;
 import com.mbc.clickclinic.service.PatientService;
 import com.mbc.clickclinic.service.RendezvousService;
@@ -16,12 +17,14 @@ public class RendezvousRestController {
     private final RendezvousService rendezvousService;
     private final MedecinService medecinService;
     private final PatientService patientService;
+    private final ConsultationService consultationService;
 
     @Autowired
-    public RendezvousRestController(RendezvousService rendezvousService, PatientService patientService, MedecinService medecinService){
+    public RendezvousRestController(RendezvousService rendezvousService, PatientService patientService, MedecinService medecinService, ConsultationService consultationService){
         this.rendezvousService = rendezvousService;
         this.patientService = patientService;
         this.medecinService = medecinService;
+        this.consultationService = consultationService;
     }
 
     @GetMapping("/allRendezvous")
@@ -57,5 +60,15 @@ public class RendezvousRestController {
     @PostMapping("/rendezvous/patient/")
     public Rendezvous addPatientToRendezVous(@RequestParam Integer idr, @RequestParam Integer idp){
         return rendezvousService.AddPatientToRendezVous(patientService.PatientById(idp), rendezvousService.RendezvousById(idr.longValue()));
+    }
+
+    @GetMapping("/rendezvous/patient/{id}")
+    public Rendezvous getRendezvousByPatient(@PathVariable Long id){
+        return rendezvousService.getRendezvousByPatient(patientService.PatientById(id.intValue()));
+    }
+
+    @PostMapping("/rendezvous/consultation")
+    public Rendezvous addConsultationToRendezvous(@RequestParam Long idc, @RequestParam Long idr){
+        return rendezvousService.AddConsultationToRendezVous(consultationService.ConsultationlById(idc), rendezvousService.RendezvousById(idr));
     }
 }

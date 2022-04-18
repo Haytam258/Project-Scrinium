@@ -1,6 +1,7 @@
 package com.mbc.clickclinic.service;
 
 import com.mbc.clickclinic.dao.RendezvousRepository;
+import com.mbc.clickclinic.entities.Consultation;
 import com.mbc.clickclinic.entities.Medecin;
 import com.mbc.clickclinic.entities.Patient;
 import com.mbc.clickclinic.entities.Rendezvous;
@@ -60,6 +61,15 @@ public class RendezvousImple implements RendezvousService{
 
     public Rendezvous AddMedecinToPatient(Medecin medecin, Rendezvous rendezvous){
         rendezvous.setMedecin(medecin);
+        return rendezvousRepository.saveAndFlush(rendezvous);
+    }
+
+    public Rendezvous getRendezvousByPatient(Patient patient){
+        return rendezvousRepository.findRendezvousByPatient(patient);
+    }
+
+    public Rendezvous AddConsultationToRendezVous(Consultation consultation, Rendezvous rendezvous){
+        rendezvous.setConsultation(consultation);
         return rendezvousRepository.saveAndFlush(rendezvous);
     }
 }

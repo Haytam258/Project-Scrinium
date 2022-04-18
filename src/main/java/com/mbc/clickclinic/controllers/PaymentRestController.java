@@ -2,20 +2,27 @@ package com.mbc.clickclinic.controllers;
 
 
 import com.mbc.clickclinic.entities.Payment;
+import com.mbc.clickclinic.service.ConsultationService;
+import com.mbc.clickclinic.service.PatientService;
 import com.mbc.clickclinic.service.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class PaymentRestController {
 
     private final PaymentService paymentService;
+    private final ConsultationService consultationService;
+    private final PatientService patientService;
 
     @Autowired
-    public PaymentRestController(PaymentService paymentService){
+    public PaymentRestController(PaymentService paymentService, ConsultationService consultationService, PatientService patientService){
         this.paymentService = paymentService;
+        this.consultationService = consultationService;
+        this.patientService = patientService;
     }
 
     @PostMapping("/createPayement")
@@ -36,5 +43,15 @@ public class PaymentRestController {
     @PostMapping("/deletePayment/{id}")
     public void deletePayment(@PathVariable Long id){
         paymentService.deletePayment(paymentService.paymentById(id));
+    }
+
+    @GetMapping("/payment/consultation/{id}")
+    public Payment getPayementByConsultation(@PathVariable Long id){
+        return paymentService.getPaymentByConsultation(consultationService.ConsultationlById(id));
+    }
+
+    @GetMapping("/payment/patient/{id}")
+    public Optional<Payment> getPaymentOfPatient(@PathVariable Long id){
+        return paymentService.getPayementOfPatient(patientService.PatientById(id.intValue()));
     }
 }

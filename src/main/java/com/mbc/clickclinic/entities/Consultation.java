@@ -31,14 +31,13 @@ public class Consultation {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name ="paiement_id")
+    @JsonManagedReference(value = "consultation_payment")
     private Payment payment;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "rendez_id")
+    @JsonManagedReference(value = "consultation_rendez")
     private Rendezvous rendezvous;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "certificat_id")
-    private CertificatMedicale certificatMedicale;
 
 }

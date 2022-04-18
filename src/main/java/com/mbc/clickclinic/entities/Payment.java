@@ -1,5 +1,6 @@
 package com.mbc.clickclinic.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,6 +21,7 @@ public class Payment {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "consultation_id")
+    @JsonBackReference(value = "consultation_payment")
     private Consultation consultation;
 
 

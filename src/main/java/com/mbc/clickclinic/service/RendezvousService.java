@@ -2,6 +2,7 @@ package com.mbc.clickclinic.service;
 
 
 
+import com.mbc.clickclinic.entities.Consultation;
 import com.mbc.clickclinic.entities.Medecin;
 import com.mbc.clickclinic.entities.Patient;
 import com.mbc.clickclinic.entities.Rendezvous;
@@ -20,5 +21,7 @@ public interface RendezvousService {
     Rendezvous RendezvousByDate(Date dateRv);
     public Rendezvous AddPatientToRendezVous(Patient patient, Rendezvous rendezvous);
     public Rendezvous AddMedecinToPatient(Medecin medecin, Rendezvous rendezvous);
+    public Rendezvous getRendezvousByPatient(Patient patient);
+    public Rendezvous AddConsultationToRendezVous(Consultation consultation, Rendezvous rendezvous);
 
 }

@@ -2,10 +2,13 @@ package com.mbc.clickclinic.service;
 
 import com.mbc.clickclinic.dao.ConsultationRepository;
 import com.mbc.clickclinic.entities.Consultation;
+import com.mbc.clickclinic.entities.Payment;
+import com.mbc.clickclinic.entities.Rendezvous;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ConsultationImpl implements ConsultationService{
@@ -42,5 +45,14 @@ public class ConsultationImpl implements ConsultationService{
     @Override
     public Consultation ConsultationlById(Long id) {
         return consultationRepository.findById(id).get();
+    }
+
+    public Consultation AddPaiementToConsultation(Payment payment, Consultation consultation){
+        consultation.setPayment(payment);
+        return consultationRepository.saveAndFlush(consultation);
+    }
+
+    public Optional<Consultation> getConsultationByRendezVous(Rendezvous rendezvous){
+        return consultationRepository.findById(rendezvous.getConsultation().getId());
     }
 }
