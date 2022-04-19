@@ -9,6 +9,7 @@ import com.mbc.clickclinic.service.RendezvousService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Calendar;
 import java.util.List;
 
 @RestController
@@ -39,6 +40,7 @@ public class RendezvousRestController {
 
     @PostMapping("/createRendezvous")
     public Rendezvous createRendezvous(@RequestBody Rendezvous rendezvous){
+        rendezvous.setHeure(rendezvous.getDateRv().getHour());
         return rendezvousService.saveRendezvous(rendezvous);
     }
 

@@ -36,4 +36,12 @@ public class Medecin extends Personne {
         }
         rendezvousList.add(rendezvous);
     }
+
+    @OneToMany(mappedBy = "medecin")
+    @JsonManagedReference(value = "medecin_certificat")
+    private List<CertificatMedicale> certificatMedicaleList;
+
+    @OneToMany(mappedBy = "medecin")
+    @JsonManagedReference(value = "medecin_demande")
+    private List<DemandeCertificat> demandeCertificatList;
 }

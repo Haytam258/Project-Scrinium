@@ -39,5 +39,10 @@ public class Consultation {
     @JsonManagedReference(value = "consultation_rendez")
     private Rendezvous rendezvous;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "ordonnance_id")
+    @JsonManagedReference(value = "consultation_ordonnance")
+    private Ordonnance ordonnance;
+
 
 }

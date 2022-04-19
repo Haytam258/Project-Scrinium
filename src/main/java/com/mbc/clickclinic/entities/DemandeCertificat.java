@@ -25,8 +25,7 @@ public class DemandeCertificat {
     @JsonBackReference(value = "patient_demande")
     private Patient patient;
 
-    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH})
-    @JoinColumn(name = "medecin_id")
+    @ManyToOne
     @JsonBackReference(value = "medecin_demande")
     private Medecin medecin;
 }

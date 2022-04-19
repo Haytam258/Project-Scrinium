@@ -33,4 +33,9 @@ public class Ordonnance {
         }
         medicamentList.add(medicament);
     }
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "consultation_id")
+    @JsonBackReference(value = "consultation_ordonnance")
+    private Consultation consultation;
 }

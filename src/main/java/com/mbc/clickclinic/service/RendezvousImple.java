@@ -8,7 +8,10 @@ import com.mbc.clickclinic.entities.Rendezvous;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -26,6 +29,18 @@ public class RendezvousImple implements RendezvousService{
     }
     @Override
     public Rendezvous saveRendezvous(Rendezvous rendezvous) {
+        List<Rendezvous> rend = rendezvousRepository.findRendezvousByDateRv(rendezvous.getDateRv());
+        if(rend.size() != 0){
+            for (Iterator<Rendezvous> rendezvousIterator = rend.iterator(); rendezvousIterator.hasNext();) {
+                Rendezvous rendez = rendezvousIterator.next();
+                if(rendezvous.getHeure() <= rendez.getHeure() + 1 && rendezvous.getHeure() >= rendez.getHeure()){
+                    return null;
+                }
+                else {
+                    return rendezvousRepository.saveAndFlush(rendezvous);
+                }
+            }
+        }
         return rendezvousRepository.saveAndFlush(rendezvous);
     }
 
@@ -50,7 +65,7 @@ public class RendezvousImple implements RendezvousService{
     }
 
     @Override
-    public Rendezvous RendezvousByDate(Date dateRv) {
+    public List<Rendezvous> RendezvousByDate(LocalDateTime dateRv) {
         return rendezvousRepository.findRendezvousByDateRv(dateRv);
     }
 

@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 @Entity
 @Data @AllArgsConstructor @NoArgsConstructor
@@ -15,7 +16,7 @@ public class Personne {
     private String nom;
     private String prenom;
     private String cin;
-    private Date dateNaissance;
+    private LocalDate dateNaissance;
     private String mobil;
     private String email;
     private String etatCivile; //Célibataire, Mariée etc
