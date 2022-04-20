@@ -29,6 +29,7 @@ public class Rendezvous {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm", iso = DateTimeFormat.ISO.DATE_TIME)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime dateRv;
+    //private LocalTime heure; for HTML transition
     private int heure;
     private int statut; //Statut : 1 = Fini, Statut : 0 = A faire
 
