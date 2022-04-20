@@ -25,6 +25,7 @@ import java.util.Date;
 public class Rendezvous {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    //@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Faut revoir la date et heure pour HTML
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm", iso = DateTimeFormat.ISO.DATE_TIME)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime dateRv;
