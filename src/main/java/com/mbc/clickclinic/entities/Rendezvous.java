@@ -29,7 +29,7 @@ public class Rendezvous {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime dateRv;
     private int heure;
-    private String statut;
+    private int statut; //Statut : 1 = Fini, Statut : 0 = A faire
 
     @ManyToOne
     @JoinColumn(name = "medecin_id")
