@@ -35,7 +35,7 @@ public class RendezvousImple implements RendezvousService{
                 Rendezvous rendez = rendezvousIterator.next();
                 //On supposera qu'un rendezvous passera 1 heure maximum, donc on vérifie que la date est libre avant de l'insérer. Le statut 0 indique que le rendezvous n'est pas
                 //encore fait.
-                if(rendezvous.getHeure() <= rendez.getHeure() + 1 && rendezvous.getHeure() >= rendez.getHeure() - 1 && rendez.getStatut() == 0){
+                if(rendezvous.getHeure() <= rendez.getHeure() + 1 && rendezvous.getHeure() >= rendez.getHeure() - 1 && rendez.getStatut() == 0 && rendezvous.getStatut() == 0){
                     return null;
                 }
                 else {
