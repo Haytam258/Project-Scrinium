@@ -16,8 +16,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
-//@Controller
-@RestController
+@Controller
+//@RestController
 public class RendezvousRestController {
 
     private final RendezvousService rendezvousService;
@@ -43,7 +43,7 @@ public class RendezvousRestController {
         return rendezvousService.RendezvousById(id);
     }
 
-  /* @GetMapping("/createRendezvous")
+   @GetMapping("/createRendezvous")
     public String createRendezPage(Model model){
         model.addAttribute("rendezvous", new Rendezvous());
         return "rendezvoustest";
@@ -55,15 +55,16 @@ public class RendezvousRestController {
         rendezvous.setDateRv(localDateTime);
         rendezvousService.saveRendezvous(rendezvous);
         return "rendezvoustest";
-    }*/
+    }
 
 
-   @PostMapping("/createRendezvous")
+   /* @PostMapping("/createRendezvous")
     public Rendezvous createRendezvous(@RequestBody Rendezvous rendezvous){
         rendezvous.setHeure(rendezvous.getDateRv().getHour());
         return rendezvousService.saveRendezvous(rendezvous);
     }
 
+    */
 
     @PostMapping("/updateRendezvous")
     public Rendezvous updateRendezvous(@RequestBody Rendezvous rendezvous){

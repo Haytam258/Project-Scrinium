@@ -8,7 +8,10 @@ import com.mbc.clickclinic.entities.Rendezvous;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
@@ -37,11 +40,8 @@ public class RendezvousImple implements RendezvousService{
                 //encore fait.
                 // REST : if(rendezvous.getHeure() <= rendez.getHeure()+ 1 && rendezvous.getHeure() >= rendez.getHeure() - 1 && rendez.getStatut() == 0 && rendezvous.getStatut() == 0)
                 //HTML Transition : if(rendezvous.getHeure().getHour() <= rendez.getHeure().getHour() + 1 && rendezvous.getHeure().getHour() >= rendez.getHeure().getHour() - 1 && rendez.getStatut() == 0 && rendezvous.getStatut() == 0){
-                if(rendezvous.getHeure() <= rendez.getHeure()+ 1 && rendezvous.getHeure() >= rendez.getHeure() - 1 && rendez.getStatut() == 0 && rendezvous.getStatut() == 0){
+                if(Math.abs(ChronoUnit.MINUTES.between(rendezvous.getHeure(), rendez.getHeure())) <= 30 && rendez.getStatut() == 0 && rendezvous.getStatut() == 0){
                     return null;
-                }
-                else {
-                    return rendezvousRepository.saveAndFlush(rendezvous);
                 }
             }
         }
@@ -69,7 +69,7 @@ public class RendezvousImple implements RendezvousService{
     }
 
     @Override
-    public List<Rendezvous> RendezvousByDate(LocalDateTime dateRv) {
+    public List<Rendezvous> RendezvousByDate(LocalDate dateRv) {
         return rendezvousRepository.findRendezvousByDateRv(dateRv);
     }
 

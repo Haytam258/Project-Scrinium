@@ -8,6 +8,7 @@ import com.mbc.clickclinic.entities.Patient;
 import com.mbc.clickclinic.entities.Rendezvous;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
@@ -21,7 +22,7 @@ public interface RendezvousService {
     List<Rendezvous> Rendezvouss();
     Rendezvous RendezvousById(Long id);
     //Remplacer LocalDateTime par LocalDate and all is good !
-    public List<Rendezvous> RendezvousByDate(LocalDateTime dateRv);
+    public List<Rendezvous> RendezvousByDate(LocalDate dateRv);
     public Rendezvous AddPatientToRendezVous(Patient patient, Rendezvous rendezvous);
     public Rendezvous AddMedecinToPatient(Medecin medecin, Rendezvous rendezvous);
     public Rendezvous getRendezvousByPatient(Patient patient);
