@@ -44,4 +44,7 @@ public class Medecin extends Personne {
     @OneToMany(mappedBy = "medecin")
     @JsonManagedReference(value = "medecin_demande")
     private List<DemandeCertificat> demandeCertificatList;
+
+    @OneToMany( mappedBy = "medecin")
+    private List<Conges> conges;
 }
