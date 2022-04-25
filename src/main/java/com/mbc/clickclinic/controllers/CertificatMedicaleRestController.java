@@ -31,12 +31,12 @@ public class CertificatMedicaleRestController {
 
     @GetMapping("/certificats/{id}")
     public CertificatMedicale getCertificat(@PathVariable Long id){
-        return certificatMedicaleService.CertificatMedicalById(id);
+        return certificatMedicaleService.CertificatMedicalById(id.intValue());
     }
 
     @PostMapping("/deleteCertificat/{id}")
     public void deleteCertificat(@PathVariable Long id){
-        certificatMedicaleService.deleteCertificatMedical(certificatMedicaleService.CertificatMedicalById(id));
+        certificatMedicaleService.deleteCertificatMedical(certificatMedicaleService.CertificatMedicalById(id.intValue()));
     }
 
     @PostMapping("/updateCertificat")

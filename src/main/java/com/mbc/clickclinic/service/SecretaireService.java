@@ -14,5 +14,5 @@ public interface SecretaireService {
     Secretaire findSecretaireBykw(String kw);
     Secretaire findSecretaireByNom(String mName);
     List<Secretaire> Secretaires();
-    Secretaire SecretaireById(Long id);
+    Secretaire SecretaireById(int id);
 }

@@ -13,6 +13,6 @@ public interface MedicamentService {
     Medicament findMedicamentBykw(String kw);
     Medicament findMedicamentByNom(String Nom);
     List<Medicament> Medicaments();
-    Medicament MedicamentById(Long id);
+    Medicament MedicamentById(int id);
     Medicament MedicamentByCodeATC(String codeATC);
 }

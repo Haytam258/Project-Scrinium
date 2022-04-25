@@ -47,7 +47,7 @@ public class MedicamentImple implements MedicamentService{
     }
 
     @Override
-    public Medicament MedicamentById(Long id) {
+    public Medicament MedicamentById(int id) {
         return medicamentRepository.findById(id).get();
     }
 

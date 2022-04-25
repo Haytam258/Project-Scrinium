@@ -40,12 +40,13 @@ public class RendezvousRestController {
 
     @GetMapping("/allRendezvous/{id}")
     public Rendezvous getRendezvous(@PathVariable Long id){
-        return rendezvousService.RendezvousById(id);
+        return rendezvousService.RendezvousById(id.intValue());
     }
 
    @GetMapping("/createRendezvous")
     public String createRendezPage(Model model){
         model.addAttribute("rendezvous", new Rendezvous());
+        model.addAttribute("medecinList", medecinService.medecins());
         return "rendezvoustest";
     }
     //Fonctions pour tester les dates, il y a un problème au niveau du transfer html, il faudra séparer la date et heure.
@@ -54,6 +55,7 @@ public class RendezvousRestController {
         LocalDate localDateTime = LocalDate.parse(rendezvous.getDateRv().toString());
         rendezvous.setDateRv(localDateTime);
         rendezvousService.saveRendezvous(rendezvous);
+        model.addAttribute("medecinList", medecinService.medecins());
         return "rendezvoustest";
     }
 
@@ -73,17 +75,17 @@ public class RendezvousRestController {
 
     @PostMapping("/deleteRendezvous/{id}")
     public void deleteRendezvous(@PathVariable Long id){
-        rendezvousService.deleteRendezvous(rendezvousService.RendezvousById(id));
+        rendezvousService.deleteRendezvous(rendezvousService.RendezvousById(id.intValue()));
     }
 
     @PostMapping("/rendezvous/medecin/")
     public Rendezvous addMedecinToRendezVous(@RequestParam Integer idr, @RequestParam Integer idm){
-        return rendezvousService.AddMedecinToPatient(medecinService.medecinById(idm.longValue()), rendezvousService.RendezvousById(idr.longValue()));
+        return rendezvousService.AddMedecinToPatient(medecinService.medecinById(idm.longValue()), rendezvousService.RendezvousById(idr));
     }
 
     @PostMapping("/rendezvous/patient/")
     public Rendezvous addPatientToRendezVous(@RequestParam Integer idr, @RequestParam Integer idp){
-        return rendezvousService.AddPatientToRendezVous(patientService.PatientById(idp), rendezvousService.RendezvousById(idr.longValue()));
+        return rendezvousService.AddPatientToRendezVous(patientService.PatientById(idp), rendezvousService.RendezvousById(idr));
     }
 
     @GetMapping("/rendezvous/patient/{id}")
@@ -93,6 +95,6 @@ public class RendezvousRestController {
 
     @PostMapping("/rendezvous/consultation")
     public Rendezvous addConsultationToRendezvous(@RequestParam Long idc, @RequestParam Long idr){
-        return rendezvousService.AddConsultationToRendezVous(consultationService.ConsultationlById(idc), rendezvousService.RendezvousById(idr));
+        return rendezvousService.AddConsultationToRendezVous(consultationService.ConsultationlById(idc.intValue()), rendezvousService.RendezvousById(idr.intValue()));
     }
 }

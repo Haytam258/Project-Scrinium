@@ -21,7 +21,7 @@ public class CongesImpl implements CongesService{
     }
 
     @Override
-    public Conges getCongesById(Long id) {
+    public Conges getCongesById(int id) {
         return congeRepository.findById(id).get();
     }
 

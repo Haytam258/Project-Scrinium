@@ -29,7 +29,7 @@ public class MedicamentRestController {
 
     @PostMapping("/deleteMedicament/{id}")
     public void deleteMedicament(@PathVariable Long id){
-        medicamentService.deleteMedicament(medicamentService.MedicamentById(id));
+        medicamentService.deleteMedicament(medicamentService.MedicamentById(id.intValue()));
     }
 
     @GetMapping("/medicaments")
@@ -39,6 +39,6 @@ public class MedicamentRestController {
 
     @GetMapping("/medicaments/{id}")
     public Medicament getMedicament(@PathVariable Long id){
-        return medicamentService.MedicamentById(id);
+        return medicamentService.MedicamentById(id.intValue());
     }
 }

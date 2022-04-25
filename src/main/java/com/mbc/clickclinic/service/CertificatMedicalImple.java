@@ -44,13 +44,13 @@ public class CertificatMedicalImple implements CertificatMedicaleService {
     }
 
     @Override
-    public CertificatMedicale CertificatMedicalById(Long id) {
+    public CertificatMedicale CertificatMedicalById(int id) {
         return certifRepo.findById(id).get();
     }
 
     //Il faut savoir la structure de la base de données et donc la structure des entities avant de faire cette fonction
     @Override
-    public CertificatMedicale CertificatMedicalOfPatient(Long idPatient, String nomPatient) {
+    public CertificatMedicale CertificatMedicalOfPatient(int idPatient, String nomPatient) {
         return null;
     }
 

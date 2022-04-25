@@ -15,7 +15,7 @@ public interface PaymentService {
     void deletePayment(Payment payment);
     Payment updatePayment(Payment payment);
     List<Payment> payments();
-    Payment paymentById(Long id);
+    Payment paymentById(int id);
     public Optional<Payment> getPayementOfPatient(Patient patient);
     public Payment setConsultationForPaiement(Consultation consultation, Payment payment);
     public Payment getPaymentByConsultation(Consultation consultation);

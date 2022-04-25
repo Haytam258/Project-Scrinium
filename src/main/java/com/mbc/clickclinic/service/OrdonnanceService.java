@@ -13,6 +13,6 @@ public interface OrdonnanceService {
     void deleteOrdonnance(Ordonnance ordonnance);
     Ordonnance updateOrdonnance(Ordonnance ordonnance);
     List<Ordonnance> Ordonnances();
-    Ordonnance OrdonnanceById(Long id);
+    Ordonnance OrdonnanceById(int id);
     public Ordonnance addMedicamentToOrdonnance(Medicament medicament, Ordonnance ordonnance);
 }

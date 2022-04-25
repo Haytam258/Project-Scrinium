@@ -12,9 +12,9 @@ public interface CertificatMedicaleService {
     void deleteCertificatMedical(CertificatMedicale certificatMedical);
     CertificatMedicale updateCertificatMedical(CertificatMedicale certificatMedical);
     List<CertificatMedicale> CertificatMedicals();
-    CertificatMedicale CertificatMedicalById(Long id);
+    public CertificatMedicale CertificatMedicalById(int id);
     //fon
-    CertificatMedicale CertificatMedicalOfPatient(Long idPatient,String nomPatient);
+    CertificatMedicale CertificatMedicalOfPatient(int idPatient,String nomPatient);
     CertificatMedicale CertificatMedicalOfPatientInDate(Date date);
 
 }

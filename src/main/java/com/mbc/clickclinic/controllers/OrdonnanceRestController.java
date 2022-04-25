@@ -25,7 +25,7 @@ public class OrdonnanceRestController {
 
     @GetMapping("/ordonnances/{id}")
     public Ordonnance getOrdonnance(@PathVariable Long id){
-        return ordonnanceService.OrdonnanceById(id);
+        return ordonnanceService.OrdonnanceById(id.intValue());
     }
 
     @PostMapping("/createOrdonnance")
@@ -40,6 +40,6 @@ public class OrdonnanceRestController {
 
     @PostMapping("/deleteOrdonnance/{id}")
     public void deleteOrdonnance(@PathVariable Long id){
-        ordonnanceService.deleteOrdonnance(ordonnanceService.OrdonnanceById(id));
+        ordonnanceService.deleteOrdonnance(ordonnanceService.OrdonnanceById(id.intValue()));
     }
 }

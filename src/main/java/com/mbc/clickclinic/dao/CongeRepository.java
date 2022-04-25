@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface CongeRepository extends JpaRepository<Conges,Long> {
+public interface CongeRepository extends JpaRepository<Conges,Integer> {
 
     public List<Conges> findCongesByMedecin(Medecin medecin);
 }

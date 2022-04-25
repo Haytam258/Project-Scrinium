@@ -44,7 +44,7 @@ public class PaymentImple implements PaymentService{
     }
 
     @Override
-    public Payment paymentById(Long id) {
+    public Payment paymentById(int id) {
         return paymentRepository.findById(id).get();
     }
 

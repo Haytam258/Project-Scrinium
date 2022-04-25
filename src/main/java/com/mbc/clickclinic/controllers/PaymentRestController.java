@@ -37,17 +37,17 @@ public class PaymentRestController {
 
     @GetMapping("/payments/{id}")
     public Payment getPayment(@PathVariable Long id){
-        return paymentService.paymentById(id);
+        return paymentService.paymentById(id.intValue());
     }
 
     @PostMapping("/deletePayment/{id}")
     public void deletePayment(@PathVariable Long id){
-        paymentService.deletePayment(paymentService.paymentById(id));
+        paymentService.deletePayment(paymentService.paymentById(id.intValue()));
     }
 
     @GetMapping("/payment/consultation/{id}")
     public Payment getPayementByConsultation(@PathVariable Long id){
-        return paymentService.getPaymentByConsultation(consultationService.ConsultationlById(id));
+        return paymentService.getPaymentByConsultation(consultationService.ConsultationlById(id.intValue()));
     }
 
     @GetMapping("/payment/patient/{id}")

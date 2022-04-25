@@ -34,7 +34,7 @@ public class SalleDattenteImple implements SalleDattenteService{
         return salleDattentRepository.findAll();
     }
 
-    public SalleDattente getSalleById(Long id){
+    public SalleDattente getSalleById(int id){
         return salleDattentRepository.findById(id).get();
     }
 

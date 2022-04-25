@@ -28,7 +28,7 @@ public class SalleDattenteRestController {
 
     @GetMapping("/salles/{id}")
     public SalleDattente getSalle(@PathVariable Long id){
-        return salleDattenteService.getSalleById(id);
+        return salleDattenteService.getSalleById(id.intValue());
     }
 
     @PostMapping("/updateSalle")
@@ -43,11 +43,11 @@ public class SalleDattenteRestController {
 
     @PostMapping("/salles/patients/add")
     public SalleDattente addPatientToSalle(@RequestParam Integer idp, @RequestParam Integer ids){
-        return salleDattenteService.addPatientToSalle(salleDattenteService.getSalleById(ids.longValue()),patientService.PatientById(idp));
+        return salleDattenteService.addPatientToSalle(salleDattenteService.getSalleById(ids),patientService.PatientById(idp));
     }
 
     @PostMapping("/salles/patients/delete")
     public void deletePatientFromSalle(@RequestParam Integer idp, @RequestParam Integer ids){
-        salleDattenteService.deletePatientFromSalle(salleDattenteService.getSalleById(ids.longValue()), patientService.PatientById(idp));
+        salleDattenteService.deletePatientFromSalle(salleDattenteService.getSalleById(ids), patientService.PatientById(idp));
     }
 }

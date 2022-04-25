@@ -33,7 +33,7 @@ public class ConsultationRestController {
 
     @GetMapping("/consultations/{id}")
     public Consultation getConsultation(@PathVariable Long id){
-        return consultationService.ConsultationlById(id);
+        return consultationService.ConsultationlById(id.intValue());
     }
 
     @PostMapping("/updateConsultation")
@@ -43,13 +43,13 @@ public class ConsultationRestController {
 
     @PostMapping("/deleteConsultation/{id}")
     public void deleteConsultation(@PathVariable Long id){
-        consultationService.deleteConsultation(consultationService.ConsultationlById(id));
+        consultationService.deleteConsultation(consultationService.ConsultationlById(id.intValue()));
     }
 
     @PostMapping("/consultation/addPayment")
     public Consultation addPaymentToConsultation(@RequestParam Long idp, @RequestParam Long idc){
-        paymentService.setConsultationForPaiement(consultationService.ConsultationlById(idc), paymentService.paymentById(idp));
-        return consultationService.ConsultationlById(idc);
+        paymentService.setConsultationForPaiement(consultationService.ConsultationlById(idc.intValue()), paymentService.paymentById(idp.intValue()));
+        return consultationService.ConsultationlById(idc.intValue());
     }
 
 }

@@ -2,17 +2,19 @@ package com.mbc.clickclinic.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
-@Data @AllArgsConstructor @NoArgsConstructor @ToString
+@Getter
+@Setter
+@RequiredArgsConstructor
+@AllArgsConstructor @ToString
 public class Patient extends Personne{
     private String groupSanguin;
 
@@ -24,6 +26,7 @@ public class Patient extends Personne{
 
     @OneToMany(mappedBy = "patient")
     @JsonManagedReference(value = "patient_rendez")
+    @ToString.Exclude
     private List<Rendezvous> rendezvousList;
 
     public void add(Rendezvous rendezvous){
@@ -35,6 +38,7 @@ public class Patient extends Personne{
 
     @OneToMany(mappedBy = "patient")
     @JsonManagedReference(value = "patient_certificat")
+    @ToString.Exclude
     private List<CertificatMedicale> certificatMedicaleList;
 
     public void add(CertificatMedicale certificatMedicale){
@@ -54,4 +58,16 @@ public class Patient extends Personne{
     @JsonManagedReference(value = "patient_demande")
     private DemandeCertificat demandeCertificat;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Patient patient = (Patient) o;
+        return getId() != null && Objects.equals(getId(), patient.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

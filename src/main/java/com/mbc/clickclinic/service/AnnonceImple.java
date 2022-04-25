@@ -36,7 +36,7 @@ public class AnnonceImple implements AnnonceService {
         return annonceRepository.findAll();
     }
 
-    public Annonce getAnnonce(Long id){
+    public Annonce getAnnonce(int id){
         Optional<Annonce> annonce = annonceRepository.findById(id);
         if(annonce.isPresent()){
             return annonce.get();

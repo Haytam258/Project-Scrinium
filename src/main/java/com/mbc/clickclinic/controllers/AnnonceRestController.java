@@ -36,11 +36,11 @@ public class AnnonceRestController {
 
     @GetMapping("/annonces/{id}")
     public Annonce getAnnonce(@PathVariable Long id){
-        return annonceService.getAnnonce(id);
+        return annonceService.getAnnonce(id.intValue());
     }
 
     @PostMapping("/deleteAnnonce/{id}")
     public void deleteAnnonce(@PathVariable Long id){
-        annonceService.deleteNotification(annonceService.getAnnonce(id));
+        annonceService.deleteNotification(annonceService.getAnnonce(id.intValue()));
     }
 }

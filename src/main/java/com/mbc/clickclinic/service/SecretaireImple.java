@@ -47,7 +47,7 @@ public class SecretaireImple implements SecretaireService{
     }
 
     @Override
-    public Secretaire SecretaireById(Long id) {
+    public Secretaire SecretaireById(int id) {
         return secretaireRepository.findById(id).get();
     }
 }

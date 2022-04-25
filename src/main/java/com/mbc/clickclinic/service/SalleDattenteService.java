@@ -12,7 +12,7 @@ public interface SalleDattenteService {
     SalleDattente saveSalleDattente(SalleDattente notification);
     void deleteSalleDattente(SalleDattente notification);
     public List<SalleDattente> getSalles();
-    public SalleDattente getSalleById(Long id);
+    public SalleDattente getSalleById(int id);
     public SalleDattente addPatientToSalle(SalleDattente salleDattente, Patient patient);
     public void deletePatientFromSalle(SalleDattente salleDattente, Patient patient);
 }

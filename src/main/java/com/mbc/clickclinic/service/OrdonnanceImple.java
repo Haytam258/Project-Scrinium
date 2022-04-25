@@ -42,7 +42,7 @@ public class OrdonnanceImple implements OrdonnanceService{
     }
 
     @Override
-    public Ordonnance OrdonnanceById(Long id) {
+    public Ordonnance OrdonnanceById(int id) {
         return ordonnanceRepository.findById(id).get();
     }
 

@@ -20,7 +20,7 @@ public interface RendezvousService {
     void deleteRendezvous(Rendezvous rendezvous);
     Rendezvous updateRendezvous(Rendezvous rendezvous);
     List<Rendezvous> Rendezvouss();
-    Rendezvous RendezvousById(Long id);
+    public Rendezvous RendezvousById(int id);
     //Remplacer LocalDateTime par LocalDate and all is good !
     public List<Rendezvous> RendezvousByDate(LocalDate dateRv);
     public Rendezvous AddPatientToRendezVous(Patient patient, Rendezvous rendezvous);

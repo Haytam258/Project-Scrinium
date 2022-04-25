@@ -11,5 +11,5 @@ public interface AnnonceService {
     void deleteNotification(Annonce annonce);
     Annonce updateNotification(Annonce annonce);
     public List<Annonce> getAllAnnonce();
-    public Annonce getAnnonce(Long id);
+    public Annonce getAnnonce(int id);
 }

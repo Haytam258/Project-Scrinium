@@ -12,7 +12,7 @@ import java.util.Date;
 import java.util.List;
 
 @Repository
-public interface RendezvousRepository extends JpaRepository<Rendezvous,Long> {
+public interface RendezvousRepository extends JpaRepository<Rendezvous, Integer> {
 
     public List<Rendezvous> findRendezvousByDateRv(LocalDate rendezvous);
     public Rendezvous findRendezvousByPatient(Patient patient);

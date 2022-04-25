@@ -13,7 +13,7 @@ public interface ConsultationService {
     void deleteConsultation(Consultation consultation);
     Consultation updateConsultation(Consultation consultation);
     List<Consultation> Consultations();
-    Consultation ConsultationlById(Long id);
+    Consultation ConsultationlById(int id);
     public Consultation AddPaiementToConsultation(Payment payment, Consultation consultation);
     public Optional<Consultation> getConsultationByRendezVous(Rendezvous rendezvous);
 

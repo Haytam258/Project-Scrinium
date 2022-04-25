@@ -64,7 +64,7 @@ public class RendezvousImple implements RendezvousService{
     }
 
     @Override
-    public Rendezvous RendezvousById(Long id) {
+    public Rendezvous RendezvousById(int id) {
         return rendezvousRepository.findById(id).get();
     }
 

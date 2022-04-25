@@ -1,20 +1,22 @@
 package com.mbc.clickclinic.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
-@Data @NoArgsConstructor @AllArgsConstructor @ToString
+@Getter
+@Setter
+@RequiredArgsConstructor
+@AllArgsConstructor @ToString
 public class DemandeCertificat {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     private int status; // Statut = 0 non traité, Statut = 1 acceptée (on ne va pas faire status 2, si elle est refusée elle sera automatiquement supprimée)
 
@@ -28,4 +30,17 @@ public class DemandeCertificat {
     @ManyToOne
     @JsonBackReference(value = "medecin_demande")
     private Medecin medecin;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        DemandeCertificat that = (DemandeCertificat) o;
+        return id != null && Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

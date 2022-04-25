@@ -2,26 +2,29 @@ package com.mbc.clickclinic.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
-@Data @AllArgsConstructor @NoArgsConstructor @ToString
+@Getter
+@Setter
+@RequiredArgsConstructor
+@AllArgsConstructor @ToString
 public class DossierMedicale {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     private String antecedent; //billan de maladie
     private String observations;
 
     @OneToMany(mappedBy = "dossierMedicale")
     @JsonManagedReference(value = "dossier_consultation")
+    @ToString.Exclude
     private List<Consultation> consultationList;
 
     public void add(Consultation consultation){
@@ -36,5 +39,16 @@ public class DossierMedicale {
     @JsonBackReference(value = "patient_dossier")
     private Patient patient;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        DossierMedicale that = (DossierMedicale) o;
+        return id != null && Objects.equals(id, that.id);
+    }
 
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

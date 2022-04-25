@@ -6,6 +6,6 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CertificatMedicaleRepository extends JpaRepository<CertificatMedicale,Long> {
+public interface CertificatMedicaleRepository extends JpaRepository<CertificatMedicale,Integer> {
 
 }
