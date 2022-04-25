@@ -14,7 +14,9 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
 @Entity
 @Data @AllArgsConstructor @NoArgsConstructor
@@ -25,9 +27,13 @@ import java.util.Date;
 public class Rendezvous {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    //Pour HTML, DateTimeFormat est yyyy-MM-dd et on va travailler avec localtime et localdate, ça marche en base de données
+    //@DateTimeFormat(pattern = "yyyy-MM-dd")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm", iso = DateTimeFormat.ISO.DATE_TIME)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime dateRv;
+    //private LocalDate dateRv;
+    //private LocalTime heure;
     private int heure;
     private int statut; //Statut : 1 = Fini, Statut : 0 = A faire
 

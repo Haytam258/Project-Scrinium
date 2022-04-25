@@ -7,11 +7,16 @@ import com.mbc.clickclinic.service.MedecinService;
 import com.mbc.clickclinic.service.PatientService;
 import com.mbc.clickclinic.service.RendezvousService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Calendar;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
+//@Controller
 @RestController
 public class RendezvousRestController {
 
@@ -38,11 +43,27 @@ public class RendezvousRestController {
         return rendezvousService.RendezvousById(id);
     }
 
+  /* @GetMapping("/createRendezvous")
+    public String createRendezPage(Model model){
+        model.addAttribute("rendezvous", new Rendezvous());
+        return "rendezvoustest";
+    }
+    //Fonctions pour tester les dates, il y a un problème au niveau du transfer html, il faudra séparer la date et heure.
     @PostMapping("/createRendezvous")
+    public String createRendezvous(Model model, @ModelAttribute Rendezvous rendezvous){
+        LocalDate localDateTime = LocalDate.parse(rendezvous.getDateRv().toString());
+        rendezvous.setDateRv(localDateTime);
+        rendezvousService.saveRendezvous(rendezvous);
+        return "rendezvoustest";
+    }*/
+
+
+   @PostMapping("/createRendezvous")
     public Rendezvous createRendezvous(@RequestBody Rendezvous rendezvous){
         rendezvous.setHeure(rendezvous.getDateRv().getHour());
         return rendezvousService.saveRendezvous(rendezvous);
     }
+
 
     @PostMapping("/updateRendezvous")
     public Rendezvous updateRendezvous(@RequestBody Rendezvous rendezvous){
