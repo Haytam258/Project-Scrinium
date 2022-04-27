@@ -6,6 +6,7 @@ import lombok.*;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 
@@ -20,7 +21,9 @@ public class Agenda {
     private Integer id;
     @JsonFormat
             (shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
-    private Date date;
+    private LocalDate dateDebut;
+    //ajout d'attribut dateFin => necessaire pour visualiser la fin du conges
+    private LocalDate dateFin;
     private String jour;
     private int heureDebut;
     private int heureFin;

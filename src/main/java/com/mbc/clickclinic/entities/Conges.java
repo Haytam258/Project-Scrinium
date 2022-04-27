@@ -5,6 +5,7 @@ import lombok.*;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 
@@ -19,7 +20,7 @@ public class Conges {
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY)
     private Integer id;
-    private Date date;
+    private LocalDate date;
     private int nbrJours;
     private boolean reponse;
 
