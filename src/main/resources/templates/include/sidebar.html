@@ -61,132 +61,48 @@
         </a>
       </li>
       <li class="nav-item ">
-        <a class="nav-link" data-toggle="collapse" href="#pagesExamples">
+        <a class="nav-link" data-toggle="collapse" href="#agendaExamples">
           <i class="material-icons">image</i>
-          <p> Pages
+          <p> Agenda
             <b class="caret"></b>
           </p>
         </a>
-        <div class="collapse" id="pagesExamples">
+        <div class="collapse" id="agendaExamples">
           <ul class="nav">
             <li class="nav-item ">
-              <a class="nav-link" href="../../examples/pages/pricing.html">
-                <span class="sidebar-mini"> P </span>
-                <span class="sidebar-normal"> Pricing </span>
-              </a>
-            </li>
-            <li class="nav-item ">
-              <a class="nav-link" href="../../examples/pages/rtl.html">
-                <span class="sidebar-mini"> RS </span>
-                <span class="sidebar-normal"> RTL Support </span>
-              </a>
-            </li>
-            <li class="nav-item ">
-              <a class="nav-link" href="../../examples/pages/timeline.html">
-                <span class="sidebar-mini"> T </span>
-                <span class="sidebar-normal"> Timeline </span>
-              </a>
-            </li>
-            <li class="nav-item ">
-              <a class="nav-link" href="../../examples/pages/login.html">
-                <span class="sidebar-mini"> LP </span>
-                <span class="sidebar-normal"> Login Page </span>
-              </a>
-            </li>
-            <li class="nav-item ">
-              <a class="nav-link" href="../../examples/pages/register.html">
-                <span class="sidebar-mini"> RP </span>
-                <span class="sidebar-normal"> Register Page </span>
-              </a>
-            </li>
-            <li class="nav-item ">
-              <a class="nav-link" href="../../examples/pages/lock.html">
-                <span class="sidebar-mini"> LSP </span>
-                <span class="sidebar-normal"> Lock Screen Page </span>
-              </a>
-            </li>
-            <li class="nav-item ">
-              <a class="nav-link" href="../../examples/pages/user.html">
-                <span class="sidebar-mini"> UP </span>
-                <span class="sidebar-normal"> User Profile </span>
-              </a>
-            </li>
-            <li class="nav-item ">
-              <a class="nav-link" href="../../examples/pages/error.html">
+              <a class="nav-link" th:href="@{/agenda/index}">
                 <span class="sidebar-mini"> E </span>
-                <span class="sidebar-normal"> Error Page </span>
+                <span class="sidebar-normal"> Events </span>
+              </a>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link" th:href="@{/agenda/create}">
+                <span class="sidebar-mini"> AE </span>
+                <span class="sidebar-normal"> Add Event </span>
               </a>
             </li>
           </ul>
         </div>
       </li>
       <li class="nav-item ">
-        <a class="nav-link" data-toggle="collapse" href="#componentsExamples">
-          <i class="material-icons">apps</i>
-          <p> Components
+        <a class="nav-link" data-toggle="collapse" href="#congesExamples">
+          <i class="material-icons">image</i>
+          <p> Conges
             <b class="caret"></b>
           </p>
         </a>
-        <div class="collapse" id="componentsExamples">
+        <div class="collapse" id="congesExamples">
           <ul class="nav">
             <li class="nav-item ">
-              <a class="nav-link" data-toggle="collapse" href="#componentsCollapse">
-                <span class="sidebar-mini"> MLT </span>
-                <span class="sidebar-normal"> Multi Level Collapse
-                      <b class="caret"></b>
-                    </span>
-              </a>
-              <div class="collapse" id="componentsCollapse">
-                <ul class="nav">
-                  <li class="nav-item ">
-                    <a class="nav-link" href="#0">
-                      <span class="sidebar-mini"> E </span>
-                      <span class="sidebar-normal"> Example </span>
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </li>
-            <li class="nav-item ">
-              <a class="nav-link" href="../../examples/components/buttons.html">
-                <span class="sidebar-mini"> B </span>
-                <span class="sidebar-normal"> Buttons </span>
+              <a class="nav-link" th:href="@{/conges/index}">
+                <span class="sidebar-mini"> ME </span>
+                <span class="sidebar-normal"> Mes Conges </span>
               </a>
             </li>
             <li class="nav-item ">
-              <a class="nav-link" href="../../examples/components/grid.html">
-                <span class="sidebar-mini"> GS </span>
-                <span class="sidebar-normal"> Grid System </span>
-              </a>
-            </li>
-            <li class="nav-item ">
-              <a class="nav-link" href="../../examples/components/panels.html">
-                <span class="sidebar-mini"> P </span>
-                <span class="sidebar-normal"> Panels </span>
-              </a>
-            </li>
-            <li class="nav-item ">
-              <a class="nav-link" href="../../examples/components/sweet-alert.html">
-                <span class="sidebar-mini"> SA </span>
-                <span class="sidebar-normal"> Sweet Alert </span>
-              </a>
-            </li>
-            <li class="nav-item ">
-              <a class="nav-link" href="../../examples/components/notifications.html">
-                <span class="sidebar-mini"> N </span>
-                <span class="sidebar-normal"> Notifications </span>
-              </a>
-            </li>
-            <li class="nav-item ">
-              <a class="nav-link" href="../../examples/components/icons.html">
-                <span class="sidebar-mini"> I </span>
-                <span class="sidebar-normal"> Icons </span>
-              </a>
-            </li>
-            <li class="nav-item ">
-              <a class="nav-link" href="../../examples/components/typography.html">
-                <span class="sidebar-mini"> T </span>
-                <span class="sidebar-normal"> Typography </span>
+              <a class="nav-link" th:href="@{/conges/create}">
+                <span class="sidebar-mini"> DC </span>
+                <span class="sidebar-normal"> Demander Conges </span>
               </a>
             </li>
           </ul>

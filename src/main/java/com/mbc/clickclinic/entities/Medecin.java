@@ -21,10 +21,10 @@ import java.util.Objects;
 public class Medecin extends Personne {
     private String specialite; //profil
 
-    @OneToOne
+    @OneToMany
     @JoinColumn(name = "agenda_id")
     @JsonManagedReference(value = "medecin_agenda")
-    private Agenda agenda;
+    private List<Agenda> agenda;
 
     @OneToOne
     @JoinColumn(name = "salle_id")

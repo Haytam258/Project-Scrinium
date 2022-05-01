@@ -37,9 +37,9 @@ public class Agenda {
     //Statut : 1 = Vacances, Fournisseurs etc (Pas disponible), Statut : 2 = Travail (Disponible),
     private int statut;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "medecin_id")
-    @JsonBackReference(value = "medecin_agenda")
+    @JsonBackReference(value = "agenda_medecin")
     private Medecin medecin;
 
     @Override

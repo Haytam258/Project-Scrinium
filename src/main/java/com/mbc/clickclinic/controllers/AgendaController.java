@@ -18,14 +18,14 @@ public class AgendaController {
     @GetMapping("/agenda/index")
     public String index(){
 
-        return "indexAgenda";
+        return "agenda/index";
     }
 
     @GetMapping("/agenda/create")
     public String create(Model model){
         Agenda agenda =new Agenda();
         model.addAttribute("agenda", agenda);
-        return "createAgenda";
+        return "agenda/create";
     }
 
     @PostMapping("/agenda/save")
