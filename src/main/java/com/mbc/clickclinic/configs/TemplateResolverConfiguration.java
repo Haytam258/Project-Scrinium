@@ -11,7 +11,7 @@ public class TemplateResolverConfiguration {
     @Bean
     public SpringResourceTemplateResolver firstTemplateResolver() {
         SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
-        templateResolver.setPrefix("/templates/secretaire/");
+        templateResolver.setPrefix("classpath:/templates/");
         templateResolver.setSuffix(".html");
         templateResolver.setTemplateMode(TemplateMode.HTML);
         templateResolver.setCharacterEncoding("UTF-8");
@@ -55,6 +55,32 @@ public class TemplateResolverConfiguration {
         templateResolver.setTemplateMode(TemplateMode.HTML);
         templateResolver.setCharacterEncoding("UTF-8");
         templateResolver.setOrder(3);
+        templateResolver.setCheckExistence(true);
+
+        return templateResolver;
+    }
+
+    @Bean
+    public ClassLoaderTemplateResolver fifthTemplateResolver() {
+        ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
+        templateResolver.setPrefix("templates/secretaire/");
+        templateResolver.setSuffix(".html");
+        templateResolver.setTemplateMode(TemplateMode.HTML);
+        templateResolver.setCharacterEncoding("UTF-8");
+        templateResolver.setOrder(4);
+        templateResolver.setCheckExistence(true);
+
+        return templateResolver;
+    }
+
+    @Bean
+    public ClassLoaderTemplateResolver sixthTemplateResolver() {
+        ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
+        templateResolver.setPrefix("templates/medecin/agenda/");
+        templateResolver.setSuffix(".html");
+        templateResolver.setTemplateMode(TemplateMode.HTML);
+        templateResolver.setCharacterEncoding("UTF-8");
+        templateResolver.setOrder(5);
         templateResolver.setCheckExistence(true);
 
         return templateResolver;
