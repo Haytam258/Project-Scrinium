@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="include/css :: head"></div>
+<body class="">
+<div class="wrapper ">
+    <div th:replace="include/sidebar :: sidebar-fragment"></div>
+    <div class="main-panel">
+        <!-- Navbar -->
+        <nav th:replace="include/navbar2 :: navbar"></nav>
+        <!-- End Navbar -->
+        <div class="content">
+            <div class="container-fluid">
+                <div style="float:right; margin-bottom:20px;">
+                    <a th:href="@{/agenda/index}" class="btn btn-primary">Back</a>
+                </div>
+                <div class="card ">
+                    <div class="card-header card-header-primary card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">mail_outline</i>
+                        </div>
+                        <h4 class="card-title">Stacked Form</h4>
+                    </div>
+                    <div class="card-body ">
+                        <form action="#" th:action="@{/agenda/save}" th:object="${agenda}" method="post">
+                            <div class="row">
+                                <div class="col-md-5 pr-md-1">
+                                    <div class="form-group bmd-form-group">
+                                        <label for="description" class="bmd-label-floating">Evenement</label>
+                                        <input type="text" th:field="*{description}" class="form-control" name="description" id="description">
+                                    </div>
+                                </div>
+                                <div class="col-md-5 pr-md-1">
+                                    <div class="form-group bmd-form-group">
+                                        <label for="jour" class="bmd-label-floating">Jour</label>
+                                        <input type="text" th:field="*{jour}" class="form-control" name="jour" id="jour">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5 pr-md-1">
+                                    <div class="card ">
+                                        <div class="card-header card-header-rose card-header-text">
+                                            <h4 class="card-title">Date Debut</h4>
+                                        </div>
+                                        <div class="card-body ">
+                                            <div class="form-group bmd-form-group is-filled">
+                                                <input type="text" th:field="*{dateDebut}" name="date_debut" class="form-control datepicker" placeholder="select date" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-5 pr-md-1">
+                                    <div class="card ">
+                                        <div class="card-header card-header-rose card-header-text">
+                                            <h4 class="card-title">Date Fin</h4>
+                                        </div>
+                                        <div class="card-body ">
+                                            <div class="form-group bmd-form-group is-filled">
+                                                <input type="text" th:field="*{dateFin}" name="date_fin" class="form-control datepicker" placeholder="select date" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5 pr-md-1">
+                                    <div class="card ">
+                                        <div class="card-header card-header-rose card-header-text">
+                                            <h4 class="card-title">Heure Debut</h4>
+                                        </div>
+                                        <div class="card-body ">
+                                            <div class="form-group bmd-form-group is-filled">
+                                                <input type="text" th:field="*{heureDebut}" name="heure_debut" class="form-control timepicker" placeholder="select time" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-5 pr-md-1">
+                                    <div class="card ">
+                                        <div class="card-header card-header-rose card-header-text">
+                                            <h4 class="card-title">Heure Fin</h4>
+                                        </div>
+                                        <div class="card-body ">
+                                            <div class="form-group bmd-form-group is-filled">
+                                                <input type="text" th:field="*{heureFin}" name="heure_fin" class="form-control timepicker" placeholder="select time" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-fill btn-primary">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div th:replace="include/footer :: footer"></div>
+    </div>
+</div>
+<div th:replace="include/js :: js"></div>
+</body>
+</html>
