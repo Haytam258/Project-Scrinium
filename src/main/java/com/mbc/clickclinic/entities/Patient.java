@@ -6,6 +6,7 @@ import lombok.*;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -17,6 +18,7 @@ import java.util.Objects;
 @AllArgsConstructor @ToString
 public class Patient extends Personne{
     private String groupSanguin;
+    //private LocalDate dateCreation = LocalDate.now();
 
     //JsonManagedReference pour les Listes d'objets, BackReference pour les objets uniques.
     @ManyToOne

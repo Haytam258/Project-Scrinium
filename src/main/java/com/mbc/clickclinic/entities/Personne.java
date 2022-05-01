@@ -2,6 +2,7 @@ package com.mbc.clickclinic.entities;
 
 import lombok.*;
 import org.hibernate.Hibernate;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -20,9 +21,11 @@ public class Personne {
     private String nom;
     private String prenom;
     private String cin;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateNaissance;
     private String mobil;
     private String email;
+    private String password;
     private String etatCivile; //Célibataire, Mariée etc
     private String assurance;
     private String addresse;
