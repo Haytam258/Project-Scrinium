@@ -16,17 +16,21 @@
             </div>
             <div class="mb-3">
                 <label class="form-label">Medecin :</label>
-                <select th:field="*{medecin}">
+                <select th:field="*{medecin}" required>
                     <option th:each="medecin : ${medecinList}" th:value="${medecin.id}" th:text="${medecin.nom}"></option>
                 </select>
             </div>
             <div class="mb-3">
                 <label class="form-label">Patient :</label>
-                <select th:field="*{patient}">
+                <select th:field="*{patient}" required>
                     <option th:each="patient : ${patientList}" th:value="${patient.id}" th:text="${patient.nom}"></option>
                 </select>
             </div>
             <button type="submit" name="create" class="btn btn-primary">Create New Rendez vous</button>
+            <div class="form-group has-success" th:if="${rendezCreated != null}">
+                <span class="alert text-success" th:text="${rendezCreated}"> </span>
+
+            </div>
         </fieldset>
     </form>
 </div>

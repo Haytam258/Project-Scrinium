@@ -48,7 +48,10 @@ public class PatientRestController {
 
     @PostMapping("/createPatient")
     public String createPatient(Model model, @ModelAttribute Patient patient){
-        patientService.savePatient(patient, model);
+        Patient patient1 = patientService.savePatient(patient, model);
+        if(patient1 != null){
+            model.addAttribute("patientCreated", "Le patient a été enregistré !");
+        }
         return "patient/createPatient";
     }
 

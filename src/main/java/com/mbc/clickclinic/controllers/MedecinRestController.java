@@ -4,11 +4,13 @@ package com.mbc.clickclinic.controllers;
 import com.mbc.clickclinic.entities.Medecin;
 import com.mbc.clickclinic.service.MedecinService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@Controller
 public class MedecinRestController {
 
     private final MedecinService medecinService;
@@ -18,9 +20,17 @@ public class MedecinRestController {
         this.medecinService = medecinService;
     }
 
+    @GetMapping("/createMedecin")
+    public String createMedecin(Model model){
+        model.addAttribute("medecin", new Medecin());
+        return "medecin/createMedecin";
+    }
+
     @PostMapping("/createMedecin")
-    public Medecin createMedecin(@RequestBody Medecin medecin){
-        return medecinService.saveMedecin(medecin);
+    public String createMedecin(@ModelAttribute Medecin medecin, Model model){
+        medecinService.saveMedecin(medecin,model);
+        model.addAttribute("medecin", medecin);
+        return "medecin/createMedecin";
     }
 
     @PostMapping("/modifyMedecin")

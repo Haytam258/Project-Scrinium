@@ -32,7 +32,12 @@ public class PatientImple implements PatientService{
         List<Rendezvous> rendezvousList = rendezvousService.RendezvousByDate(date);
         if(rendezvousList.size() != 0){
             for(Rendezvous rendezvous : rendezvousList){
-                patientList.add(rendezvous.getPatient());
+                if(patientList.contains(rendezvous.getPatient())){
+
+                }
+                else {
+                    patientList.add(rendezvous.getPatient());
+                }
             }
         }
         return patientList;

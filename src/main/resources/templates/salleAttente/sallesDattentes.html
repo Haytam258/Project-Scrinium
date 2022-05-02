@@ -20,7 +20,7 @@
                 <ul class="nav nav-pills nav-pills-warning nav-pills-icons justify-content-center" role="tablist">
                   <li class="nav-item" th:each="medecin : ${medecins}">
                     <a class="nav-link" data-toggle="tab" th:href="|#${medecin.nom}" role="tablist">
-                      <i class="material-icons">airline_seat_legroom_extra</i> Salle d'attente <span th:text="${medecin.salleDattente.id}"></span>
+                      <i class="material-icons">airline_seat_legroom_extra</i> Salle d'attente <div th:if="${medecin.salleDattente != null}"><span th:text="${medecin.salleDattente.id}"></span></div>
                     </a>
                   </li>
                   <li class="nav-item">
@@ -61,6 +61,7 @@
                                 <th class="text-right">Actions</th>
                               </tr>
                               </thead>
+                              <div th:if="${medecin.salleDattente != null}">
                               <tbody>
                               <tr th:each="patient : ${medecin.salleDattente.patientList}">
                                 <td class="text-center" th:text="${patient.prenom}"></td>
@@ -77,6 +78,7 @@
                                 </td>
                               </tr>
                               </tbody>
+                              </div>
                             </table>
                           </div>
                         </div>
