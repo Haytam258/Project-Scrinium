@@ -49,7 +49,7 @@ public class SalleDattenteRestController {
     public String createSalle(Model model){
         model.addAttribute("salleDattente", new SalleDattente());
         model.addAttribute("medecins", medecinService.medecins());
-        return "salleAttente/saleDattent";
+        return "salleAttente/createSalle";
     }
 
     @PostMapping("/createSalle")
@@ -63,7 +63,7 @@ public class SalleDattenteRestController {
             medecinService.saveMedecin(medecin);
         }
         model.addAttribute("medecins", medecinService.medecins());
-        return "salleAttente/saleDattent";
+        return "salleAttente/createSalle";
     }
 
     @GetMapping("/salles/patients/add")
