@@ -2,6 +2,7 @@ package com.mbc.clickclinic.controllers;
 
 
 import com.mbc.clickclinic.entities.Patient;
+import com.mbc.clickclinic.service.MedecinService;
 import com.mbc.clickclinic.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,10 +17,12 @@ import java.util.List;
 public class PatientRestController {
 
     private final PatientService patientService;
+    private final MedecinService medecinService;
 
     @Autowired
-    public PatientRestController(PatientService patientService){
+    public PatientRestController(PatientService patientService, MedecinService medecinService){
         this.patientService = patientService;
+        this.medecinService = medecinService;
     }
 
     @GetMapping("/patients")
@@ -54,6 +57,7 @@ public class PatientRestController {
         List<Patient> patientList = patientService.getPatientsOfToday(LocalDate.now());
         if(patientList.size() != 0){
             model.addAttribute("patientsOfToday", patientList);
+            model.addAttribute("medecinList", medecinService.medecins());
         }
         else {
             model.addAttribute("noPatientsToday", "Pas de patients pour aujourd'hui");
