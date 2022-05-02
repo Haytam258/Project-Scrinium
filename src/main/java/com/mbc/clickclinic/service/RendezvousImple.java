@@ -6,6 +6,7 @@ import com.mbc.clickclinic.entities.Medecin;
 import com.mbc.clickclinic.entities.Patient;
 import com.mbc.clickclinic.entities.Rendezvous;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
@@ -24,12 +25,17 @@ public class RendezvousImple implements RendezvousService{
     private final PatientService patientService;
     private final MedecinService medecinService;
 
+    //Lazy in order to break the bean dependency cycle.
     @Autowired
-    public RendezvousImple(RendezvousRepository rendezvousRepository, PatientService patientService, MedecinService medecinService){
+    public RendezvousImple(RendezvousRepository rendezvousRepository, @Lazy PatientService patientService, MedecinService medecinService){
         this.rendezvousRepository = rendezvousRepository;
         this.medecinService = medecinService;
         this.patientService = patientService;
     }
+    public List<Rendezvous> rendezvousByDate(LocalDate date){
+        return rendezvousRepository.findRendezvousByDateRv(date);
+    }
+
     @Override
     public Rendezvous saveRendezvous(Rendezvous rendezvous) {
         List<Rendezvous> rend = rendezvousRepository.findRendezvousByDateRv(rendezvous.getDateRv());

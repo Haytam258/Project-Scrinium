@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.hibernate.Hibernate;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ import java.util.Objects;
 @AllArgsConstructor
 public class SalleDattente {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
    // @OneToMany
    // private Patient patient;
@@ -40,6 +41,7 @@ public class SalleDattente {
     @OneToOne(mappedBy = "salleDattente")
     @JoinColumn(name = "medecin_id")
     @JsonBackReference(value = "medecin_salle")
+    @ToString.Exclude
     private Medecin medecin;
 
     @Override

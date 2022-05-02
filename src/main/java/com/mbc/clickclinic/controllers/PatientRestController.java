@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -46,6 +47,18 @@ public class PatientRestController {
     public String createPatient(Model model, @ModelAttribute Patient patient){
         patientService.savePatient(patient, model);
         return "patient/createPatient";
+    }
+
+    @GetMapping("/todayPatient")
+    public String getPatientOfToday(Model model){
+        List<Patient> patientList = patientService.getPatientsOfToday(LocalDate.now());
+        if(patientList.size() != 0){
+            model.addAttribute("patientsOfToday", patientList);
+        }
+        else {
+            model.addAttribute("noPatientsToday", "Pas de patients pour aujourd'hui");
+        }
+        return "patient/patientParRendezvous";
     }
 
     @PostMapping("/modifyPatient")

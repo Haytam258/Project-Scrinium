@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="include/css :: head"></div>
+<body class="">
+  <div class="wrapper ">
+    <div th:replace="include/sidebar :: sidebar-fragment"></div>
+    <div class="main-panel">
+      <!-- Navbar -->
+      <nav th:replace="include/navbar2 :: navbar"></nav>
+      <!-- End Navbar -->
+      <div class="content">
+        <div class="container-fluid">
+          
+          <div class="row">
+            <div class="col-md-10 ml-auto mr-auto">
+              <div class="page-categories">
+                <h3 class="title text-center">Page Subcategories</h3>
+                <br />
+                <ul class="nav nav-pills nav-pills-warning nav-pills-icons justify-content-center" role="tablist">
+                  <li class="nav-item" th:each="medecin : ${medecins}">
+                    <a class="nav-link" data-toggle="tab" th:href="|#${medecin.nom}" role="tablist">
+                      <i class="material-icons">airline_seat_legroom_extra</i> Salle d'attente <span th:text="${medecin.salleDattente.id}"></span>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#link8" role="tablist">
+                      <i class="material-icons">airline_seat_legroom_extra</i> Salle d'attente 2
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#link9" role="tablist">
+                      <i class="material-icons">airline_seat_legroom_extra</i> Salle d'attente 3
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#link10" role="tablist">
+                      <i class="material-icons">airline_seat_legroom_extra</i> Salle d'attente 4
+                    </a>
+                  </li>
+                </ul>
+                <div class="tab-content tab-space tab-subcategories">
+                  <div class="tab-pane" id="link7" th:each="medecin : ${medecins}" th:id="*{medecin.nom}">
+                    <div class="card">
+                      <div class="card-header">
+                        <h4 class="card-title" th:text="'Dr :' + *{medecin.nom} + ' ' + *{medecin.prenom} "></h4>
+                        <p class="card-category">
+                          More information here
+                        </p>
+                      </div>
+                      <div class="card-body">
+                        <div class="card-body">
+                          <div class="table-responsive">
+                            <table class="table">
+                              <thead>
+                              <tr>
+                                <th class="text-center">NOM</th>
+                                <th>prenom</th>
+                                <th>CIN</th>
+                                <th>Sexe</th>
+                                <th class="text-right">Actions</th>
+                              </tr>
+                              </thead>
+                              <tbody>
+                              <tr th:each="patient : ${medecin.salleDattente.patientList}">
+                                <td class="text-center" th:text="${patient.prenom}"></td>
+                                <td th:text="${patient.nom}"></td>
+                                <td th:text="${patient.cin}"></td>
+                                <td th:text="${patient.sexe}"></td>
+                                <td class="td-actions text-right">
+                                  <button type="button" rel="tooltip" class="btn btn-info btn-round" >
+                                    <i class="material-icons">person</i>
+                                  </button>
+                                  <button type="button" rel="tooltip" class="btn btn-danger btn-round">
+                                    <i class="material-icons">fast_forward</i>
+                                  </button>
+                                </td>
+                              </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="tab-pane active" id="link8">
+                    <div class="card">
+                      <div class="card-header">
+                        <h4 class="card-title">Dr:Hiba Tlmsani</h4>
+                        <p class="card-category">
+                          More information here
+                        </p>
+                      </div>
+                      <div class="card-body">
+                        <div class="card-body">
+                          <div class="table-responsive">
+                            <table class="table">
+                              <thead>
+                                <tr>
+                                  <th class="text-center">#</th>
+                                  <th>Name</th>
+                                  <th>Job Position</th>
+                                  <th>Since</th>
+                                  <th class="text-right">Actions</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td class="text-center">2</td>
+                                  <td>John Doe</td>
+                                  <td>Design</td>
+                                  <td>2012</td>
+                                  <td class="td-actions text-right">
+                                    <button type="button" rel="tooltip" class="btn btn-info btn-round">
+                                      <i class="material-icons">person</i>
+                                    </button>
+                                    <button type="button" rel="tooltip" class="btn btn-danger btn-round">
+                                      <i class="material-icons">close</i>
+                                    </button>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="tab-pane" id="link9">
+                    <div class="card">
+                      <div class="card-header">
+                        <h4 class="card-title">Dr: Nouamane Salamat</h4>
+                        <p class="card-category">
+                          More information here
+                        </p>
+                      </div>
+                      <div class="card-body">
+                        <div class="card-body">
+                          <div class="table-responsive">
+                            <table class="table">
+                              <thead>
+                                <tr>
+                                  <th class="text-center">#</th>
+                                  <th>Name</th>
+                                  <th>Job Position</th>
+                                  <th>Since</th>
+                                  <th class="text-right">Actions</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td class="text-center">2</td>
+                                  <td>John Doe</td>
+                                  <td>Design</td>
+                                  <td>2012</td>
+                                  <td class="td-actions text-right">
+                                    <button type="button" rel="tooltip" class="btn btn-info btn-round">
+                                      <i class="material-icons">person</i>
+                                    </button>
+                                    <button type="button" rel="tooltip" class="btn btn-danger btn-round">
+                                      <i class="material-icons">close</i>
+                                    </button>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="tab-pane" id="link10">
+                    <div class="card">
+                      <div class="card-header">
+                        <h4 class="card-title">Dr:Nabila Mojahid</h4>
+                        <p class="card-category">
+                          More information here
+                        </p>
+                      </div>
+                      <div class="card-body">
+                        <div class="card-body">
+                          <div class="table-responsive">
+                            <table class="table">
+                              <thead>
+                                <tr>
+                                  <th class="text-center">#</th>
+                                  <th>Name</th>
+                                  <th>Job Position</th>
+                                  <th>Since</th>
+                                  <th class="text-right">Actions</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td class="text-center">2</td>
+                                  <td>John Doe</td>
+                                  <td>Design</td>
+                                  <td>2012</td>
+                                  <td class="td-actions text-right">
+                                    <button type="button" rel="tooltip" class="btn btn-info btn-round">
+                                      <i class="material-icons">person</i>
+                                    </button>
+                                    <button type="button" rel="tooltip" class="btn btn-danger btn-round">
+                                      <i class="material-icons">close</i>
+                                    </button>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <footer th:replace="include/footer :: footer"></footer>
+    </div>
+  </div>
+
+  <!--   Core JS Files   -->
+  <div th:replace="include/js :: js"></div>
+</body>
+
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="include/css :: head"></div>
+
+<body class="">
+  <div class="wrapper ">
+    <div th:replace="include/sidebar :: sidebar-fragment"></div>
+    <div class="main-panel">
+      <!-- Navbar -->
+      <nav th:replace="include/navbar2 :: navbar"></nav>
+      <!-- End Navbar -->
+      <div class="content">
+        <div class="container-fluid">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card">
+                  <div class="card-header card-header-icon card-header-rose">
+                    <div class="card-icon">
+                      <i class="material-icons">assignment</i>
+                    </div>
+                    <h4 class="card-title ">Simple Table</h4>
+                  </div>
+                  <div class="card-body">
+                    <form method="POST" action="#" th:object="${salleDattente}" th:action="@{/createSalle}">
+                      <div class="form-group">
+                        <div class="mb-3">
+                          <label for="heure" class="form-label">Heure du rendez vous :</label>
+                          <input type="time" th:field="*{heure}" id="heure" class="form-control" required/>
+                        </div>
+                        <div class="col-lg-5 col-md-6 col-sm-3">
+                          <label class="form-label">Medecin :</label>
+                          <select class="selectpicker" data-size="7" data-style="btn btn-primary btn-round" title="Medecin" th:field="*{medecin}">
+                            <option th:each="medecin : ${medecins}" th:value="${medecin.id}" th:text="${medecin.nom}"></option>
+                          </select>
+                        </div>
+                        <div class="form-group has-danger" th:if="${salleMedecinExist != null}">
+                          <span class="alert text-danger" th:text="${salleMedecinExist}"> </span>
+
+                        </div>
+                      </div>
+                      <div class="card-footer ">
+                        <button type="submit" class="btn btn-fill btn-rose">Submit</button>
+                      </div>
+
+                    </form>
+                  </div>
+                </div>
+              </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  <!--   Core JS Files   -->
+  <div th:replace="include/js :: js"></div>
+</body>
+
+</html>

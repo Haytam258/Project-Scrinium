@@ -2,24 +2,41 @@ package com.mbc.clickclinic.service;
 
 import com.mbc.clickclinic.dao.PatientRepository;
 import com.mbc.clickclinic.entities.Patient;
+import com.mbc.clickclinic.entities.Rendezvous;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class PatientImple implements PatientService{
 
     private final PatientRepository patientRepository;
+    private final RendezvousService rendezvousService;
 
     @Autowired
-    public PatientImple(PatientRepository patientRepository){
+    public PatientImple(PatientRepository patientRepository, RendezvousService rendezvousService){
         this.patientRepository = patientRepository;
+        this.rendezvousService = rendezvousService;
     }
     @Override
     public Patient savePatient(Patient patient) {
         return patientRepository.saveAndFlush(patient);
+    }
+
+    public List<Patient> getPatientsOfToday(LocalDate date){
+        List<Patient> patientList = new ArrayList<>();
+        List<Rendezvous> rendezvousList = rendezvousService.RendezvousByDate(date);
+        if(rendezvousList.size() != 0){
+            for(Rendezvous rendezvous : rendezvousList){
+                patientList.add(rendezvous.getPatient());
+            }
+        }
+        return patientList;
+
     }
 
     public Patient savePatient(Patient patient, Model model){

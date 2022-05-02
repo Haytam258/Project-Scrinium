@@ -44,14 +44,18 @@ public class SalleDattenteImple implements SalleDattenteService{
         }
         else {
             salleDattente.getPatientList().add(patient);
+            patient.setSalleDattente(salleDattente);
         }
+        patientService.savePatient(patient);
         return salleDattentRepository.saveAndFlush(salleDattente);
     }
 
     public void deletePatientFromSalle(SalleDattente salleDattente, Patient patient){
         if(salleDattente.getPatientList().contains(patient)){
             salleDattente.getPatientList().remove(patient);
+            patient.setSalleDattente(null);
         }
+        patientService.savePatient(patient);
         salleDattentRepository.saveAndFlush(salleDattente);
     }
 
