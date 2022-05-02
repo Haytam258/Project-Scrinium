@@ -6,7 +6,7 @@ import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
-@Configuration
+/*@Configuration
 public class TemplateResolverConfiguration {
     @Bean
     public SpringResourceTemplateResolver firstTemplateResolver() {
@@ -86,3 +86,5 @@ public class TemplateResolverConfiguration {
         return templateResolver;
     }
 }
+*/
+

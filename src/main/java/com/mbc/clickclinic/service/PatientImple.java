@@ -4,6 +4,7 @@ import com.mbc.clickclinic.dao.PatientRepository;
 import com.mbc.clickclinic.entities.Patient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import java.util.List;
 
@@ -18,6 +19,14 @@ public class PatientImple implements PatientService{
     }
     @Override
     public Patient savePatient(Patient patient) {
+        return patientRepository.saveAndFlush(patient);
+    }
+
+    public Patient savePatient(Patient patient, Model model){
+        if(patientRepository.findPatientByEmail(patient.getEmail()) != null){
+            model.addAttribute("emailExist", "Email exists !");
+            return null;
+        }
         return patientRepository.saveAndFlush(patient);
     }
 

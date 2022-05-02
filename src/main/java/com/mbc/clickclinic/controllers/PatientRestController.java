@@ -39,13 +39,13 @@ public class PatientRestController {
     @GetMapping("/createPatient")
     public String createPatient(Model model){
         model.addAttribute("patient", new Patient());
-        return "createPatient";
+        return "patient/createPatient";
     }
 
     @PostMapping("/createPatient")
     public String createPatient(Model model, @ModelAttribute Patient patient){
-        patientService.savePatient(patient);
-        return "createPatient";
+        patientService.savePatient(patient, model);
+        return "patient/createPatient";
     }
 
     @PostMapping("/modifyPatient")
