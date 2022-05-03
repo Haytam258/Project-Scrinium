@@ -1,13 +1,11 @@
 package com.mbc.clickclinic.service;
 
 import com.mbc.clickclinic.dao.RendezvousRepository;
-import com.mbc.clickclinic.entities.Consultation;
-import com.mbc.clickclinic.entities.Medecin;
-import com.mbc.clickclinic.entities.Patient;
-import com.mbc.clickclinic.entities.Rendezvous;
+import com.mbc.clickclinic.entities.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import java.time.Duration;
 import java.time.LocalDate;
@@ -24,20 +22,22 @@ public class RendezvousImple implements RendezvousService{
     private final RendezvousRepository rendezvousRepository;
     private final PatientService patientService;
     private final MedecinService medecinService;
+    private final AgendaService agendaService;
 
     //Lazy in order to break the bean dependency cycle.
     @Autowired
-    public RendezvousImple(RendezvousRepository rendezvousRepository, @Lazy PatientService patientService, MedecinService medecinService){
+    public RendezvousImple(RendezvousRepository rendezvousRepository, @Lazy PatientService patientService, MedecinService medecinService, AgendaService agendaService){
         this.rendezvousRepository = rendezvousRepository;
         this.medecinService = medecinService;
         this.patientService = patientService;
+        this.agendaService = agendaService;
     }
     public List<Rendezvous> rendezvousByDate(LocalDate date){
         return rendezvousRepository.findRendezvousByDateRv(date);
     }
 
     @Override
-    public Rendezvous saveRendezvous(Rendezvous rendezvous) {
+    public Rendezvous saveRendezvous(Rendezvous rendezvous, Model model) {
         List<Rendezvous> rend = rendezvousRepository.findRendezvousByDateRv(rendezvous.getDateRv());
         if(rend.size() != 0){
             for (Iterator<Rendezvous> rendezvousIterator = rend.iterator(); rendezvousIterator.hasNext();) {
@@ -47,10 +47,21 @@ public class RendezvousImple implements RendezvousService{
                 // REST : if(rendezvous.getHeure() <= rendez.getHeure()+ 1 && rendezvous.getHeure() >= rendez.getHeure() - 1 && rendez.getStatut() == 0 && rendezvous.getStatut() == 0)
                 //HTML Transition : if(rendezvous.getHeure().getHour() <= rendez.getHeure().getHour() + 1 && rendezvous.getHeure().getHour() >= rendez.getHeure().getHour() - 1 && rendez.getStatut() == 0 && rendezvous.getStatut() == 0){
                 if(Math.abs(ChronoUnit.MINUTES.between(rendezvous.getHeure(), rendez.getHeure())) <= 30 && rendez.getStatut() == 0 && rendezvous.getStatut() == 0){
+                    model.addAttribute("rendezvousMinute", "les rendez vous doivent etre séparés par 30 minutes !");
                     return null;
                 }
             }
         }
+        List<Agenda> agendaList = agendaService.getAgendaByMedecin(rendezvous.getMedecin());
+        if(agendaList.size() != 0){
+            for(Agenda agenda : agendaList){
+                if(rendezvousRepository.findRendezvousByDateRvBetween(agenda.getDateDebut(), agenda.getDateFin()).size() != 0 && agenda.getStatut() == 1){
+                    model.addAttribute("agendaConstraint",  agenda.getDescription());
+                    return null;
+                }
+            }
+        }
+
         return rendezvousRepository.saveAndFlush(rendezvous);
     }
 

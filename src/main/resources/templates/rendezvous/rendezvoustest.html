@@ -31,6 +31,14 @@
                 <span class="alert text-success" th:text="${rendezCreated}"> </span>
 
             </div>
+            <div class="form-group has-danger" th:if="${rendezvousMinute != null}">
+                <span class="alert text-danger" th:text="${rendezvousMinute}"> </span>
+
+            </div>
+            <div class="form-group has-danger" th:if="${agendaConstraint != null}">
+                <span class="alert text-danger" th:text="${agendaConstraint}"> </span>
+
+            </div>
         </fieldset>
     </form>
 </div>

@@ -54,7 +54,7 @@ public class RendezvousRestController {
     public String createRendezvous(Model model, @ModelAttribute Rendezvous rendezvous){
         LocalDate localDateTime = LocalDate.parse(rendezvous.getDateRv().toString());
         rendezvous.setDateRv(localDateTime);
-        Rendezvous rendezvous1 = rendezvousService.saveRendezvous(rendezvous);
+        Rendezvous rendezvous1 = rendezvousService.saveRendezvous(rendezvous, model);
         if(rendezvous1 != null){
             model.addAttribute("rendezCreated", "rendez vous créé avec succès !");
         }

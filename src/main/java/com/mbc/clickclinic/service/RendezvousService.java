@@ -7,6 +7,7 @@ import com.mbc.clickclinic.entities.Medecin;
 import com.mbc.clickclinic.entities.Patient;
 import com.mbc.clickclinic.entities.Rendezvous;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -16,7 +17,7 @@ import java.util.List;
 
 
 public interface RendezvousService {
-    Rendezvous saveRendezvous(Rendezvous rendezvous);
+    Rendezvous saveRendezvous(Rendezvous rendezvous, Model model);
     void deleteRendezvous(Rendezvous rendezvous);
     Rendezvous updateRendezvous(Rendezvous rendezvous);
     List<Rendezvous> Rendezvouss();
