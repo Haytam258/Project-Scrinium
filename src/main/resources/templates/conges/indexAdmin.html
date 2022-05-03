@@ -24,7 +24,8 @@
                                     <table class="table">
                                         <thead>
                                         <tr>
-                                            <th>Name</th>
+                                            <th>Nom</th>
+                                            <th>Specialite</th>
                                             <th>Date</th>
                                             <th>Jours demandes</th>
                                             <th>Statut</th>
@@ -34,16 +35,17 @@
                                         <tbody>
                                         <tr th:each="conges : ${congesList}">
                                             <td th:text="${conges.medecin == null ? '' : conges.medecin.prenom + ' ' + conges.medecin.nom}"></td>
+                                            <td th:text="${conges.medecin == null ? '' : conges.medecin.specialite}"></td>
                                             <td th:text="${conges.date}"></td>
                                             <td th:text="${conges.nbrJours}"></td>
-                                            <td></td>
+                                            <td th:text="${conges.reponse}"></td>
                                             <td class="td-actions text-right">
-                                                <button type="button" rel="tooltip" class="btn btn-success btn-round" data-original-title="" title="">
+                                                <a rel="tooltip" class="btn btn-success btn-round" data-original-title="" title="">
                                                     <i class="fas fa-check-circle fa-4x" style="color:green;font-size:20px"></i>
-                                                </button>
-                                                <button type="button" rel="tooltip" class="btn btn-danger btn-round" data-original-title="" title="">
+                                                </a>
+                                                <a rel="tooltip" class="btn btn-danger btn-round" data-original-title="" title="">
                                                     <i class="material-icons">close</i>
-                                                </button>
+                                                </a>
                                             </td>
                                         </tr>
                                         </tbody>

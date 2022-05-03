@@ -32,6 +32,7 @@ public class CongesImpl implements CongesService{
          agendaRepository.save(agenda);
          Medecin medecin = medecinRepository.findMedecinByNom(nom);
          conges.setMedecin(medecin);
+         conges.setReponse("En cours");
         return congeRepository.save(conges);
     }
 

@@ -25,8 +25,8 @@ public class Conges {
     private LocalDate date;
 
     private int nbrJours;
-    //Si 0 alors non acceptée, si 1 alors acceptée
-    private boolean reponse;
+    // Acceptee - Refusee - Default-value: En cours
+    private String reponse;
 
     @ManyToOne
     @JoinColumn(name = "medecin_id")
