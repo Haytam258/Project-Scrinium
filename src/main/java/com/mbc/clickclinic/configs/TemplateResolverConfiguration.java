@@ -1,4 +1,4 @@
-package com.mbc.clickclinic.configs;
+/*package com.mbc.clickclinic.configs;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -51,7 +51,7 @@ public class Medecin extends Personne {
     @ToString.Exclude
     private List<DemandeCertificat> demandeCertificatList;
 
-    @OneToMany( mappedBy = "medecin")
+    @OneToMany( mappedBy = "medecin", cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE })
     @JsonManagedReference(value = "conges_medecin")
     @ToString.Exclude
     private List<Conges> conges;
