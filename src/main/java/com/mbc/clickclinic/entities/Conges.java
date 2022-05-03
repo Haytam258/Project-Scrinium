@@ -21,7 +21,7 @@ public class Conges {
     @GeneratedValue( strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @DateTimeFormat(pattern = "MM/dd/yyyy")
     private LocalDate date;
 
     private int nbrJours;
