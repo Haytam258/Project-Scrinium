@@ -40,10 +40,10 @@
                                             <td th:text="${conges.nbrJours}"></td>
                                             <td th:text="${conges.reponse}"></td>
                                             <td class="td-actions text-right">
-                                                <a rel="tooltip" class="btn btn-success btn-round" data-original-title="" title="">
+                                                <a th:href="@{/conges/accept/{id}(id=${conges.id})}" rel="tooltip" class="btn btn-success btn-round" data-original-title="" title="">
                                                     <i class="fas fa-check-circle fa-4x" style="color:green;font-size:20px"></i>
                                                 </a>
-                                                <a rel="tooltip" class="btn btn-danger btn-round" data-original-title="" title="">
+                                                <a th:href="@{/conges/refuse/{id}(id=${conges.id})}" rel="tooltip" class="btn btn-danger btn-round" data-original-title="" title="">
                                                     <i class="material-icons">close</i>
                                                 </a>
                                             </td>

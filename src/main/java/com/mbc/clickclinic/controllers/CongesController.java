@@ -39,4 +39,17 @@ public class CongesController {
         congesService.createConges(conges, nom);
         return "redirect:/conges/index";
     }
+
+    @GetMapping("/conges/accept/{id}")
+    public String acceptConges(@PathVariable(value = "id") int id){
+        Conges conges = congesService.acceptConges(id);
+        System.out.println(conges.getReponse());
+        return "redirect:/admin/conges/index";
+    }
+
+    @GetMapping("/conges/refuse/{id}")
+    public String refuseConges(@PathVariable(value = "id") int id){
+        congesService.refuseConges(id);
+        return "redirect:/admin/conges/index";
+    }
 }

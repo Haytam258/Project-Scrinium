@@ -50,4 +50,18 @@ public class CongesImpl implements CongesService{
     public List<Conges> getCongesByMedecin(Medecin medecin) {
         return congeRepository.findCongesByMedecin(medecin);
     }
+
+    @Override
+    public Conges acceptConges(int id) {
+        Conges conges = congeRepository.findById(id).get();
+        conges.setReponse("Demande Acceptée");
+        return congeRepository.save(conges);
+    }
+
+    @Override
+    public Conges refuseConges(int id) {
+        Conges conges = congeRepository.findById(id).get();
+        conges.setReponse("Demande Refusée");
+        return congeRepository.save(conges);
+    }
 }
