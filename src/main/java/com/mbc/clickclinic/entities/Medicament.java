@@ -17,8 +17,6 @@ public class Medicament {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String libelle;
-    private String form; // Le type de médicament
-    private String classeTherapeutique; // La catégorie de médicament
     private String fabriquant;
     private String codeATC;
     private String nomGenerique;

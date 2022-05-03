@@ -758,17 +758,17 @@ demo = {
         confirmButtonClass: "btn btn-success",
         cancelButtonClass: "btn btn-danger",
         buttonsStyling: false
-      }).then(function() {
-        swal({
-          title: 'Deleted!',
-          text: 'Your imaginary file has been deleted.',
-          type: 'success',
-          confirmButtonClass: "btn btn-success",
-          buttonsStyling: false
-        }).catch(swal.noop)
-      }, function(dismiss) {
-        // dismiss can be 'overlay', 'cancel', 'close', 'esc', 'timer'
-        if (dismiss === 'cancel') {
+      }).then(result => {
+        if (result.value){
+          swal({
+            title: 'Deleted!',
+            text: 'Your imaginary file has been deleted.',
+            type: 'success',
+            confirmButtonClass: "btn btn-success",
+            buttonsStyling: false
+          }).catch(swal.noop)
+        }
+        else {
           swal({
             title: 'Cancelled',
             text: 'Your imaginary file is safe :)',
@@ -778,7 +778,6 @@ demo = {
           }).catch(swal.noop)
         }
       })
-
     } else if (type == 'custom-html') {
       swal({
         title: 'HTML example',

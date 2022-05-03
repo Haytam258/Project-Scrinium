@@ -45,7 +45,7 @@
                                 <form method="POST" action="#" th:object="${patient}" th:action="@{/createPatient}">
                                     <div class="form-group">
                                         <label for="exampleEmail" class="bmd-label-floating">Email Address</label>
-                                        <input type="email" class="form-control" id="exampleEmail" th:field="*{email}">
+                                        <input type="email" class="form-control" id="exampleEmail" th:field="*{email}" required>
                                     </div>
                                     <div class="form-group has-danger" th:if="${emailExist != null}">
                                         <span class="alert text-danger" th:text="${emailExist}"> </span>
@@ -53,26 +53,26 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="examplePass" class="bmd-label-floating">Password</label>
-                                        <input type="password" class="form-control" id="examplePass" th:field="*{password}">
+                                        <input type="password" class="form-control" id="examplePass" th:field="*{password}" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="nom" class="bmd-label-floating">First Name</label>
-                                        <input type="text" class="form-control" id="nom" th:field="*{nom}">
+                                        <input type="text" class="form-control" id="nom" th:field="*{nom}" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="prenom" class="bmd-label-floating">Last Name</label>
-                                        <input type="text" class="form-control" id="prenom" th:field="*{prenom}">
+                                        <input type="text" class="form-control" id="prenom" th:field="*{prenom}" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="cin" class="bmd-label-floating">CIN</label>
-                                        <input type="text" class="form-control" id="cin" th:field="*{cin}">
+                                        <input type="text" class="form-control" id="cin" th:field="*{cin}" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="dateNaissance" class="bmd-label-floating">Date Naissance</label>
-                                        <input type="date" class="form-control" id="dateNaissance" th:field="*{dateNaissance}" onfocus="(this.type='date')" onblur="if(!this.value)this.type='text'">
+                                        <input type="date" class="form-control" id="dateNaissance" th:field="*{dateNaissance}" onfocus="(this.type='date')" onblur="if(!this.value)this.type='text'" required>
                                     </div>
                                     <div class="col-lg-5 col-md-6 col-sm-3">
-                                        <select class="selectpicker" data-size="7" data-style="btn btn-primary btn-round" title="Region" th:field="*{region}">
+                                        <select class="selectpicker" data-size="7" data-style="btn btn-primary btn-round" title="Region" th:field="*{region}" required>
                                             <option value="Agadir" th:value="'Agadir'" th:text="Agadir"></option>
                                             <option value="Souss Massa" th:value="'Souss Massa'" th:text="'Souss Massa'"></option>
                                             <option value="Ait melloul" th:value="'Ait melloul'" th:text="'Ait Melloul'"></option>
@@ -82,7 +82,7 @@
                                     </div>
 
                                     <div class="col-lg-5 col-md-6 col-sm-3">
-                                        <select class="selectpicker" data-size="7" data-style="btn btn-primary btn-round" title="GroupeSanguin" th:field="*{groupSanguin}">
+                                        <select class="selectpicker" data-size="7" data-style="btn btn-primary btn-round" title="GroupeSanguin" th:field="*{groupSanguin}" required>
                                             <option value="A" th:value="'A'">A</option>
                                             <option value="B" th:value="'B'">B</option>
                                             <option value="AB" th:value="'AB'">AB</option>
@@ -92,7 +92,7 @@
 
                                     <div class="form-check">
                                         <label class="form-check-label">
-                                            <input class="form-check-input" type="radio" name="sexe" value="Male" th:field="*{sexe}" th:value="Male"> Male
+                                            <input class="form-check-input" type="radio" name="sexe" value="Male" th:field="*{sexe}" th:value="Male" required> Male
                                             <span class="circle">
                               <span class="check"></span>
                             </span>
@@ -100,7 +100,7 @@
                                     </div>
                                     <div class="form-check">
                                         <label class="form-check-label">
-                                            <input class="form-check-input" type="radio" name="sexe" value="Female" th:value="Female" th:field="*{sexe}"> Female
+                                            <input class="form-check-input" type="radio" name="sexe" value="Female" th:value="Female" th:field="*{sexe}" required> Female
                                             <span class="circle">
                               <span class="check"></span>
                             </span>
