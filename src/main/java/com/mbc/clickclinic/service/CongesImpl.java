@@ -26,11 +26,12 @@ public class CongesImpl implements CongesService{
     @Override
     public Conges createConges(Conges conges, String nom) {
          Agenda agenda = new Agenda();
+         Medecin medecin = medecinRepository.findMedecinByNom(nom);
          agenda.setDateDebut(conges.getDate());
          agenda.setDateFin(conges.getDate().plusDays(conges.getNbrJours()));
          agenda.setDescription("Medecin en conges");
+         agenda.setMedecin(medecin);
          agendaRepository.save(agenda);
-         Medecin medecin = medecinRepository.findMedecinByNom(nom);
          conges.setMedecin(medecin);
          conges.setReponse("En cours");
         return congeRepository.save(conges);

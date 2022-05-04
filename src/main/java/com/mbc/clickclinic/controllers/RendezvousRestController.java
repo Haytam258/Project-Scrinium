@@ -47,7 +47,7 @@ public class RendezvousRestController {
         model.addAttribute("rendezvous", new Rendezvous());
         model.addAttribute("medecinList", medecinService.medecins());
         model.addAttribute("patientList", patientService.patients());
-        return "rendezvous/rendezvoustest";
+        return "rendezvous/createRendezvous";
     }
     //Fonctions pour tester les dates, il y a un problème au niveau du transfer html, il faudra séparer la date et heure.
     @PostMapping("/createRendezvous")
@@ -60,7 +60,7 @@ public class RendezvousRestController {
         }
         model.addAttribute("medecinList", medecinService.medecins());
         model.addAttribute("patientList", patientService.patients());
-        return "rendezvous/rendezvoustest";
+        return "rendezvous/createRendezvous";
     }
 
 

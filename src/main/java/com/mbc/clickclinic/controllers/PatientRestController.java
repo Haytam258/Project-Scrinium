@@ -26,8 +26,9 @@ public class PatientRestController {
     }
 
     @GetMapping("/patients")
-    public List<Patient> getPatients(){
-        return patientService.patients();
+    public String getPatients(Model model){
+        model.addAttribute("allPatients", patientService.patients());
+        return "patient/patientList";
     }
 
     @GetMapping("/patients/{id}")
@@ -73,9 +74,10 @@ public class PatientRestController {
         return patientService.updatePatient(patient);
     }
 
-    @PostMapping("/deletePatient/{id}")
-    public void deletePatient(@PathVariable Long id){
-        patientService.deletePatient(patientService.PatientById(Math.toIntExact(id)));
+    @GetMapping("/deletePatient/{id}")
+    public String deletePatient(@PathVariable Integer id){
+        patientService.deletePatient(patientService.PatientById(id));
+        return "redirect:/patients";
     }
 
 

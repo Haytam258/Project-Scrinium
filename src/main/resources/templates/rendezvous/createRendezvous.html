@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="include/css :: head"></div>
+<body class="">
+<div class="wrapper ">
+    <div th:replace="include/sidebar :: sidebar-fragment"></div>
+    <div class="main-panel">
+        <!-- Navbar -->
+        <nav th:replace="include/navbar2 :: navbar"></nav>
+        <!-- End Navbar -->
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-9">
+                        <form action="#" th:action="@{/createRendezvous}" th:object="${rendezvous}" method="post">
+                            <div class="card ">
+                                <div class="card-header card-header-primary card-header-icon">
+                                    <div class="card-icon">
+                                        <i class="material-icons">mail_outline</i>
+                                    </div>
+                                    <h4 class="card-title">Register Form</h4>
+                                </div>
+                                <div class="card-body ">
+                                    <div class="form-group row">
+                                        <label for="dateRdv" class="col-md-3"> Date du Rendez vous </label>
+                                        <div class="col-md-9">
+                                            <input type="date" class="form-control" id="dateRdv" required="true" th:field="*{dateRv}" aria-required="true">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="heure" class="col-md-3"> Heure du rendez vous </label>
+                                        <div class="col-md-9">
+                                            <input type="time" class="form-control" id="heure" required="true" th:field="*{heure}" aria-required="true">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="bmd-label-floating">Medecin :</label>
+                                        <select class="selectpicker" data-size="7" data-style="btn btn-primary btn-round" title="Medecin" th:field="*{medecin}" required>
+                                            <option th:each="medecin : ${medecinList}" th:value="${medecin.id}" th:text="${medecin.nom}"></option>
+                                        </select>
+                                    </div>
+                                    <div class="row">
+                                        <label class="bmd-label-floating">Patient :</label>
+                                        <select class="selectpicker" data-size="7" data-style="btn btn-primary btn-round" title="Patient" th:field="*{patient}" required>
+                                            <option th:each="patient : ${patientList}" th:value="${patient.id}" th:text="${patient.nom}"></option>
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-fill btn-primary">Create New Rendez vous</button>
+                                    <div class="form-group has-success" th:if="${rendezCreated != null}">
+                                        <span class="alert text-success" th:text="${rendezCreated}"> </span>
+
+                                    </div>
+                                    <div class="form-group has-danger" th:if="${rendezvousMinute != null}">
+                                        <span class="alert text-danger" th:text="${rendezvousMinute}"> </span>
+
+                                    </div>
+                                    <div class="form-group has-danger" th:if="${agendaConstraint != null}">
+                                        <span class="alert text-danger" th:text="${agendaConstraint}"> </span>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div th:replace="include/footer :: footer"></div>
+    </div>
+</div>
+<div th:replace="include/js :: js"></div>
+
+</body>
+</html>

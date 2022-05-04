@@ -55,7 +55,7 @@ public class RendezvousImple implements RendezvousService{
         List<Agenda> agendaList = agendaService.getAgendaByMedecin(rendezvous.getMedecin());
         if(agendaList.size() != 0){
             for(Agenda agenda : agendaList){
-                if(rendezvousRepository.findRendezvousByDateRvBetween(agenda.getDateDebut(), agenda.getDateFin()).size() != 0 && agenda.getStatut() == 1){
+                if(rendezvous.getDateRv().isAfter(agenda.getDateDebut()) && rendezvous.getDateRv().isBefore(agenda.getDateFin()) && agenda.getStatut() == 1){
                     model.addAttribute("agendaConstraint",  agenda.getDescription());
                     return null;
                 }
