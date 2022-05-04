@@ -33,9 +33,35 @@ public class CertificatMedicaleRestController {
         this.patientService = patientService;
     }
 
+    @GetMapping("/createCertificat")
+    public String createCertificat(){
+        return "redirect:/demandesCertificat";
+    }
+
     @PostMapping("/createCertificat")
-    public CertificatMedicale createCertificat(@RequestBody CertificatMedicale certificatMedicale){
-        return certificatMedicaleService.saveCertificatMedical(certificatMedicale);
+    public String createCertificat(@ModelAttribute(value = "certificatMedical") CertificatMedicale certificatMedicale, Model model){
+        model.addAttribute("allDemandes", demandeCertificatService.getDemandesCertificats());
+        model.addAttribute("typeCertList", demandeCertificatService.getTypesCertificat());
+        model.addAttribute("patientList", patientService.patients());
+        model.addAttribute("medecinList", medecinService.medecins());
+       DemandeCertificat demandeCertificat = demandeCertificatService.getDemandeByPatientAndMedecin(certificatMedicale.getPatient(), certificatMedicale.getMedecin());
+       if(demandeCertificat != null){
+           if(certificatMedicale != null){
+               model.addAttribute("certificatSuccess", "certificat créé avec succès !");
+           }
+           else {
+               model.addAttribute("certificatFail", "Création échouée, assurez vous des données !");
+           }
+           demandeCertificat.setCertificatMedicale(certificatMedicale);
+           demandeCertificat.setStatus(1);
+           certificatMedicale.setDemandeCertificat(demandeCertificat);
+           certificatMedicaleService.saveCertificatMedical(certificatMedicale);
+           demandeCertificatService.saveDemandeCertificat(demandeCertificat);
+       }
+       else {
+           model.addAttribute("demandeNotThere", "Ce patient n'a pas fait de demande ");
+       }
+       return "certificatMedicale/demandesCertificat";
     }
 
     @GetMapping("/createDemandeCertificat")
@@ -79,9 +105,14 @@ public class CertificatMedicaleRestController {
 
     }
 
-    @GetMapping("/certificats")
-    public List<CertificatMedicale> getCertificats(){
-        return certificatMedicaleService.CertificatMedicals();
+    @GetMapping("/demandesCertificat")
+    public String getDemandesCertificat(Model model){
+        model.addAttribute("allDemandes", demandeCertificatService.getDemandesCertificats());
+        model.addAttribute("certificatMedical", new CertificatMedicale());
+        model.addAttribute("typeCertList", demandeCertificatService.getTypesCertificat());
+        model.addAttribute("patientList", patientService.patients());
+        model.addAttribute("medecinList", medecinService.medecins());
+        return "certificatMedicale/demandesCertificat";
     }
 
     @GetMapping("/certificats/{id}")

@@ -19,6 +19,7 @@ public class CertificatMedicale {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private LocalDate dateCreation;
+    @Lob
     private String repos; //La raison pour le certificat
 
     @ManyToOne

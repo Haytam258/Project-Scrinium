@@ -16,4 +16,9 @@ public interface DemandeCertificatService {
     public DemandeCertificat getDemandeCertificatById(int id);
     List<TypeCertification> getTypesCertificat();
     TypeCertification saveTypeCertification(TypeCertification typeCertification);
+    List<DemandeCertificat> getDemandesByMedecin(Medecin medecin);
+    DemandeCertificat getDemandesByPatient(Patient patient);
+    List<DemandeCertificat> getDemandesCertificats();
+    DemandeCertificat getDemandeByPatientAndMedecin(Patient patient, Medecin medecin);
+    List<DemandeCertificat> getUntreatedDemandes();
 }

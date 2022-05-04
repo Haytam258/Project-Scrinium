@@ -1,12 +1,18 @@
 package com.mbc.clickclinic.dao;
 
 import com.mbc.clickclinic.entities.DemandeCertificat;
+import com.mbc.clickclinic.entities.Medecin;
 import com.mbc.clickclinic.entities.Patient;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface DemandeCertificatRepository extends JpaRepository<DemandeCertificat, Integer> {
 
-    public DemandeCertificat findDemandeCertificatByPatient(Patient patient);
+    DemandeCertificat findDemandeCertificatByPatient(Patient patient);
+    List<DemandeCertificat> findDemandeCertificatsByMedecin(Medecin medecin);
+    DemandeCertificat findDemandeCertificatByPatientAndMedecin(Patient patient, Medecin medecin);
+
 }
