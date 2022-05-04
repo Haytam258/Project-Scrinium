@@ -26,31 +26,15 @@
                                     <th>Prenom</th>
                                     <th>CIN</th>
                                     <th>Type certificat</th>
+                                    <th>Statut</th>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td>Ait hsaine</td>
-                                        <td>Hicham</td>
-                                        <td>JM80825</td>
-                                        <td>certificat Medical</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Minerva Hooper</td>
-                                        <td>$23,789</td>
-                                        <td>Curaçao</td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>Sage Rodriguez</td>
-                                        <td>$56,142</td>
-                                        <td>Netherlands</td>
-                                    </tr>
-                                    <tr>
-                                        <td>4</td>
-                                        <td>Philip Chaney</td>
-                                        <td>$38,735</td>
-                                        <td>Korea, South</td>
+                                    <tr th:each="demande : ${allDemandes}">
+                                        <td th:text="${demande.patient == null ? '' : demande.patient.nom}"></td>
+                                        <td th:text="${demande.patient == null ? '' : demande.patient.prenom}"></td>
+                                        <td th:text="${demande.patient == null ? '' : demande.patient.cin}"></td>
+                                        <td th:text="${demande.typeCertification == null ? '' : demande.typeCertification.type}"></td>
+                                        <td th:text="${demande.status == 0 ? 'En cours' : 'Accordée'}"></td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -67,33 +51,29 @@
                                 </div>
                             </div>
                             <div class="card-body table-responsive">
-                                <form method="get" action="/" class="form-horizontal">
+                                <form method="POST" th:action="@{/createCertificat}" th:object="${certificatMedical}" class="form-horizontal">
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-12">
                                             <div class="form-group"></div>
-                                            <label class="bmd-label-floating">Nom</label>
-                                            <input type="text" class="form-control">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group"></div>
-                                            <label class="bmd-label-floating">Prenom</label>
-                                            <input type="text" class="form-control">
+                                            <label class="bmd-label-floating">Medecin </label>
+                                            <select class="selectpicker" data-size="7" data-style="btn btn-primary btn-round" title="Medecin" th:field="*{medecin}">
+                                                <option th:each="medecin : ${medecinList}" th:value="${medecin.id}" th:text="${medecin.nom} + ' ' + ${medecin.prenom}"></option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group"></div>
-                                            <label class="bmd-label-floating">Date creation </label>
-                                            <input type="date" class="form-control">
+                                            <label class="bmd-label-floating">Patient </label>
+                                            <select class="selectpicker" data-size="7" data-style="btn btn-primary btn-round" title="Patient" th:field="*{patient}">
+                                                <option th:each="patient : ${patientList}" th:value="${patient.id}" th:text="${patient.cin} + ' ' + ${patient.nom} + ' ' + ${patient.prenom}"></option>
+                                            </select>
                                         </div>
                                         <div class="col-lg-5 col-md-6 col-sm-3">
                                             <div class="form-group"></div>
                                             <label class="bmd-label-floating">Type Certificat </label>
-                                            <select class="selectpicker" data-size="7" data-style="btn btn-primary btn-round" title="Single Select">
-                                                <option disabled selected>Type Certificat</option>
-                                                <option value="2">Foobar</option>
-                                                <option value="3">Is great</option>
-                                                <option value="4">Is bum</option>
+                                            <select class="selectpicker" data-size="7" data-style="btn btn-primary btn-round" title="Type Certificat" th:field="*{typeCertification}">
+                                                <option th:each="type : ${typeCertList}" th:value="${type.id}" th:text="${type.type}"></option>
                                             </select>
                                         </div>
                                     </div>
@@ -102,11 +82,23 @@
                                         <div class="col-md-12">
                                             <div class="form-group"></div>
                                             <label class="bmd-label-floating">repos</label>
-                                            <textarea class="form-control" rows="5"></textarea>
+                                            <textarea class="form-control" rows="5" th:field="*{repos}"></textarea>
                                         </div>
                                     </div>
                                     <button type="submit" class="btn btn-rose pull-right">Sauvegarder</button>
                                     <div class="clearfix"></div>
+                                    <div class="form-group has-success" th:if="${certificatSuccess != null}">
+                                        <span class="alert text-success" th:text="${certificatSuccess}"> </span>
+
+                                    </div>
+                                    <div class="form-group has-danger" th:if="${certificatFail != null}">
+                                        <span class="alert text-danger" th:text="${certificatFail}"> </span>
+
+                                    </div>
+                                    <div class="form-group has-danger" th:if="${demandeNotThere != null}">
+                                        <span class="alert text-danger" th:text="${demandeNotThere}"> </span>
+
+                                    </div>
 
                                 </form>
                             </div>

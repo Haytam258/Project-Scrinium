@@ -10,6 +10,7 @@ import com.mbc.clickclinic.entities.TypeCertification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -56,5 +57,31 @@ public class DemandeCertificatImple implements DemandeCertificatService {
 
     public TypeCertification saveTypeCertification(TypeCertification typeCertification){
         return typeCertificationRepository.saveAndFlush(typeCertification);
+    }
+
+    public List<DemandeCertificat> getDemandesCertificats(){
+        return demandeCertificatRepository.findAll();
+    }
+
+    public List<DemandeCertificat> getDemandesByMedecin(Medecin medecin){
+        return demandeCertificatRepository.findDemandeCertificatsByMedecin(medecin);
+    }
+
+    public List<DemandeCertificat> getUntreatedDemandes(){
+        List<DemandeCertificat> demandeUntreatedList = new ArrayList<>();
+        for(DemandeCertificat demandeCertificat : demandeCertificatRepository.findAll()){
+            if(demandeCertificat.getStatus() == 0){
+                demandeUntreatedList.add(demandeCertificat);
+            }
+        }
+        return demandeUntreatedList;
+    }
+
+    public DemandeCertificat getDemandesByPatient(Patient patient){
+        return demandeCertificatRepository.findDemandeCertificatByPatient(patient);
+    }
+
+    public DemandeCertificat getDemandeByPatientAndMedecin(Patient patient, Medecin medecin){
+        return demandeCertificatRepository.findDemandeCertificatByPatientAndMedecin(patient,medecin);
     }
 }
