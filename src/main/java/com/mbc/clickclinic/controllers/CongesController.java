@@ -35,7 +35,7 @@ public class CongesController {
     }
 
     @PostMapping(path = "/conges/save")
-    public String createConges(@ModelAttribute("conges")Conges conges, @RequestParam("nom") String nom) {
+    public String saveConges(@ModelAttribute("conges")Conges conges, @RequestParam("nom") String nom) {
         congesService.createConges(conges, nom);
         return "redirect:/conges/index";
     }

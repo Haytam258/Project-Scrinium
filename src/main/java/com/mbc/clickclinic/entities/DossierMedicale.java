@@ -14,7 +14,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @RequiredArgsConstructor
-@AllArgsConstructor @ToString
+@AllArgsConstructor
 public class DossierMedicale {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,7 +26,7 @@ public class DossierMedicale {
 
     @OneToMany(mappedBy = "dossierMedicale")
     @JsonManagedReference(value = "dossier_consultation")
-    @ToString.Exclude
+
     private List<Consultation> consultationList;
 
     public void add(Consultation consultation){
