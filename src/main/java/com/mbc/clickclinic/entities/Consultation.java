@@ -18,8 +18,11 @@ public class Consultation {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id ;
     private String motif; //Raison de la visite
+    @Lob
     private String diagnostique;
+    @Lob
     private String ResultatExmentClinique; //ResultatsDanalyses
+    @Lob
     private String remarques;
     private double poids;
     private double talle;

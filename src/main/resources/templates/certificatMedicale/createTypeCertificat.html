@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="apple-touch-icon" sizes="76x76" href="../../static/assets/img/apple-icon.png" th:href="@{/assets/img/apple-icon.png}">
+    <link rel="icon" type="image/png" href="../../static/assets/img/favicon.png" th:href="@{/assets/img/favicon.png}">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>
+        Welp, time to work on this
+    </title>
+    <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+    <!--     Fonts and icons     -->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+    <!-- CSS Files -->
+    <link href="../../static/assets/css/material-dashboard.css?v=2.1.2" th:href="@{/assets/css/material-dashboard.css?v=2.1.2}" rel="stylesheet" />
+    <!-- CSS Just for demo purpose, don't include it in your project -->
+    <link href="../../static/assets/demo/demo.css" rel="stylesheet" th:href="@{/assets/demo/demo.css}"/>
+</head>
+
+<body class="">
+<div class="wrapper ">
+    <div th:replace="include/sidebar :: sidebar-fragment"></div>
+    <div class="main-panel">
+        <!-- Navbar -->
+        <nav th:replace="include/navbar :: navbar"></nav>
+        <!-- End Navbar -->
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card ">
+                            <div class="card-header card-header-rose card-header-icon">
+                                <div class="card-icon">
+                                    <i class="material-icons">mail_outline</i>
+                                </div>
+                                <h4 class="card-title">Stacked Form</h4>
+                            </div>
+                            <div class="card-body ">
+                                <form method="POST" action="#" th:object="${typeCertificat}" th:action="@{/createTypeCertificat}">
+                                    <div class="form-group">
+                                        <label for="type" class="bmd-label-floating">Type de certificat</label>
+                                        <input type="text" class="form-control" id="type" th:field="*{type}" required>
+                                    </div>
+                                    <div class="card-footer ">
+                                        <button type="submit" class="btn btn-fill btn-rose">Submit</button>
+                                    </div>
+                                    <div class="form-group has-success" th:if="${typeSuccess != null}">
+                                        <span class="alert text-success" th:text="${typeSuccess}"> </span>
+
+                                    </div>
+                                    <div class="form-group has-danger" th:if="${typeFail != null}">
+                                        <span class="alert text-danger" th:text="${typeFail}"> </span>
+
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!--   Core JS Files   -->
+<div th:replace="include/js :: js"></div>
+</body>
+
+</html>

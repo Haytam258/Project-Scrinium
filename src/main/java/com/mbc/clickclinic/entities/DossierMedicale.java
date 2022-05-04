@@ -19,7 +19,9 @@ public class DossierMedicale {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Lob
     private String antecedent; //billan de maladie
+    @Lob
     private String observations;
 
     @OneToMany(mappedBy = "dossierMedicale")

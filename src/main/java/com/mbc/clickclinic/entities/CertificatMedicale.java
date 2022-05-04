@@ -1,6 +1,7 @@
 package com.mbc.clickclinic.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.hibernate.Hibernate;
 
@@ -33,6 +34,10 @@ public class CertificatMedicale {
     @ManyToOne
     @JsonBackReference(value = "medecin_certificat")
     private Medecin medecin;
+
+    @OneToOne
+    @JsonManagedReference(value = "demande_certificat")
+    private DemandeCertificat demandeCertificat;
 
     @Override
     public boolean equals(Object o) {

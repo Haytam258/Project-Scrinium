@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="include/css :: head"></div>
+<body class="">
+<div class="wrapper ">
+    <div th:replace="include/sidebar :: sidebar-fragment"></div>
+    <div class="main-panel">
+        <!-- Navbar -->
+        <nav th:replace="include/navbar2 :: navbar"></nav>
+        <!-- End Navbar -->
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-6 col-md-12">
+                        <div class="card">
+                            <div class="card-header card-header-text card-header-warning">
+                                <div class="card-text">
+                                    <h4 class="card-title">Demandes Certificat</h4>
+                                    <p class="card-category">Meow Meow Invasionnnnnnn !</p>
+                                </div>
+                            </div>
+                            <div class="card-body table-responsive">
+                                <table class="table table-hover">
+                                    <thead class="text-warning">
+                                    <th>Nom</th>
+                                    <th>Prenom</th>
+                                    <th>CIN</th>
+                                    <th>Type certificat</th>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>Ait hsaine</td>
+                                        <td>Hicham</td>
+                                        <td>JM80825</td>
+                                        <td>certificat Medical</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>Minerva Hooper</td>
+                                        <td>$23,789</td>
+                                        <td>Curaçao</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>Sage Rodriguez</td>
+                                        <td>$56,142</td>
+                                        <td>Netherlands</td>
+                                    </tr>
+                                    <tr>
+                                        <td>4</td>
+                                        <td>Philip Chaney</td>
+                                        <td>$38,735</td>
+                                        <td>Korea, South</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-md-12">
+                        <div class="card">
+                            <div class="card-header card-header-text card-header-warning">
+                                <div class="card-text">
+                                    <h4 class="card-title">Creer Certificat</h4>
+                                    <p class="card-category">New employees on 15th September, 2016</p>
+                                </div>
+                            </div>
+                            <div class="card-body table-responsive">
+                                <form method="get" action="/" class="form-horizontal">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group"></div>
+                                            <label class="bmd-label-floating">Nom</label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group"></div>
+                                            <label class="bmd-label-floating">Prenom</label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group"></div>
+                                            <label class="bmd-label-floating">Date creation </label>
+                                            <input type="date" class="form-control">
+                                        </div>
+                                        <div class="col-lg-5 col-md-6 col-sm-3">
+                                            <div class="form-group"></div>
+                                            <label class="bmd-label-floating">Type Certificat </label>
+                                            <select class="selectpicker" data-size="7" data-style="btn btn-primary btn-round" title="Single Select">
+                                                <option disabled selected>Type Certificat</option>
+                                                <option value="2">Foobar</option>
+                                                <option value="3">Is great</option>
+                                                <option value="4">Is bum</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group"></div>
+                                            <label class="bmd-label-floating">repos</label>
+                                            <textarea class="form-control" rows="5"></textarea>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-rose pull-right">Sauvegarder</button>
+                                    <div class="clearfix"></div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div th:replace="include/footer :: footer"></div>
+    </div>
+</div>
+<div th:replace="include/js :: js"></div>
+</body>
+</html>
