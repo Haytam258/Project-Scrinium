@@ -29,8 +29,8 @@ public class DossierMedicalController {
     @GetMapping("/dossier/index")
     public String index(Model model){
         //fixed idMedecin here til we get it with spring security
+        //Need to remember that this only gets DossierMedicals of patients that have a rendez vous, not all Dossiers.
         List<DossierMedicale> dossiers = dossierMedicalService.getAllDossiersByMedecin(medecinService.medecinById(1));
-        System.out.println(dossiers);
         model.addAttribute("dossiers", dossiers);
         return "dossierMedical/indexMedecin";
     }
@@ -46,7 +46,12 @@ public class DossierMedicalController {
 
     @PostMapping("/dossier/save")
     public String saveDossier(@ModelAttribute DossierMedicale dossierMedicale){
-        dossierMedicalService.create(dossierMedicale);
+        if(patientService.PatientById(dossierMedicale.getPatient().getId()).getDossierMedicale() == null){
+            dossierMedicalService.create(dossierMedicale);
+            Patient patient = patientService.PatientById(dossierMedicale.getPatient().getId());
+            patient.setDossierMedicale(dossierMedicale);
+            patientService.savePatient(patient);
+        }
         return "redirect:/dossier/index";
     }
 }
