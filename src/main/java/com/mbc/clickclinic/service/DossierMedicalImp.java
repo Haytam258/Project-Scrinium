@@ -2,6 +2,9 @@ package com.mbc.clickclinic.service;
 
 import com.mbc.clickclinic.dao.DossierMedicalRepository;
 import com.mbc.clickclinic.entities.DossierMedicale;
+import com.mbc.clickclinic.entities.Medecin;
+import com.mbc.clickclinic.entities.Patient;
+import com.mbc.clickclinic.entities.Rendezvous;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +17,9 @@ public class DossierMedicalImp implements DossierMedicalService{
     @Autowired
     private DossierMedicalRepository dossierMedicalRepository;
 
+    @Autowired
+    private RendezvousService rendezvousService;
+
     @Override
     public DossierMedicale create(DossierMedicale dossierMedicale) {
 
@@ -21,13 +27,15 @@ public class DossierMedicalImp implements DossierMedicalService{
     }
 
     @Override
-    public List<DossierMedicale> getAllDossiersByMedecin(int idMedecin) {
+    public List<DossierMedicale> getAllDossiersByMedecin(Medecin medecin) {
 
         List<DossierMedicale> dossiers = new ArrayList<>();
-        List<Integer> patients = dossierMedicalRepository.getAllPatientsByMedecin(idMedecin);
-        for(int patient : patients){
-            DossierMedicale dossier = dossierMedicalRepository.getDossierByPatient(patient);
-            dossiers.add(dossier);
+        List<Rendezvous> rendezvousList = rendezvousService.getAllRendezvousByMedecin(medecin);
+        for(Rendezvous rendezvous : rendezvousList){
+            DossierMedicale dossier = dossierMedicalRepository.getDossierMedicaleByPatient(rendezvous.getPatient());
+            if(dossier != null && !(dossiers.contains(dossier))){
+                dossiers.add(dossier);
+            }
         }
         return dossiers;
     }

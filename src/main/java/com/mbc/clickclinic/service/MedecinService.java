@@ -14,6 +14,6 @@ public interface MedecinService {
     Medecin findMedecinBykw(String kw);
     Medecin findMedecinByNom(String mName);
     List<Medecin> medecins();
-    Medecin medecinById(Long id);
+    Medecin medecinById(Integer id);
     Medecin saveMedecin(Medecin medecin, Model model);
 }

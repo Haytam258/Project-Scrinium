@@ -39,12 +39,12 @@ public class MedecinRestController {
     }
 
     @PostMapping("/deleteMedecin/{id}")
-    public void deleteMedecin(@PathVariable Long id){
+    public void deleteMedecin(@PathVariable Integer id){
         medecinService.deleteMedecin(medecinService.medecinById(id));
     }
 
     @GetMapping("/medecins/{id}")
-    public Medecin getMedecin(@PathVariable Long id){
+    public Medecin getMedecin(@PathVariable Integer id){
         return medecinService.medecinById(id);
     }
 

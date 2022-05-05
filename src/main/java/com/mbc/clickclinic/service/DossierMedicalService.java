@@ -1,12 +1,13 @@
 package com.mbc.clickclinic.service;
 
 import com.mbc.clickclinic.entities.DossierMedicale;
+import com.mbc.clickclinic.entities.Medecin;
 
 import java.util.List;
 
 public interface DossierMedicalService {
 
     public DossierMedicale create(DossierMedicale dossierMedicale);
-    public List<DossierMedicale> getAllDossiersByMedecin(int idMedecin);
+    public List<DossierMedicale> getAllDossiersByMedecin(Medecin medecin);
 
 }

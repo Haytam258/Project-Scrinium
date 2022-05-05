@@ -84,7 +84,7 @@ public class RendezvousRestController {
 
     @PostMapping("/rendezvous/medecin/")
     public Rendezvous addMedecinToRendezVous(@RequestParam Integer idr, @RequestParam Integer idm){
-        return rendezvousService.AddMedecinToPatient(medecinService.medecinById(idm.longValue()), rendezvousService.RendezvousById(idr));
+        return rendezvousService.AddMedecinToPatient(medecinService.medecinById(idm), rendezvousService.RendezvousById(idr));
     }
 
     @PostMapping("/rendezvous/patient/")

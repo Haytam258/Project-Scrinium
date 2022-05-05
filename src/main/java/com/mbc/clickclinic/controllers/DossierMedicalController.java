@@ -3,8 +3,8 @@ package com.mbc.clickclinic.controllers;
 import com.mbc.clickclinic.entities.DossierMedicale;
 import com.mbc.clickclinic.entities.Patient;
 import com.mbc.clickclinic.service.DossierMedicalService;
+import com.mbc.clickclinic.service.MedecinService;
 import com.mbc.clickclinic.service.PatientService;
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,11 +23,13 @@ public class DossierMedicalController {
     @Autowired
     private PatientService patientService;
 
+    @Autowired
+    private MedecinService medecinService;
+
     @GetMapping("/dossier/index")
     public String index(Model model){
         //fixed idMedecin here til we get it with spring security
-        int idMedecin = 1;
-        List<DossierMedicale> dossiers = dossierMedicalService.getAllDossiersByMedecin(idMedecin);
+        List<DossierMedicale> dossiers = dossierMedicalService.getAllDossiersByMedecin(medecinService.medecinById(1));
         System.out.println(dossiers);
         model.addAttribute("dossiers", dossiers);
         return "dossierMedical/indexMedecin";

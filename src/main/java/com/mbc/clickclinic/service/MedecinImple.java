@@ -67,7 +67,7 @@ public class MedecinImple implements MedecinService{
     }
 
     @Override
-    public Medecin medecinById(Long id) {
-        return medecinRepository.findById(Math.toIntExact(id)).get();
+    public Medecin medecinById(Integer id) {
+        return medecinRepository.findById(id).get();
     }
 }

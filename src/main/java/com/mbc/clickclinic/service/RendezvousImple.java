@@ -108,4 +108,8 @@ public class RendezvousImple implements RendezvousService{
         rendezvous.setConsultation(consultation);
         return rendezvousRepository.saveAndFlush(rendezvous);
     }
+
+    public List<Rendezvous> getAllRendezvousByMedecin(Medecin medecin){
+        return rendezvousRepository.findRendezvousByMedecin(medecin);
+    }
 }
