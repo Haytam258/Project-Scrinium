@@ -37,7 +37,7 @@
                                     <div class="row">
                                         <label class="bmd-label-floating">Medecin :</label>
                                         <select class="selectpicker" data-size="7" data-style="btn btn-primary btn-round" title="Medecin" th:field="*{medecin}" required>
-                                            <option th:each="medecin : ${medecinList}" th:value="${medecin.id}" th:text="${medecin.nom}"></option>
+                                            <option th:each="medecin : ${medecinList}" th:value="${medecin.id}" th:text="${medecin.nom} + ' - ' + ${medecin.specialite}"></option>
                                         </select>
                                     </div>
                                     <div class="row">

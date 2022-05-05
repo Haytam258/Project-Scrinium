@@ -1,17 +1,21 @@
 package com.mbc.clickclinic.controllers;
 
 
+import com.mbc.clickclinic.entities.Consultation;
 import com.mbc.clickclinic.entities.Payment;
 import com.mbc.clickclinic.service.ConsultationService;
 import com.mbc.clickclinic.service.PatientService;
 import com.mbc.clickclinic.service.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-@RestController
+@Controller
 public class PaymentRestController {
 
     private final PaymentService paymentService;
@@ -25,9 +29,34 @@ public class PaymentRestController {
         this.patientService = patientService;
     }
 
-    @PostMapping("/createPayement")
-    public Payment createPayement(@RequestBody Payment payment){
-        return paymentService.savePayment(payment);
+    @GetMapping("/createPaiement")
+    public String createPaiement(Model model){
+        model.addAttribute("paiement", new Payment());
+        model.addAttribute("allConsultations", consultationService.Consultations());
+        return "paiement/createPaiement";
+    }
+
+
+    @PostMapping("/createPaiement")
+    public String createPayement(@ModelAttribute(value = "paiement") Payment payment, Model model){
+        model.addAttribute("allConsultations", consultationService.Consultations());
+        payment.setDatePaiement(LocalDateTime.now());
+        Consultation consultation = consultationService.ConsultationlById(payment.getConsultation().getId());
+        if(consultation.getPayment() == null){
+            if(paymentService.savePayment(payment) != null){
+                consultation.setPayment(payment);
+                model.addAttribute("paiementSuccess", "Paiement effectué avec succès !");
+                consultationService.saveConsultation(consultation);
+            }
+            else {
+                model.addAttribute("paiementFail", "Veuillez vérifiez les informations saisies ");
+            }
+        }
+        else {
+            model.addAttribute("paiementExists", "Cette consultation contient déjà un paiement !");
+        }
+        model.addAttribute("paiement", new Payment());
+        return "paiement/createPaiement";
     }
 
     @GetMapping("/payments")

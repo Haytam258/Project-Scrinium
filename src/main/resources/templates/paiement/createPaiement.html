@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="include/css :: head"></div>
+<body class=" ">
+<div class="wrapper ">
+    <div th:replace="include/sidebar :: sidebar-fragment"></div>
+    <div class="main-panel">
+        <!-- Navbar -->
+        <nav th:replace="include/navbar2 :: navbar"></nav>
+        <!-- End Navbar -->
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12 ">
+                        <div class="card ">
+                            <div class="card-header ">
+                                <h4 class="card-title">Navigation Pills -
+                                    <small class="description">Horizontal Tabs</small>
+                                </h4>
+                            </div>
+                            <div class="card-body ">
+                                <form method="POST" action="#" th:object="${paiement}" th:action="@{/createPaiement}">
+                                    <div class="form-group">
+                                        <label for="montantBrut" class="bmd-label-floating">Total Brut </label>
+                                        <input type="text" class="form-control" id="montantBrut" th:field="*{totalBrut}" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="montantDepose" class="bmd-label-floating">Montant Déposé par le patient :</label>
+                                        <input type="text" class="form-control" id="montantDepose" th:field="*{montantDepose}" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="prix" class="bmd-label-floating">Ce qui reste à payer :</label>
+                                        <input type="text" class="form-control" id="prix" th:field="*{equilibre}" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="remarque" class="bmd-label-floating">Remarques sur paiement :</label>
+                                        <input type="text" class="form-control" id="remarque" th:field="*{remarque}" required>
+                                    </div>
+                                    <div class="col-lg-5 col-md-6 col-sm-3">
+                                        <select class="selectpicker" data-size="7" data-style="btn btn-primary btn-round" title="Consultation" th:field="*{consultation}" >
+                                            <option th:each="consultation : ${allConsultations}" th:value="${consultation.id}" th:text="${consultation.id} +'Consultation du :' + ${consultation.rendezvous.dateRv} + ' - Patient :' + ${consultation.rendezvous.patient.nom}"></option>
+                                        </select>
+                                    </div>
+
+                                    <div class="card-footer ">
+                                        <button type="submit" class="btn btn-fill btn-rose">Submit</button>
+                                    </div>
+                                    <div class="form-group has-success" th:if="${paiementSuccess != null}">
+                                        <span class="alert text-success" th:text="${paiementSuccess}"> </span>
+
+                                    </div>
+                                    <div class="form-group has-danger" th:if="${paiementFail != null}">
+                                        <span class="alert text-danger" th:text="${paiementFail}"> </span>
+
+                                    </div>
+                                    <div class="form-group has-danger" th:if="${paiementExists != null}">
+                                        <span class="alert text-danger" th:text="${paiementExists}"> </span>
+
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="include/js :: js"></div>
+
+</body>
+</html>
