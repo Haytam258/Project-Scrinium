@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -55,6 +56,7 @@ public class CertificatMedicaleRestController {
            demandeCertificat.setCertificatMedicale(certificatMedicale);
            demandeCertificat.setStatus(1);
            certificatMedicale.setDemandeCertificat(demandeCertificat);
+           certificatMedicale.setDateCreation(LocalDate.now());
            certificatMedicaleService.saveCertificatMedical(certificatMedicale);
            demandeCertificatService.saveDemandeCertificat(demandeCertificat);
        }

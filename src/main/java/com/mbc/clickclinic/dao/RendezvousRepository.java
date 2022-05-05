@@ -1,5 +1,6 @@
 package com.mbc.clickclinic.dao;
 
+import com.mbc.clickclinic.entities.Medecin;
 import com.mbc.clickclinic.entities.Patient;
 import com.mbc.clickclinic.entities.Rendezvous;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,4 +18,5 @@ public interface RendezvousRepository extends JpaRepository<Rendezvous, Integer>
     public List<Rendezvous> findRendezvousByDateRv(LocalDate rendezvous);
     public Rendezvous findRendezvousByPatient(Patient patient);
     List<Rendezvous> findRendezvousByDateRvBetween(LocalDate date1, LocalDate date2);
+    List<Rendezvous> findRendezvousByDateRvAndMedecin(LocalDate rendezvous, Medecin medecin);
 }
