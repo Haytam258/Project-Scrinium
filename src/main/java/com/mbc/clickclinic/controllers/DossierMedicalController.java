@@ -28,7 +28,7 @@ public class DossierMedicalController {
     public String index(Model model){
         //fixed idMedecin here til we get it with spring security
         //Need to remember that this only gets DossierMedicals of patients that have a rendez vous, not all Dossiers.
-        List<DossierMedicale> dossiers = dossierMedicalService.getAllDossiersByMedecin(medecinService.medecinById(1));
+        List<DossierMedicale> dossiers = dossierMedicalService.getAllDossiersByMedecin(medecinService.medecinById(5));
         model.addAttribute("dossiers", dossiers);
         return "dossierMedical/indexMedecin";
     }

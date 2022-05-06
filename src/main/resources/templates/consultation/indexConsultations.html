@@ -17,39 +17,37 @@
                                 <div class="card-icon">
                                     <i class="material-icons">assignment</i>
                                 </div>
-                                <h4 class="card-title">Agenda</h4>
+                                <h4 class="card-title">Consultations</h4>
                             </div>
                             <div class="card-body">
                                 <div style="float:right; margin-bottom:20px;">
-                                    <a th:href="@{/dossier/create}" class="btn btn-primary">Nouveau Dossier</a>
+                                    <a th:href="@{/dossier/index}" class="btn btn-primary">Back</a>
                                 </div>
                                 <div class="table-responsive">
-                                    <table class="table table-striped">
+                                    <table class="table">
                                         <thead>
                                         <tr>
-                                            <th>CIN</th>
-                                            <th>Nom Patient</th>
-                                            <th>Consultations</th>
-                                            <th class="text-right">Action</th>
+                                            <th>Date</th>
+                                            <th>Motif</th>
+                                            <th>Diagnostique</th>
+                                            <th>Actions</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr th:each="dossier : ${dossiers}">
-                                            <td th:text="${dossier.patient == null ? '' : dossier.patient.cin}"></td>
-                                            <td th:text="${dossier.patient == null ? '' : dossier.patient.prenom + ' ' + dossier.patient.nom}"></td>
-                                            <td>
-                                                <a type="button" class="btn btn-primary" th:href="@{/consultations/index/{id}(id=${dossier.id})}">Voir Consultations</a>
-                                            </td>
-                                            <td class="td-actions text-right">
+                                        <tr th:each="consultation : ${consultations}">
+                                            <td th:text="${consultation.rendezvous.dateRv}"></td>
+                                            <td th:text="${consultation.motif}"></td>
+                                            <td th:text="${consultation.diagnostique}"></td>
+                                            <td class="td-actions">
                                                 <a rel="tooltip" class="btn btn-success btn-link" href="" data-original-title="" title="">
                                                     <i class="material-icons">visibility</i>
                                                     <div class="ripple-container"></div>
                                                 </a>
-                                                <a th:href="@{/dossier/update/{id}(id=${dossier.id})}" rel="tooltip" class="btn  btn-link btn-info " href="" data-original-title="" title="">
+                                                <a  rel="tooltip" class="btn  btn-link btn-info " href="" data-original-title="" title="">
                                                     <i class="material-icons">edit</i>
                                                     <div class="ripple-container"></div>
                                                 </a>
-                                                <a th:href="@{/dossier/delete/{id}(id=${dossier.id})}" onclick="return confirm('Etes-vous sur de vouloir supprimer ce dossier ?');" rel="tooltip" class="btn btn-success btn-link btn-danger" href="" data-original-title="" title="">
+                                                <a  onclick="return confirm('Etes-vous sur de vouloir supprimer ce dossier ?');" rel="tooltip" class="btn btn-success btn-link btn-danger" href="" data-original-title="" title="">
                                                     <i class="material-icons">delete</i>
                                                     <div class="ripple-container"></div>
                                                 </a>
@@ -69,4 +67,5 @@
 </div>
 <div th:replace="include/js :: js"></div>
 </body>
+
 </html>
