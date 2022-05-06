@@ -39,4 +39,19 @@ public class DossierMedicalImp implements DossierMedicalService{
         }
         return dossiers;
     }
+
+    @Override
+    public DossierMedicale getDossierById(int idDossier) {
+        return dossierMedicalRepository.findById(idDossier).get();
+    }
+
+    @Override
+    public DossierMedicale updateDossier(DossierMedicale dossierMedicale) {
+        return dossierMedicalRepository.save(dossierMedicale);
+    }
+
+    @Override
+    public void deleteDossier(int idDossier) {
+        dossierMedicalRepository.deleteById(idDossier);
+    }
 }

@@ -26,7 +26,7 @@ public class Patient extends Personne{
     @JsonBackReference(value = "salle_patient")
     private SalleDattente salleDattente;
 
-    @OneToMany(mappedBy = "patient")
+    @OneToMany(mappedBy = "patient", cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE })
     @JsonManagedReference(value = "patient_rendez")
     @ToString.Exclude
     private List<Rendezvous> rendezvousList;

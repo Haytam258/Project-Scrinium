@@ -24,7 +24,7 @@ public class DossierMedicale {
     @Lob
     private String observations;
 
-    @OneToMany(mappedBy = "dossierMedicale")
+    @OneToMany(mappedBy = "dossierMedicale", cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE })
     @JsonManagedReference(value = "dossier_consultation")
 
     private List<Consultation> consultationList;
