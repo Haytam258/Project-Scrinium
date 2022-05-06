@@ -23,14 +23,16 @@ public class ConsultationRestController {
     private final MedecinService medecinService;
     private final RendezvousService rendezvousService;
     private final MedicamentService medicamentService;
+    private final DossierMedicalService dossierMedicalService;
 
     @Autowired
-    public ConsultationRestController(ConsultationService consultationService, OrdonnanceService ordonnanceService,@Lazy MedecinService medecinService,@Lazy RendezvousService rendezvousService, MedicamentService medicamentService){
+    public ConsultationRestController(ConsultationService consultationService, OrdonnanceService ordonnanceService,@Lazy MedecinService medecinService,@Lazy RendezvousService rendezvousService, MedicamentService medicamentService,DossierMedicalService dossierMedicalService){
         this.consultationService = consultationService;
         this.ordonnanceService = ordonnanceService;
         this.medecinService = medecinService;
         this.rendezvousService = rendezvousService;
         this.medicamentService = medicamentService;
+        this.dossierMedicalService = dossierMedicalService;
     }
 
     @GetMapping("/consultations")
@@ -41,6 +43,7 @@ public class ConsultationRestController {
     @PostMapping("/createConsultation")
     public String createConsultation(@ModelAttribute(value = "consultation") Consultation consultation,@ModelAttribute(value = "ordonnance") Ordonnance ordonnance, Model model){
         consultation.setOrdonnance(ordonnance);
+        consultation.setDossierMedicale(consultation.getRendezvous().getPatient().getDossierMedicale());
         consultationService.saveConsultation(consultation);
         ordonnance.setConsultation(consultation);
         ordonnanceService.saveOrdonnance(ordonnance);
@@ -71,6 +74,13 @@ public class ConsultationRestController {
     @PostMapping("/deleteConsultation/{id}")
     public void deleteConsultation(@PathVariable Long id){
         consultationService.deleteConsultation(consultationService.ConsultationlById(id.intValue()));
+    }
+
+    @GetMapping("/consultations/index/{id}")
+    public String indexConsultations(@PathVariable(value = "id") int id, Model model){
+        List<Consultation> consultations = consultationService.getAllConsultationsByDossierMedicale(dossierMedicalService.getDossierById(id));
+        model.addAttribute("consultations", consultations);
+        return "consultation/indexConsultations";
     }
 
    /* @PostMapping("/consultation/addPayment")
