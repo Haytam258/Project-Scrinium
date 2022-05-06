@@ -5,6 +5,7 @@ import com.mbc.clickclinic.entities.Annonce;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -44,5 +45,9 @@ public class AnnonceImple implements AnnonceService {
         else {
             return null;
         }
+    }
+
+    public List<Annonce> getWeeklyAnnonces(){
+        return annonceRepository.findAnnoncesByDateCreationBetween(LocalDate.now().minusWeeks(1), LocalDate.now());
     }
 }

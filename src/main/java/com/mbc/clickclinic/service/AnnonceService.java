@@ -12,4 +12,5 @@ public interface AnnonceService {
     Annonce updateNotification(Annonce annonce);
     public List<Annonce> getAllAnnonce();
     public Annonce getAnnonce(int id);
+    List<Annonce> getWeeklyAnnonces();
 }

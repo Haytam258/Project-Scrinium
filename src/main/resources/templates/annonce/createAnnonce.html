@@ -1,10 +1,57 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="include/css :: head"></div>
+<body class="">
+<div class="wrapper ">
+    <div th:replace="include/sidebar :: sidebar-fragment"></div>
+    <div class="main-panel">
+        <!-- Navbar -->
+        <nav th:replace="include/navbar2 :: navbar"></nav>
+        <!-- End Navbar -->
+        <div class="content">
+            <div class="container-fluid">
+                <div class="card">
+                    <div class="card-header card-header-primary card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">mail_outline</i>
+                        </div>
+                        <h4 class="card-title">Stacked Form</h4>
+                    </div>
+                    <div class="card-body ">
+                        <form action="#" th:action="@{/createAnnonce}" th:object="${newAnnonce}" method="post">
+                            <div class="row">
+                                <div class="col-md-5 pr-md-1">
+                                    <div class="form-group bmd-form-group">
+                                        <label for="description" class="bmd-label-floating">Message de l'annonce : </label>
+                                        <input type="text" th:field="*{message}" class="form-control" name="description" id="description">
+                                    </div>
+                                </div>
+                                <div class="col-md-5 pr-md-1">
+                                    <div class="form-group bmd-form-group">
+                                        <label for="jour" class="bmd-label-floating">Objet de l'annonce : </label>
+                                        <input type="text" th:field="*{objet}" class="form-control" name="jour" id="jour">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-fill btn-primary">Submit</button>
+                            </div>
+                            <div class="form-group has-success" th:if="${annonceCreated != null}">
+                                <span class="alert text-success" th:text="${annonceCreated}"> </span>
 
+                            </div>
+                            <div class="form-group has-danger" th:if="${annonceFail != null}">
+                                <span class="alert text-danger" th:text="${annonceFail}"> </span>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div th:replace="include/footer :: footer"></div>
+    </div>
+</div>
+<div th:replace="include/js :: js"></div>
 </body>
 </html>
