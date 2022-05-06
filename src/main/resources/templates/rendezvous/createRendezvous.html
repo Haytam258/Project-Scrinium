@@ -55,6 +55,10 @@
                                         <span class="alert text-danger" th:text="${rendezvousMinute}"> </span>
 
                                     </div>
+                                    <div class="form-group has-danger" th:if="${rendezVousImpossible != null}">
+                                        <span class="alert text-danger" th:text="${rendezVousImpossible}"> </span>
+
+                                    </div>
                                     <div class="form-group has-danger" th:if="${agendaConstraint != null}">
                                         <span class="alert text-danger" th:text="${agendaConstraint}"> </span>
 

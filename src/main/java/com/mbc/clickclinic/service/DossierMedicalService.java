@@ -2,7 +2,6 @@ package com.mbc.clickclinic.service;
 
 import com.mbc.clickclinic.entities.DossierMedicale;
 import com.mbc.clickclinic.entities.Medecin;
-import org.jcp.xml.dsig.internal.dom.DOMSignedInfo;
 
 import java.util.List;
 
