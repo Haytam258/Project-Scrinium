@@ -76,7 +76,7 @@ public class ConsultationRestController {
         consultationService.deleteConsultation(consultationService.ConsultationlById(id.intValue()));
     }
 
-    @GetMapping("/consultations/index/{id}")
+    @GetMapping("/consultation/index/{id}")
     public String indexConsultations(@PathVariable(value = "id") int id, Model model){
         List<Consultation> consultations = consultationService.getAllConsultationsByDossierMedicale(dossierMedicalService.getDossierById(id));
         model.addAttribute("consultations", consultations);
