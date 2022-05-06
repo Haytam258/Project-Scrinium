@@ -52,6 +52,11 @@ public class RendezvousImple implements RendezvousService{
                 }
             }
         }
+        if(rendezvous.getDateRv().isBefore(LocalDate.now())){
+            System.out.println("We're here");
+            model.addAttribute("rendezVousImpossible", "Un rendez vous avant aujourd'hui est impossible !");
+            return null;
+        }
         List<Agenda> agendaList = agendaService.getAgendaByMedecin(rendezvous.getMedecin());
         if(agendaList.size() != 0){
             for(Agenda agenda : agendaList){

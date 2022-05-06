@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.jws.WebParam;
 import java.util.List;
 
 @Controller
@@ -29,7 +28,7 @@ public class DossierMedicalController {
     public String index(Model model){
         //fixed idMedecin here til we get it with spring security
         //Need to remember that this only gets DossierMedicals of patients that have a rendez vous, not all Dossiers.
-        List<DossierMedicale> dossiers = dossierMedicalService.getAllDossiersByMedecin(medecinService.medecinById(5));
+        List<DossierMedicale> dossiers = dossierMedicalService.getAllDossiersByMedecin(medecinService.medecinById(1));
         model.addAttribute("dossiers", dossiers);
         return "dossierMedical/indexMedecin";
     }

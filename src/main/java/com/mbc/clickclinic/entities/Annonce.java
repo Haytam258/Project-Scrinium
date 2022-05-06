@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 
@@ -21,7 +22,7 @@ public class Annonce {
     private Integer id;
     private String objet;
     private String message;
-    private Date dateCreation;
+    private LocalDate dateCreation;
 
     @Override
     public boolean equals(Object o) {
