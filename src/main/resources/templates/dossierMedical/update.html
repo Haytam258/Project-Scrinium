@@ -22,22 +22,20 @@
                         <h4 class="card-title">Nouveau Dossier</h4>
                     </div>
                     <div class="card-body ">
-                        <form action="#" th:action="@{/dossier/save}" th:object="${dossierMedical}" method="post">
+                        <form action="#" th:action="@{/dossier/update}" th:object="${dossierMedical}" method="post">
                             <div class="row">
                                 <div class="col-md-5 pr-md-1">
                                     <div class="form-group">
                                         <label for="id_patient" class="bmd-label-floating">Nom Patient</label>
-                                        <select th:field="*{patient}" name="id_patient" id="id_patient" class="form-control" >
-                                            <option th:each="patient : ${patients}" th:value="${patient.id}" th:text="${patient.prenom + ' ' + patient.nom}"></option>
-                                        </select>
+                                        <input type="text" th:value="*{patient.prenom + ' ' + patient.nom}" class="form-control" name="id_patient" id="id_patient" readonly>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-5 pr-md-1">
                                     <div class="form-group bmd-form-group">
-                                        <label for="antecedant" class="bmd-label-floating">Antecedants</label>
-                                        <input type="text" th:field="*{antecedent}" class="form-control" name="antecedant" id="antecedant">
+                                        <label for="antecedants" class="bmd-label-floating">Antecedants</label>
+                                        <input type="text" th:field="*{antecedent}" class="form-control" name="antecedants" id="antecedants">
                                     </div>
                                 </div>
                             </div>
@@ -48,6 +46,12 @@
                                         <input type="text" th:field="*{observations}" class="form-control" name="observations" id="observations">
                                     </div>
                                 </div>
+                            </div>
+                            <div>
+                                <input type="hidden" name="patient" th:field="*{patient}">
+                            </div>
+                            <div>
+                                <input type="hidden" name="id_dossier" th:field="*{id}">
                             </div>
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-fill btn-primary">Submit</button>
