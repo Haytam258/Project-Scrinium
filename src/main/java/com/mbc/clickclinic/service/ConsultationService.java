@@ -1,6 +1,7 @@
 package com.mbc.clickclinic.service;
 
 import com.mbc.clickclinic.entities.Consultation;
+import com.mbc.clickclinic.entities.DossierMedicale;
 import com.mbc.clickclinic.entities.Payment;
 import com.mbc.clickclinic.entities.Rendezvous;
 import org.springframework.stereotype.Service;
@@ -16,5 +17,5 @@ public interface ConsultationService {
     Consultation ConsultationlById(int id);
     public Consultation AddPaiementToConsultation(Payment payment, Consultation consultation);
     public Optional<Consultation> getConsultationByRendezVous(Rendezvous rendezvous);
-
+    List<Consultation> getAllConsultationsByDossierMedicale(DossierMedicale dossierMedicale);
 }

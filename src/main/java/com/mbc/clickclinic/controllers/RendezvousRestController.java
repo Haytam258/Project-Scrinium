@@ -33,8 +33,9 @@ public class RendezvousRestController {
     }
 
     @GetMapping("/allRendezvous")
-    public List<Rendezvous> getAllRendezvous(){
-        return rendezvousService.Rendezvouss();
+    public String getAllRendezvous(Model model){
+        model.addAttribute("rendezvousList", rendezvousService.Rendezvouss());
+        return "rendezvous/rendezvousList";
     }
 
     @GetMapping("/allRendezvous/{id}")
@@ -77,9 +78,10 @@ public class RendezvousRestController {
         return rendezvousService.updateRendezvous(rendezvous);
     }
 
-    @PostMapping("/deleteRendezvous/{id}")
-    public void deleteRendezvous(@PathVariable Long id){
-        rendezvousService.deleteRendezvous(rendezvousService.RendezvousById(id.intValue()));
+    @GetMapping("/deleteRendezvous/{id}")
+    public String deleteRendezvous(@PathVariable Integer id){
+        rendezvousService.deleteRendezvous(rendezvousService.RendezvousById(id));
+        return "redirect:/allRendezvous";
     }
 
     @PostMapping("/rendezvous/medecin/")

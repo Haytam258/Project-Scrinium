@@ -2,6 +2,7 @@ package com.mbc.clickclinic.service;
 
 import com.mbc.clickclinic.dao.ConsultationRepository;
 import com.mbc.clickclinic.entities.Consultation;
+import com.mbc.clickclinic.entities.DossierMedicale;
 import com.mbc.clickclinic.entities.Payment;
 import com.mbc.clickclinic.entities.Rendezvous;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,5 +55,10 @@ public class ConsultationImpl implements ConsultationService{
 
     public Optional<Consultation> getConsultationByRendezVous(Rendezvous rendezvous){
         return consultationRepository.findById(rendezvous.getConsultation().getId());
+    }
+
+    @Override
+    public List<Consultation> getAllConsultationsByDossierMedicale(DossierMedicale dossierMedicale) {
+        return consultationRepository.findConsultationsByDossierMedicale(dossierMedicale);
     }
 }

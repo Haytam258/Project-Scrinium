@@ -28,34 +28,32 @@
                                         <thead>
                                         <tr>
                                             <th>Nom Patient</th>
-                                            <th>Prenom Patient</th>
-                                            <th>Région</th>
-                                            <th>Sexe</th>
-                                            <th>Date naissance</th>
+                                            <th>CIN Patient</th>
+                                            <th>Date Rendez vous</th>
+                                            <th>Heure Rendez vous</th>
+                                            <th>Médecin</th>
                                             <th class="disabled-sorting text-right">Actions</th>
                                         </tr>
                                         </thead>
                                         <tfoot>
                                         <tr>
                                             <th>Nom Patient</th>
-                                            <th>Prenom Patient</th>
-                                            <th>Région</th>
-                                            <th>Sexe</th>
-                                            <th>Date naissance</th>
+                                            <th>CIN Patient</th>
+                                            <th>Date Rendez vous</th>
+                                            <th>Heure Rendez vous</th>
+                                            <th>Médecin</th>
                                             <th class="text-right">Actions</th>
                                         </tr>
                                         </tfoot>
                                         <tbody>
-                                        <tr th:each="patient : ${patientsOfToday}">
-                                            <td th:text="${patient.nom}"></td>
-                                            <td th:text="${patient.prenom}"></td>
-                                            <td th:text="${patient.region}"></td>
-                                            <td th:text="${patient.sexe}"></td>
-                                            <td th:text="${patient.dateNaissance}"></td>
+                                        <tr th:each="rendez : ${rendezvousList}">
+                                            <td th:text="${rendez.patient == null ? '' : rendez.patient.nom}"></td>
+                                            <td th:text="${rendez.patient == null ? '' : rendez.patient.cin}"></td>
+                                            <td th:text="${rendez.dateRv}"></td>
+                                            <td th:text="${rendez.heure}"></td>
+                                            <td th:text="${rendez.medecin == null ? '' : rendez.medecin.nom + ' ' + rendez.medecin.prenom}"></td>
                                             <td class="text-right">
-                                                <a th:each="medecin : ${medecinList}"  th:href="@{/salles/patients/add(ids=${medecin.salleDattente.id}, idp=${patient.id})}" href="#" class="btn btn-link btn-info btn-just-icon like" th:text="${medecin.salleDattente.id}"></a>
-                                                <a href="#" class="btn btn-link btn-warning btn-just-icon edit"><i class="material-icons">dvr</i></a>
-                                                <a href="#" class="btn btn-link btn-danger btn-just-icon remove"><i class="material-icons">close</i></a>
+                                                <a th:href="@{/deleteRendezvous/{id}(id = ${rendez.id})}" href="#" class="btn btn-link btn-info btn-just-icon remove" ><i class="material-icons">close</i></a>
                                             </td>
                                         </tr>
                                         </tbody>

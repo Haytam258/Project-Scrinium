@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 public interface SecretaireRepository extends JpaRepository<Secretaire,Integer> {
 
     public Secretaire findSecretaireByNom(String nom);
+    Secretaire findSecretaireByEmail(String email);
 }

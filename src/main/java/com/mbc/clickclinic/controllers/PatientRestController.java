@@ -13,7 +13,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Controller
-//@RestController
 public class PatientRestController {
 
     private final PatientService patientService;
@@ -36,10 +35,6 @@ public class PatientRestController {
         return patientService.PatientById(Math.toIntExact(id));
     }
 
-    /*@PostMapping("/createPatient")
-    public Patient createPatient(@RequestBody Patient patient){
-        return patientService.savePatient(patient);
-    }*/
 
     @GetMapping("/createPatient")
     public String createPatient(Model model){
@@ -49,8 +44,7 @@ public class PatientRestController {
 
     @PostMapping("/createPatient")
     public String createPatient(Model model, @ModelAttribute Patient patient){
-        Patient patient1 = patientService.savePatient(patient, model);
-        if(patient1 != null){
+        if(patientService.savePatient(patient, model) != null){
             model.addAttribute("patientCreated", "Le patient a été enregistré !");
         }
         return "patient/createPatient";

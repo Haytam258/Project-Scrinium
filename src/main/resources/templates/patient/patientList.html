@@ -27,23 +27,23 @@
                   <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                     <thead>
                     <tr>
-                      <th>Libellé</th>
-                      <th>Nom Générique</th>
-                      <th>Fabriquant</th>
-                      <th>Code ATC</th>
-                      <th>Prix Achat</th>
-                      <th>Type</th>
-                      <th>Catégorie</th>
+                      <th>Nom Patient</th>
+                      <th>Prenom Patient</th>
+                      <th>Région</th>
+                      <th>Sexe</th>
+                      <th>Date de naissance</th>
+                      <th>Email</th>
                       <th class="disabled-sorting text-right">Actions</th>
                     </tr>
                     </thead>
                     <tfoot>
                     <tr>
-                      <th>Name</th>
-                      <th>Position</th>
-                      <th>Office</th>
-                      <th>Age</th>
-                      <th>Start date</th>
+                      <th>Nom Patient</th>
+                      <th>Prenom Patient</th>
+                      <th>Région</th>
+                      <th>Sexe</th>
+                      <th>Date de naissance</th>
+                      <th>Email</th>
                       <th class="text-right">Actions</th>
                     </tr>
                     </tfoot>
@@ -54,6 +54,7 @@
                       <td th:text="${patient.region}"></td>
                       <td th:text="${patient.sexe}"></td>
                       <td th:text="${patient.dateNaissance}"></td>
+                      <td th:text="${patient.email}"></td>
                       <td class="text-right">
                         <a th:href="@{/deletePatient/{id}(id = ${patient.id})}" href="#" class="btn btn-link btn-info btn-just-icon remove" ><i class="material-icons">close</i></a>
                       </td>

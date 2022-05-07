@@ -46,8 +46,9 @@ public class AnnonceRestController {
     }
 
     @GetMapping("/annonces")
-    public List<Annonce> getAnnonces(){
-        return annonceService.getAllAnnonce();
+    public String getAnnonces(Model model){
+        model.addAttribute("annonceList",annonceService.getAllAnnonce());
+        return "annonce/annonceList";
     }
 
     @GetMapping("/annonces/{id}")
@@ -55,8 +56,9 @@ public class AnnonceRestController {
         return annonceService.getAnnonce(id.intValue());
     }
 
-    @PostMapping("/deleteAnnonce/{id}")
-    public void deleteAnnonce(@PathVariable Long id){
-        annonceService.deleteNotification(annonceService.getAnnonce(id.intValue()));
+    @GetMapping("/deleteAnnonce/{id}")
+    public String deleteAnnonce(@PathVariable Integer id){
+        annonceService.deleteNotification(annonceService.getAnnonce(id));
+        return "redirect:/annonces";
     }
 }

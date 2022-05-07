@@ -4,6 +4,7 @@ import com.mbc.clickclinic.dao.SecretaireRepository;
 import com.mbc.clickclinic.entities.Secretaire;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import java.util.List;
 
@@ -18,6 +19,14 @@ public class SecretaireImple implements SecretaireService{
     }
     @Override
     public Secretaire saveSecretaire(Secretaire secretaire) {
+        return secretaireRepository.saveAndFlush(secretaire);
+    }
+
+    public Secretaire saveSecretaire(Secretaire secretaire, Model model){
+        if(secretaireRepository.findSecretaireByEmail(secretaire.getEmail()) != null){
+            model.addAttribute("emailExists", "Cet Email existe déjà !");
+            return null;
+        }
         return secretaireRepository.saveAndFlush(secretaire);
     }
 
