@@ -35,8 +35,9 @@ public class PatientRestController {
     }
 
     @GetMapping("/patients/{id}")
-    public Patient getPatient(@PathVariable Long id){
-        return patientService.PatientById(Math.toIntExact(id));
+    public String getPatient(@PathVariable Integer id,Model model){
+        model.addAttribute("patientGet", patientService.PatientById(id));
+        return "patient/patientInfo";
     }
 
 
@@ -48,8 +49,13 @@ public class PatientRestController {
 
     @PostMapping("/createPatient")
     public String createPatient(Model model, @ModelAttribute Patient patient){
-        if(patientService.savePatient(patient, model) != null){
-            model.addAttribute("patientCreated", "Le patient a été enregistré !");
+        if(!(patient.getMobil().matches("[0][6][0-9]{8}"))){
+            model.addAttribute("telInvalid", "Numéro de téléphone invalide !");
+        }
+        else {
+            if(patientService.savePatient(patient, model) != null){
+                model.addAttribute("patientCreated", "Le patient a été enregistré !");
+            }
         }
         return "patient/createPatient";
     }

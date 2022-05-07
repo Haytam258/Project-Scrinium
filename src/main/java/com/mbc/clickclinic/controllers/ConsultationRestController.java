@@ -63,8 +63,9 @@ public class ConsultationRestController {
 
 
     @GetMapping("/consultations/{id}")
-    public Consultation getConsultation(@PathVariable Long id){
-        return consultationService.ConsultationlById(id.intValue());
+    public String getConsultation(@PathVariable Integer id, Model model){
+        model.addAttribute("consultationAsked",consultationService.ConsultationlById(id));
+        return "consultation/showConsultation";
     }
 
     @PostMapping("/updateConsultation")
@@ -72,7 +73,7 @@ public class ConsultationRestController {
         return consultationService.updateConsultation(consultation);
     }
 
-    @PostMapping("/deleteConsultation/{id}")
+    @GetMapping("/deleteConsultation/{id}")
     public String deleteConsultation(@PathVariable Integer id){
         consultationService.deleteConsultation(consultationService.ConsultationlById(id));
         return "redirect:/consultations";

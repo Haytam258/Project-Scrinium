@@ -56,8 +56,8 @@
                                             <td th:text="${rendez.patient.dateNaissance}"></td>
                                             <td th:text="${rendez.heure}"></td>
                                             <td class="text-right">
+                                                <a th:href="@{/patients/{id}(id=${rendez.patient.id})}" class="btn btn-link btn-info btn-just-icon like" ><i class="material-icons">info</i></a>
                                                 <a th:href="@{/salles/patients/add(ids=${rendez.medecin.salleDattente.id}, idp=${rendez.patient.id})}" href="#" class="btn btn-link btn-info btn-just-icon like" th:text="${rendez.medecin.salleDattente.id}"></a>
-                                                <a href="#" class="btn btn-link btn-warning btn-just-icon edit"><i class="material-icons">dvr</i></a>
                                                 <a href="#" class="btn btn-link btn-danger btn-just-icon remove"><i class="material-icons">close</i></a>
                                             </td>
                                         </tr>

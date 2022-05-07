@@ -56,7 +56,8 @@
                       <td th:text="${patient.dateNaissance}"></td>
                       <td th:text="${patient.email}"></td>
                       <td class="text-right">
-                        <a th:href="@{/deletePatient/{id}(id = ${patient.id})}" onclick="return confirm('Etes vous sure ?');" href="#" class="btn btn-link btn-info btn-just-icon remove" ><i class="material-icons">close</i></a>
+                        <a th:href="@{/patients/{id}(id=${patient.id})}" class="btn btn-link btn-info btn-just-icon like" ><i class="material-icons">info</i></a>
+                        <a th:href="@{/deletePatient/{id}(id = ${patient.id})}" onclick="return confirm('Etes vous sure ?');" href="#" class="btn btn-link btn-danger btn-just-icon remove" ><i class="material-icons">close</i></a>
                       </td>
                     </tr>
                     </tbody>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="include/css :: head"></div>
+<body class="">
+<div class="wrapper ">
+  <div th:replace="include/sidebar :: sidebar-fragment"></div>
+  <div class="main-panel">
+    <!-- Navbar -->
+    <nav th:replace="include/navbar2 :: navbar"></nav>
+    <!-- End Navbar -->
+    <div class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12 ">
+            <div class="card ">
+              <div class="card-header ">
+                <h4 class="card-title">Informations du patient <span th:text="${patientGet.nom + ' ' + patientGet.prenom}"></span> </h4>
+              </div>
+              <div class="card-body ">
+                <ul class="nav nav-pills nav-pills-warning" role="tablist">
+                  <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#link1" role="tablist">
+                      Information générale
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#link2" role="tablist">
+                      Consultations
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#link3" role="tablist">
+                      Dossier Médical
+                    </a>
+                  </li>
+                </ul>
+                <div class="tab-content tab-space">
+                  <div class="tab-pane active" id="link1">
+                    <p th:text="'Nom : ' +${patientGet.nom}"></p>
+                    <p th:text="'Prénom : ' +${patientGet.prenom}"></p>
+                    <p th:text="'Sexe : ' +${patientGet.sexe}"></p>
+                    <p th:text="'CIN : ' +${patientGet.cin}"></p>
+                    <p th:text="'Date de naissance : ' +${patientGet.dateNaissance}"></p>
+                    <p th:text="'Téléphone : ' +${patientGet.mobil}"></p>
+                    <p th:text="'Etat civile : ' +${patientGet.etatCivile == null ? 'N/A' : patientGet.etatCivile}"></p>
+                  </div>
+
+                  <div class="tab-pane" id="link2">
+                    <div class="card-body">
+                      <div id="accordion" role="tablist">
+                        <div class="card-collapse">
+                          <div class="card-header" role="tab" id="headingOne">
+                            <h5 class="mb-0">
+                              <a data-toggle="collapse" th:each="consultation : ${patientGet.dossierMedicale.consultationList}" th:href="|#${consultation.id}" th:text="'Consultation du '+ ${consultation.rendezvous.dateRv}" aria-expanded="true" aria-controls="collapseOne">
+                                <i class="material-icons">keyboard_arrow_down</i>
+                              </a>
+                            </h5>
+                          </div>
+                          <div th:each="consultation : ${patientGet.dossierMedicale.consultationList}" th:id="${consultation.id}" class="collapse" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
+                            <div class="card-body">
+                              <div class="row">
+                                <div class="col-md-8">
+                                  <h2 th:text="'Motif : ' + ${consultation.motif}"></h2>
+                                  <h3 th:text="'Diagnostique : ' + ${consultation.diagnostique}"></h3>
+                                  <h3 th:text="'Résultat du examen clinique : ' + ${consultation.resultatExmentClinique}"></h3>
+                                  <h3 th:text="'Remarque : ' + ${consultation.remarques}"></h3>
+                                </div>
+                                <div class="col-md-4">
+                                  <h4 th:text="'Poids : ' + ${consultation.poids}"></h4>
+                                  <h4 th:text="'Taille : ' + ${consultation.talle}"></h4>
+                                  <h4 th:text="'Fréquence cardiaque : ' + ${consultation.frequenceCardiaque}"></h4>
+                                  <h4 th:text="'Pression artérielle : ' + ${consultation.pressionArterielle}"></h4>
+                                  <h4 th:text="'IMC : ' + ${consultation.imc}"></h4>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                    </div>
+
+                  </div>
+                  <div class="tab-pane" id="link3">
+
+                    <div class="col-md-4" th:object="${patientGet.dossierMedicale}">
+                      <p th:text="'Antécédant : ' + *{antecedent}"></p>
+                      <p th:text="'Observations : ' + *{observations}"></p>
+                    </div>
+
+
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <footer th:replace="include/footer :: footer"></footer>
+  </div>
+</div>
+
+
+
+<div th:replace="include/js :: js"></div>
+</body>
+</html>

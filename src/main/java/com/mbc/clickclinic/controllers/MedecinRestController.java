@@ -38,7 +38,7 @@ public class MedecinRestController {
         return medecinService.updateMedecin(medecin);
     }
 
-    @PostMapping("/deleteMedecin/{id}")
+    @GetMapping("/deleteMedecin/{id}")
     public String deleteMedecin(@PathVariable Integer id){
         medecinService.deleteMedecin(medecinService.medecinById(id));
         return "redirect:/medecins";
