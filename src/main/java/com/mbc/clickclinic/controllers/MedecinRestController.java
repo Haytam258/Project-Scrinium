@@ -39,8 +39,9 @@ public class MedecinRestController {
     }
 
     @PostMapping("/deleteMedecin/{id}")
-    public void deleteMedecin(@PathVariable Integer id){
+    public String deleteMedecin(@PathVariable Integer id){
         medecinService.deleteMedecin(medecinService.medecinById(id));
+        return "redirect:/medecins";
     }
 
     @GetMapping("/medecins/{id}")
@@ -49,7 +50,8 @@ public class MedecinRestController {
     }
 
     @GetMapping("/medecins")
-    public List<Medecin> getMedecins(){
-        return medecinService.medecins();
+    public String getMedecins(Model model){
+        model.addAttribute("allMedecins",medecinService.medecins());
+        return "medecin/medecinList";
     }
 }
