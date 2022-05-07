@@ -23,21 +23,6 @@
                       <i class="material-icons">airline_seat_legroom_extra</i> Salle d'attente <div th:if="${medecin.salleDattente != null}"><span th:text="${medecin.salleDattente.id}"></span></div>
                     </a>
                   </li>
-                  <li class="nav-item">
-                    <a class="nav-link active" data-toggle="tab" href="#link8" role="tablist">
-                      <i class="material-icons">airline_seat_legroom_extra</i> Salle d'attente 2
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#link9" role="tablist">
-                      <i class="material-icons">airline_seat_legroom_extra</i> Salle d'attente 3
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#link10" role="tablist">
-                      <i class="material-icons">airline_seat_legroom_extra</i> Salle d'attente 4
-                    </a>
-                  </li>
                 </ul>
                 <div class="tab-content tab-space tab-subcategories">
                   <div class="tab-pane" id="link7" th:each="medecin : ${medecins}" th:id="*{medecin.nom}">
@@ -54,8 +39,8 @@
                             <table class="table">
                               <thead>
                               <tr>
-                                <th class="text-center">NOM</th>
-                                <th>prenom</th>
+                                <th class="text-center">Nom</th>
+                                <th>Prenom</th>
                                 <th>CIN</th>
                                 <th>Sexe</th>
                                 <th class="text-right">Actions</th>
@@ -69,6 +54,7 @@
                                 <td th:text="${patient.cin}"></td>
                                 <td th:text="${patient.sexe}"></td>
                                 <td class="td-actions text-right">
+                                  <!--Insert button for infoPatient here(for both sec and doc), as well as button to remove from salleDattente(for secretary), button to go to consultation(for doctor), button to go to paiement(for secretary)      -->
                                   <button type="button" rel="tooltip" class="btn btn-info btn-round" >
                                     <i class="material-icons">person</i>
                                   </button>
@@ -79,135 +65,6 @@
                               </tr>
                               </tbody>
                               </div>
-                            </table>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="tab-pane active" id="link8">
-                    <div class="card">
-                      <div class="card-header">
-                        <h4 class="card-title">Dr:Hiba Tlmsani</h4>
-                        <p class="card-category">
-                          More information here
-                        </p>
-                      </div>
-                      <div class="card-body">
-                        <div class="card-body">
-                          <div class="table-responsive">
-                            <table class="table">
-                              <thead>
-                                <tr>
-                                  <th class="text-center">#</th>
-                                  <th>Name</th>
-                                  <th>Job Position</th>
-                                  <th>Since</th>
-                                  <th class="text-right">Actions</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr>
-                                  <td class="text-center">2</td>
-                                  <td>John Doe</td>
-                                  <td>Design</td>
-                                  <td>2012</td>
-                                  <td class="td-actions text-right">
-                                    <button type="button" rel="tooltip" class="btn btn-info btn-round">
-                                      <i class="material-icons">person</i>
-                                    </button>
-                                    <button type="button" rel="tooltip" class="btn btn-danger btn-round">
-                                      <i class="material-icons">close</i>
-                                    </button>
-                                  </td>
-                                </tr>
-                              </tbody>
-                            </table>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="tab-pane" id="link9">
-                    <div class="card">
-                      <div class="card-header">
-                        <h4 class="card-title">Dr: Nouamane Salamat</h4>
-                        <p class="card-category">
-                          More information here
-                        </p>
-                      </div>
-                      <div class="card-body">
-                        <div class="card-body">
-                          <div class="table-responsive">
-                            <table class="table">
-                              <thead>
-                                <tr>
-                                  <th class="text-center">#</th>
-                                  <th>Name</th>
-                                  <th>Job Position</th>
-                                  <th>Since</th>
-                                  <th class="text-right">Actions</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr>
-                                  <td class="text-center">2</td>
-                                  <td>John Doe</td>
-                                  <td>Design</td>
-                                  <td>2012</td>
-                                  <td class="td-actions text-right">
-                                    <button type="button" rel="tooltip" class="btn btn-info btn-round">
-                                      <i class="material-icons">person</i>
-                                    </button>
-                                    <button type="button" rel="tooltip" class="btn btn-danger btn-round">
-                                      <i class="material-icons">close</i>
-                                    </button>
-                                  </td>
-                                </tr>
-                              </tbody>
-                            </table>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="tab-pane" id="link10">
-                    <div class="card">
-                      <div class="card-header">
-                        <h4 class="card-title">Dr:Nabila Mojahid</h4>
-                        <p class="card-category">
-                          More information here
-                        </p>
-                      </div>
-                      <div class="card-body">
-                        <div class="card-body">
-                          <div class="table-responsive">
-                            <table class="table">
-                              <thead>
-                                <tr>
-                                  <th class="text-center">#</th>
-                                  <th>Name</th>
-                                  <th>Job Position</th>
-                                  <th>Since</th>
-                                  <th class="text-right">Actions</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr>
-                                  <td class="text-center">2</td>
-                                  <td>John Doe</td>
-                                  <td>Design</td>
-                                  <td>2012</td>
-                                  <td class="td-actions text-right">
-                                    <button type="button" rel="tooltip" class="btn btn-info btn-round">
-                                      <i class="material-icons">person</i>
-                                    </button>
-                                    <button type="button" rel="tooltip" class="btn btn-danger btn-round">
-                                      <i class="material-icons">close</i>
-                                    </button>
-                                  </td>
-                                </tr>
-                              </tbody>
                             </table>
                           </div>
                         </div>

@@ -47,7 +47,7 @@
                                             <td th:text="${annonce.message}"></td>
                                             <td th:text="${annonce.dateCreation}"></td>
                                             <td class="text-right">
-                                                <a th:href="@{/deleteAnnonce/{id}(id = ${annonce.id})}" href="#" class="btn btn-link btn-info btn-just-icon remove" ><i class="material-icons">close</i></a>
+                                                <a id="delete" th:href="@{/deleteAnnonce/{id}(id = ${annonce.id})}" onclick="return confirm('Etes vous sure ?');" href="#" class="btn btn-link btn-info btn-just-icon remove" ><i class="material-icons">close</i></a>
                                             </td>
                                         </tr>
                                         </tbody>

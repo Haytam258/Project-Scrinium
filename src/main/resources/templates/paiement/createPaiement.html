@@ -38,7 +38,7 @@
                                     </div>
                                     <div class="col-lg-5 col-md-6 col-sm-3">
                                         <select class="selectpicker" data-size="7" data-style="btn btn-primary btn-round" title="Consultation" th:field="*{consultation}" >
-                                            <option th:each="consultation : ${allConsultations}" th:value="${consultation.id}" th:text="${consultation.id} +'Consultation du :' + ${consultation.rendezvous.dateRv} + ' - Patient :' + ${consultation.rendezvous.patient.nom}"></option>
+                                            <option th:each="consultation : ${allConsultations}" th:if="${consultation.payment == null}" th:value="${consultation.id}" th:text="'Consultation du :' + ${consultation.rendezvous.dateRv} + ' - Patient :' + ${consultation.rendezvous.patient.nom}"></option>
                                         </select>
                                     </div>
 

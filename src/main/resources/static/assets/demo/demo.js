@@ -767,6 +767,7 @@ demo = {
             confirmButtonClass: "btn btn-success",
             buttonsStyling: false
           }).catch(swal.noop)
+          return true;
         }
         else {
           swal({
@@ -776,6 +777,7 @@ demo = {
             confirmButtonClass: "btn btn-info",
             buttonsStyling: false
           }).catch(swal.noop)
+          return false;
         }
       })
     } else if (type == 'custom-html') {

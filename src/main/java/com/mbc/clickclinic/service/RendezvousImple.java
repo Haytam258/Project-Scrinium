@@ -36,6 +36,10 @@ public class RendezvousImple implements RendezvousService{
         return rendezvousRepository.findRendezvousByDateRv(date);
     }
 
+    public List<Rendezvous> rendezvousByDateAndStatut(LocalDate date, Integer statut){
+        return rendezvousRepository.findRendezvousByDateRvAndStatut(date,statut);
+    }
+
     @Override
     public Rendezvous saveRendezvous(Rendezvous rendezvous, Model model) {
         List<Rendezvous> rend = rendezvousRepository.findRendezvousByDateRv(rendezvous.getDateRv());
@@ -48,6 +52,10 @@ public class RendezvousImple implements RendezvousService{
                 //HTML Transition : if(rendezvous.getHeure().getHour() <= rendez.getHeure().getHour() + 1 && rendezvous.getHeure().getHour() >= rendez.getHeure().getHour() - 1 && rendez.getStatut() == 0 && rendezvous.getStatut() == 0){
                 if(Math.abs(ChronoUnit.MINUTES.between(rendezvous.getHeure(), rendez.getHeure())) <= 30 && rendez.getStatut() == 0 && rendezvous.getStatut() == 0){
                     model.addAttribute("rendezvousMinute", "les rendez vous doivent etre séparés par 30 minutes !");
+                    return null;
+                }
+                if(rendezvous.getPatient() == rendez.getPatient() && rendezvous.getMedecin() == rendez.getMedecin() && rendezvous.getDateRv().isEqual(rendez.getDateRv())){
+                    model.addAttribute("rendezvousAlready", "Ce patient a déjà un rendez vous avec ce médecin le jour que vous avez choisi !");
                     return null;
                 }
             }
@@ -77,7 +85,7 @@ public class RendezvousImple implements RendezvousService{
 
     @Override
     public Rendezvous updateRendezvous(Rendezvous rendezvous) {
-        return null;
+        return rendezvousRepository.saveAndFlush(rendezvous);
     }
 
     @Override

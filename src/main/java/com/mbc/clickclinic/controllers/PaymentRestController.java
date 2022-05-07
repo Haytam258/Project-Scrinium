@@ -60,8 +60,9 @@ public class PaymentRestController {
     }
 
     @GetMapping("/payments")
-    public List<Payment> getPayments(){
-        return paymentService.payments();
+    public String getPayments(Model model){
+        model.addAttribute("allPayments", paymentService.payments());
+        return "paiement/paiementList";
     }
 
     @GetMapping("/payments/{id}")
@@ -69,9 +70,10 @@ public class PaymentRestController {
         return paymentService.paymentById(id.intValue());
     }
 
-    @PostMapping("/deletePayment/{id}")
-    public void deletePayment(@PathVariable Long id){
-        paymentService.deletePayment(paymentService.paymentById(id.intValue()));
+    @GetMapping("/deletePayment/{id}")
+    public String deletePayment(@PathVariable Integer id){
+        paymentService.deletePayment(paymentService.paymentById(id));
+        return "redirect:/payments";
     }
 
     @GetMapping("/payment/consultation/{id}")

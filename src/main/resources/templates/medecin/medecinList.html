@@ -17,7 +17,7 @@
                                 <div class="card-icon">
                                     <i class="material-icons">assignment</i>
                                 </div>
-                                <h4 class="card-title">DataTables.net</h4>
+                                <h4 class="card-title">Liste de tous les médecins</h4>
                             </div>
                             <div class="card-body">
                                 <div class="toolbar">
@@ -59,7 +59,7 @@
                                             <td th:text="${medecin.email}"></td>
                                             <td th:text="${medecin.specialite}"></td>
                                             <td class="text-right">
-                                                <a th:href="@{/deleteMedecin/{id}(id = ${medecin.id})}" href="#" class="btn btn-link btn-info btn-just-icon remove" ><i class="material-icons">close</i></a>
+                                                <a th:href="@{/deleteMedecin/{id}(id = ${medecin.id})}" onclick="return confirm('Etes vous sure ?');" href="#" class="btn btn-link btn-danger btn-just-icon remove" ><i class="material-icons">close</i></a>
                                             </td>
                                         </tr>
                                         </tbody>

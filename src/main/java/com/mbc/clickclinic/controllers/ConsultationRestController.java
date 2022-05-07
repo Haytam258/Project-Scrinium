@@ -1,9 +1,6 @@
 package com.mbc.clickclinic.controllers;
 
-import com.mbc.clickclinic.entities.Consultation;
-import com.mbc.clickclinic.entities.Medicament;
-import com.mbc.clickclinic.entities.Ordonnance;
-import com.mbc.clickclinic.entities.Payment;
+import com.mbc.clickclinic.entities.*;
 import com.mbc.clickclinic.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -36,8 +33,9 @@ public class ConsultationRestController {
     }
 
     @GetMapping("/consultations")
-    public List<Consultation> getConsultations(){
-        return consultationService.Consultations();
+    public String getConsultations(Model model){
+        model.addAttribute("allConsultations",consultationService.Consultations());
+        return "consultation/consultationList";
     }
 
     @PostMapping("/createConsultation")
@@ -47,14 +45,17 @@ public class ConsultationRestController {
         consultationService.saveConsultation(consultation);
         ordonnance.setConsultation(consultation);
         ordonnanceService.saveOrdonnance(ordonnance);
-
+        Rendezvous rendezvous = rendezvousService.RendezvousById(consultation.getRendezvous().getId());
+        rendezvous.setConsultation(consultation);
+        rendezvous.setStatut(1);
+        rendezvousService.updateRendezvous(rendezvous);
         return "consultation/createConsultation";
     }
 
     @GetMapping("/createConsultation")
     public String createConsultation(Model model){
         model.addAttribute("consultation", new Consultation());
-        model.addAttribute("rendezList", rendezvousService.RendezvousByDate(LocalDate.now()));
+        model.addAttribute("rendezList", rendezvousService.rendezvousByDateAndStatut(LocalDate.now(),0));
         model.addAttribute("ordonnance", new Ordonnance());
         model.addAttribute("medicamentList", medicamentService.Medicaments());
         return "consultation/createConsultation";
@@ -72,8 +73,9 @@ public class ConsultationRestController {
     }
 
     @PostMapping("/deleteConsultation/{id}")
-    public void deleteConsultation(@PathVariable Long id){
-        consultationService.deleteConsultation(consultationService.ConsultationlById(id.intValue()));
+    public String deleteConsultation(@PathVariable Integer id){
+        consultationService.deleteConsultation(consultationService.ConsultationlById(id));
+        return "redirect:/consultations";
     }
 
     @GetMapping("/consultations/index/{id}")

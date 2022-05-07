@@ -17,7 +17,7 @@
                                 <div class="card-icon">
                                     <i class="material-icons">assignment</i>
                                 </div>
-                                <h4 class="card-title">DataTables.net</h4>
+                                <h4 class="card-title">Listes de tous les médicaments</h4>
                             </div>
                             <div class="card-body">
                                 <div class="toolbar">
@@ -39,11 +39,13 @@
                                         </thead>
                                         <tfoot>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                            <th>Start date</th>
+                                            <th>Libellé</th>
+                                            <th>Nom Générique</th>
+                                            <th>Fabriquant</th>
+                                            <th>Code ATC</th>
+                                            <th>Prix Achat</th>
+                                            <th>Type</th>
+                                            <th>Catégorie</th>
                                             <th class="text-right">Actions</th>
                                         </tr>
                                         </tfoot>
@@ -57,7 +59,7 @@
                                             <td th:text="${medicament.typeMedicament == null ? '' : medicament.typeMedicament.form}"></td>
                                             <td th:text="${medicament.categorieMedicament == null ? '' : medicament.categorieMedicament.classeTherapeutique}"></td>
                                             <td class="text-right">
-                                                <a th:href="@{/deleteMedicament/{id}(id=${medicament.id})}" class="btn btn-link btn-info btn-just-icon remove"><i class="material-icons">close</i></a>
+                                                <a th:href="@{/deleteMedicament/{id}(id=${medicament.id})}" onclick="return confirm('Etes vous sure ?');" class="btn btn-link btn-danger btn-just-icon remove"><i class="material-icons">close</i></a>
                                             </td>
                                         </tr>
                                         </tbody>

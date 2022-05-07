@@ -17,7 +17,7 @@
                                 <div class="card-icon">
                                     <i class="material-icons">assignment</i>
                                 </div>
-                                <h4 class="card-title">DataTables.net</h4>
+                                <h4 class="card-title">Liste de tous les rendez vous</h4>
                             </div>
                             <div class="card-body">
                                 <div class="toolbar">
@@ -32,6 +32,7 @@
                                             <th>Date Rendez vous</th>
                                             <th>Heure Rendez vous</th>
                                             <th>Médecin</th>
+                                            <th>Statut</th>
                                             <th class="disabled-sorting text-right">Actions</th>
                                         </tr>
                                         </thead>
@@ -42,6 +43,7 @@
                                             <th>Date Rendez vous</th>
                                             <th>Heure Rendez vous</th>
                                             <th>Médecin</th>
+                                            <th>Statut</th>
                                             <th class="text-right">Actions</th>
                                         </tr>
                                         </tfoot>
@@ -52,8 +54,9 @@
                                             <td th:text="${rendez.dateRv}"></td>
                                             <td th:text="${rendez.heure}"></td>
                                             <td th:text="${rendez.medecin == null ? '' : rendez.medecin.nom + ' ' + rendez.medecin.prenom}"></td>
+                                            <td th:text="${rendez.statut == 0 ? 'A faire' : 'Effectué'}"></td>
                                             <td class="text-right">
-                                                <a th:href="@{/deleteRendezvous/{id}(id = ${rendez.id})}" href="#" class="btn btn-link btn-info btn-just-icon remove" ><i class="material-icons">close</i></a>
+                                                <a th:href="@{/deleteRendezvous/{id}(id = ${rendez.id})}" onclick="return confirm('Etes vous sure ?');" href="#" class="btn btn-link btn-danger btn-just-icon remove" ><i class="material-icons">close</i></a>
                                             </td>
                                         </tr>
                                         </tbody>

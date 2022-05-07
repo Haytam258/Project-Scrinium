@@ -123,12 +123,19 @@ public class CertificatMedicaleRestController {
     }
 
     @PostMapping("/deleteCertificat/{id}")
-    public void deleteCertificat(@PathVariable Long id){
-        certificatMedicaleService.deleteCertificatMedical(certificatMedicaleService.CertificatMedicalById(id.intValue()));
+    public String deleteCertificat(@PathVariable Integer id){
+        certificatMedicaleService.deleteCertificatMedical(certificatMedicaleService.CertificatMedicalById(id));
+        return "redirect:/certificats";
     }
 
     @PostMapping("/updateCertificat")
     public CertificatMedicale updateCertificat(@RequestBody CertificatMedicale certificatMedicale){
         return certificatMedicaleService.updateCertificatMedical(certificatMedicale);
+    }
+
+    @GetMapping("/certificats")
+    public String getCertificats(Model model){
+        model.addAttribute("allCertificats", certificatMedicaleService.CertificatMedicals());
+        return "certificatMedicale/certificatList";
     }
 }
