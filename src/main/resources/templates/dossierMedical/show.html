@@ -38,14 +38,14 @@
                                                     <div class="col-md-12">
                                                         <div class="form-group">
                                                             <label class="bmd-label-floating">Nom Patient</label>
-                                                            <input type="text" th:value="${dossier.patient == null ? '' : dossier.patient.prenom + ' ' + dossier.patient.nom}" class="form-control" readonly required>
+                                                            <input type="text" th:value="${dossier.patient == null ? '' : dossier.patient.prenom + ' ' + dossier.patient.nom}" class="form-control" disabled="disabled" required>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-12">
                                                         <div class="form-group">
                                                             <div class="form-group">
                                                                 <label class="bmd-label-floating">Antecedants</label>
-                                                                <textarea th:text="${dossier.antecedent}" class="form-control" rows="4" readonly required></textarea>
+                                                                <textarea th:text="${dossier.antecedent}" class="form-control" rows="4" disabled="disabled" required></textarea>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -53,7 +53,7 @@
                                                         <div class="form-group">
                                                             <div class="form-group">
                                                                 <label class="bmd-label-floating">Observations</label>
-                                                                <textarea th:text="${dossier.observations}" class="form-control" rows="4" readonly required></textarea>
+                                                                <textarea th:text="${dossier.observations}" class="form-control" rows="4" disabled="disabled" required></textarea>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -78,7 +78,7 @@
                                                     <td th:text="${consultation.motif}"></td>
                                                     <td th:text="${consultation.diagnostique}"></td>
                                                     <td class="td-actions">
-                                                        <a rel="tooltip" class="btn btn-success btn-link" href="" data-original-title="" title="">
+                                                        <a th:href="@{/consultation/show/{id}(id=${consultation.id})}" rel="tooltip" class="btn btn-success btn-link" href="" data-original-title="" title="">
                                                             <i class="material-icons">visibility</i>
                                                             <div class="ripple-container"></div>
                                                         </a>

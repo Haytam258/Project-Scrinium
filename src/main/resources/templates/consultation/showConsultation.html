@@ -1,10 +1,114 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="include/css :: head"></div>
+<body class=" ">
+<div class="wrapper ">
+    <div th:replace="include/sidebar :: sidebar-fragment"></div>
+    <div class="main-panel">
+        <!-- Navbar -->
+        <nav th:replace="include/navbar2 :: navbar"></nav>
+        <!-- End Navbar -->
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12 ">
+                        <div class="card ">
+                            <div class="card-header card-header-primary card-header-icon">
+                                <div class="card-icon">
+                                    <i class="material-icons">assignment</i>
+                                </div>
+                                <h4 class="card-title" th:text="${consultation.rendezvous == null ? '' : consultation.rendezvous.patient.prenom + ' '
+                                           + consultation.rendezvous.patient.nom + '/' + consultation.rendezvous.dateRv}">
+                                </h4>
+                            </div>
+                            <div class="card-body ">
+                                <div class="tab-content tab-space">
+                                    <div class="tab-pane active">
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <div class="col-md-12">
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label class="bmd-label-floating">Motif / Raison de visite</label>
+                                                            <input type="text" th:value="${consultation.motif}" class="form-control" disabled="disabled" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <div class="form-group">
+                                                                <label class="bmd-label-floating">Diagnostique Médical</label>
+                                                                <textarea th:text="${consultation.diagnostique}" class="form-control" rows="4" disabled="disabled" required></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <div class="form-group">
+                                                                <label class="bmd-label-floating">Résultat de l'examen Clinique </label>
+                                                                <textarea th:text="${consultation.resultatExmentClinique}" class="form-control" rows="4" disabled="disabled" required></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <div class="form-group">
+                                                                <label class="bmd-label-floating">Remarques </label>
+                                                                <textarea th:text="${consultation.remarques}" class="form-control" rows="4" disabled="disabled" required></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label class="bmd-label-floating">poids </label>
+                                                            <input type="number" th:value="${consultation.poids}" class="form-control" readonly placeholder="En KG">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label class="bmd-label-floating">taille</label>
+                                                            <input type="number" th:value="${consultation.talle}" class="form-control" readonly placeholder="En mètre">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label class="bmd-label-floating">IMC</label>
+                                                            <input type="text" th:value="${consultation.imc}" class="form-control" readonly>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label class="bmd-label-floating">Température(°C) </label>
+                                                            <input type="number" th:value="${consultation.temperature}" class="form-control" readonly>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label class="bmd-label-floating">Fréquence cardiaque</label>
+                                                            <input type="number" th:value="${consultation.frequenceCardiaque}" class="form-control" readonly>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label class="bmd-label-floating">Pression artérielle</label>
+                                                            <input type="number" th:value="${consultation.pressionArterielle}" class="form-control" readonly>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="include/js :: js"></div>
 
 </body>
 </html>

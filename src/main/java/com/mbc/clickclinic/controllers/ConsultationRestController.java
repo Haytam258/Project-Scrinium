@@ -86,6 +86,13 @@ public class ConsultationRestController {
         return "consultation/indexConsultations";
     }
 
+    @GetMapping("/consultation/show/{id}")
+    public String showConsultation(@PathVariable(value = "id") int id, Model model){
+        Consultation consultation = consultationService.ConsultationlById(id);
+        model.addAttribute("consultation", consultation);
+        return "consultation/showConsultation";
+    }
+
    /* @PostMapping("/consultation/addPayment")
     public Consultation addPaymentToConsultation(@RequestParam Long idp, @RequestParam Long idc){
         paymentService.setConsultationForPaiement(consultationService.ConsultationlById(idc.intValue()), paymentService.paymentById(idp.intValue()));
