@@ -57,8 +57,9 @@ public class ConsultationImpl implements ConsultationService{
         return consultationRepository.findById(rendezvous.getConsultation().getId());
     }
 
+
     @Override
-    public List<Consultation> getAllConsultationsByDossierMedicale(DossierMedicale dossierMedicale) {
-        return consultationRepository.findConsultationsByDossierMedicale(dossierMedicale);
+    public List<Consultation> getAllConsultationsByDossierMedicale(DossierMedicale dossier) {
+        return consultationRepository.findConsultationByDossierMedicale(dossier);
     }
 }

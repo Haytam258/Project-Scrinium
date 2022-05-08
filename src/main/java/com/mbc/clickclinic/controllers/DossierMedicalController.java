@@ -1,7 +1,9 @@
 package com.mbc.clickclinic.controllers;
 
+import com.mbc.clickclinic.entities.Consultation;
 import com.mbc.clickclinic.entities.DossierMedicale;
 import com.mbc.clickclinic.entities.Patient;
+import com.mbc.clickclinic.service.ConsultationService;
 import com.mbc.clickclinic.service.DossierMedicalService;
 import com.mbc.clickclinic.service.MedecinService;
 import com.mbc.clickclinic.service.PatientService;
@@ -23,6 +25,9 @@ public class DossierMedicalController {
 
     @Autowired
     private MedecinService medecinService;
+
+    @Autowired
+    private ConsultationService consultationService;
 
     @GetMapping("/dossier/index")
     public String index(Model model){
@@ -70,5 +75,14 @@ public class DossierMedicalController {
     public String deleteDossier(@PathVariable(value = "id") int id){
         dossierMedicalService.deleteDossier(id);
         return "redirect:/dossier/index";
+    }
+
+    @GetMapping("dossier/show/{id}")
+    public String showDossier(@PathVariable(value = "id") int id, Model model){
+        DossierMedicale dossier= dossierMedicalService.getDossierById(id);
+        List<Consultation> consultations = consultationService.getAllConsultationsByDossierMedicale(dossierMedicalService.getDossierById(id));
+        model.addAttribute("dossier", dossier);
+        model.addAttribute("consultations", consultations);
+        return "dossierMedical/show";
     }
 }

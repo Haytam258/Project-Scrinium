@@ -41,7 +41,7 @@
                                                 <a type="button" class="btn btn-primary" th:href="@{/consultations/index/{id}(id=${dossier.id})}">Voir Consultations</a>
                                             </td>
                                             <td class="td-actions text-right">
-                                                <a rel="tooltip" class="btn btn-success btn-link" href="" data-original-title="" title="">
+                                                <a th:href="@{/dossier/show/{id}(id=${dossier.id})}" rel="tooltip" class="btn btn-success btn-link" href="" data-original-title="" title="">
                                                     <i class="material-icons">visibility</i>
                                                     <div class="ripple-container"></div>
                                                 </a>

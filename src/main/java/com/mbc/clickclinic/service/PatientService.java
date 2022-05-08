@@ -1,5 +1,6 @@
 package com.mbc.clickclinic.service;
 
+import com.mbc.clickclinic.entities.Medecin;
 import com.mbc.clickclinic.entities.Patient;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
