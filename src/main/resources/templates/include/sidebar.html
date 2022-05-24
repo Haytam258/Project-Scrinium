@@ -109,7 +109,7 @@
         </div>
       </li>
       <li class="nav-item ">
-        <a class="nav-link" href="../../examples/salleDattente/sallesDattentes.html">
+        <a class="nav-link" th:href="@{/salles}">
           <i class="material-icons">airline_seat_legroom_extra</i>
           <p> Salle d'attente </p>
         </a>
@@ -118,16 +118,30 @@
       <li class="nav-item ">
         <a class="nav-link" data-toggle="collapse" href="#collpatient">
           <i class="material-icons">groups</i>
-          <p> Mes patients
+          <p> Patients
             <b class="caret"></b>
           </p>
         </a>
         <div class="collapse" id="collpatient">
           <ul class="nav">
             <li class="nav-item ">
-              <a class="nav-link" href="../../examples/patients/patientsList.html">
+              <a class="nav-link" th:href="@{/todayPatient}">
                 <span class="sidebar-mini"> P </span>
-                <span class="sidebar-normal"> List patients </span>
+                <span class="sidebar-normal"> Patients d'aujourd'hui </span>
+              </a>
+            </li>
+
+            <li class="nav-item ">
+              <a class="nav-link" th:href="@{/patients}">
+                <span class="sidebar-mini"> P </span>
+                <span class="sidebar-normal"> Tous les patients </span>
+              </a>
+            </li>
+
+            <li class="nav-item ">
+              <a class="nav-link" th:href="@{/createPatient}">
+                <span class="sidebar-mini"> P </span>
+                <span class="sidebar-normal"> Créer Nouveau Patient </span>
               </a>
             </li>
           </ul>
@@ -144,9 +158,15 @@
         <div class="collapse" id="collrdv">
           <ul class="nav">
             <li class="nav-item ">
-              <a class="nav-link" href="../../examples/RDV/listRDV.html">
+              <a class="nav-link" th:href="@{/allRendezvous}">
                 <span class="sidebar-mini"> P </span>
-                <span class="sidebar-normal"> List rendez-vous patients </span>
+                <span class="sidebar-normal"> List des rendez vous </span>
+              </a>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link" th:href="@{/createRendezvous}">
+                <span class="sidebar-mini"> P </span>
+                <span class="sidebar-normal"> Créer Rendez vous </span>
               </a>
             </li>
           </ul>
@@ -163,13 +183,13 @@
         <div class="collapse" id="collcons">
           <ul class="nav">
             <li class="nav-item ">
-              <a class="nav-link" href="../../examples/consultation/listConsultation.html">
+              <a class="nav-link" th:href="@{/consultations}">
                 <span class="sidebar-mini"> P </span>
                 <span class="sidebar-normal"> List Consultations </span>
               </a>
             </li>
             <li class="nav-item ">
-              <a class="nav-link" href="../../examples/consultation/creerConsultation.html">
+              <a class="nav-link" th:href="@{/createConsultation}">
                 <span class="sidebar-mini"> P </span>
                 <span class="sidebar-normal"> Creer consultation </span>
               </a>
@@ -188,13 +208,13 @@
         <div class="collapse" id="colldm">
           <ul class="nav">
             <li class="nav-item ">
-              <a class="nav-link" href="../../examples/dossierMedical/listDossierMedical.html">
+              <a class="nav-link" th:href="@{/dossier/index}">
                 <span class="sidebar-mini"> P </span>
                 <span class="sidebar-normal"> List dossier medicaux </span>
               </a>
             </li>
             <li class="nav-item ">
-              <a class="nav-link" href="../../examples/dossierMedical/creerDossierMedical.html">
+              <a class="nav-link" th:href="@{/dossier/create}">
                 <span class="sidebar-mini"> P </span>
                 <span class="sidebar-normal"> Creer dossier Medical </span>
               </a>
@@ -203,7 +223,7 @@
         </div>
       </li>
 
-      <li class="nav-item ">
+     <!-- <li class="nav-item ">
         <a class="nav-link" data-toggle="collapse" href="#collord">
           <i class="material-icons">medication</i>
           <p> Ordonnance
@@ -213,14 +233,14 @@
         <div class="collapse" id="collord">
           <ul class="nav">
             <li class="nav-item ">
-              <a class="nav-link" href="../../examples/ordonnance/creerOrdonnance.html">
+              <a class="nav-link" th:href="@{/}">
                 <span class="sidebar-mini"> P </span>
                 <span class="sidebar-normal"> Creer ordonnance </span>
               </a>
             </li>
           </ul>
         </div>
-      </li>
+      </li> -->
 
       <li class="nav-item ">
         <a class="nav-link" data-toggle="collapse" href="#collcm">
@@ -232,7 +252,7 @@
         <div class="collapse" id="collcm">
           <ul class="nav">
             <li class="nav-item ">
-              <a class="nav-link" href="../../examples/certificatMedical/demmandesCertificates.html">
+              <a class="nav-link" th:href="@{/createCertificat}">
                 <span class="sidebar-mini"> P </span>
                 <span class="sidebar-normal"> Creer certificat medical </span>
               </a>
