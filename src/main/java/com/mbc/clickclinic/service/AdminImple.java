@@ -44,8 +44,9 @@ public class AdminImple implements AdminService{
         List<Payment> payments = paymentService.payments();
         HashMap<Integer, Integer> totalPerMonth = new HashMap<>();
         totalPerMonth.put(1,0);
-        for(int i = 1; i < 12; i++){
+        for(int i = 1; i < 13; i++){
             int total = 0;
+            totalPerMonth.put(i,0);
             for(Payment payment: payments){
                 if(payment.getDatePaiement().getMonth().getValue() == i){
                     total += payment.getMontantDepose();

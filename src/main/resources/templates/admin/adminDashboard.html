@@ -386,6 +386,22 @@
 
     });
 </script>
+<script>
+    $(document).ready(function() {
+        var elements = [[${paymentDataPerMonth}]];
+        console.log(elements);
+        var data = {
+            labels:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+            series:[
+                elements
+            ]
+        };
+        var myChart = Chartist.Line('#completedTasksChart', data);
+    });
+
+
+
+</script>
 </body>
 
 </html>
