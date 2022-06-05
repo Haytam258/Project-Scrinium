@@ -30,6 +30,10 @@ public class AgendaImple implements AgendaService {
         return agendaRepository.findAgendaByMedecin(medecin);
     }
 
+    public List<Agenda> allAgenda(){
+        return agendaRepository.findAll();
+    }
+
 
 
 

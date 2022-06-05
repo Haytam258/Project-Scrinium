@@ -35,7 +35,7 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
+                                        <tr th:each="agenda : ${agendaMedecin}">
                                             <td>
                                                 <div class="form-check">
                                                     <label class="form-check-label">
@@ -46,9 +46,9 @@
                                                     </label>
                                                 </div>
                                             </td>
-                                            <td>Fournisseur</td>
-                                            <td>10/05/2022</td>
-                                            <td>11h00</td>
+                                            <td th:text="*{agenda.description}"></td>
+                                            <td th:text="*{agenda.dateDebut} + ' to '+ *{agenda.dateFin}"></td>
+                                            <td th:text="*{agenda.heureDebut} + ' to ' + *{agenda.heureFin}"></td>
                                             <td class="td-actions text-right">
                                                 <button type="button" rel="tooltip" class="btn btn-info" data-original-title="" title="">
                                                     <i class="material-icons">person</i>
