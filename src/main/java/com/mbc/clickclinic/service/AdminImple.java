@@ -5,11 +5,13 @@ import com.mbc.clickclinic.entities.Patient;
 import com.mbc.clickclinic.entities.Payment;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
 @Service
-public class AdminImple {
+public class AdminImple implements AdminService{
 
     private final MedecinService medecinService;
     private final PatientService patientService;
@@ -28,11 +30,6 @@ public class AdminImple {
         return patientService.patients().size();
     }
 
-   /* public List<Integer> getPatientCountByMonth(){
-        List<Patient> patientList = patientService.patients();
-
-
-    }*/
 
     public Integer getPaymentTotal(){
         List<Payment> payments = paymentService.payments();
@@ -41,6 +38,23 @@ public class AdminImple {
             total += payment.getMontantDepose();
         }
         return total;
+    }
+    //On peut ajouter mois à l'entité Payment afin d'appeler directement Repository ByMonth et faire le calcul, ça peut optimiser la vitesse.
+    public HashMap<Integer, Integer> getPayementPerMonth(){
+        List<Payment> payments = paymentService.payments();
+        HashMap<Integer, Integer> totalPerMonth = new HashMap<>();
+        totalPerMonth.put(1,0);
+        for(int i = 1; i < 12; i++){
+            int total = 0;
+            for(Payment payment: payments){
+                if(payment.getDatePaiement().getMonth().getValue() == i){
+                    total += payment.getMontantDepose();
+                    totalPerMonth.put(i,total);
+                }
+            }
+        }
+        return totalPerMonth;
+
     }
 
     public Integer getConsultationTotal(){
