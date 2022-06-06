@@ -2,6 +2,7 @@ package com.mbc.clickclinic.controllers;
 
 
 import com.mbc.clickclinic.entities.Patient;
+import com.mbc.clickclinic.service.ConsultationService;
 import com.mbc.clickclinic.service.MedecinService;
 import com.mbc.clickclinic.service.PatientService;
 import com.mbc.clickclinic.service.RendezvousService;
@@ -20,12 +21,14 @@ public class PatientRestController {
     private final PatientService patientService;
     private final MedecinService medecinService;
     private final RendezvousService rendezvousService;
+    private final ConsultationService consultationService;
 
     @Autowired
-    public PatientRestController(PatientService patientService, MedecinService medecinService, @Lazy RendezvousService rendezvousService){
+    public PatientRestController(PatientService patientService, MedecinService medecinService, @Lazy RendezvousService rendezvousService, ConsultationService consultationService){
         this.patientService = patientService;
         this.medecinService = medecinService;
         this.rendezvousService = rendezvousService;
+        this.consultationService = consultationService;
     }
 
     @GetMapping("/patients")
@@ -37,6 +40,12 @@ public class PatientRestController {
     @GetMapping("/patients/{id}")
     public String getPatient(@PathVariable Integer id,Model model){
         model.addAttribute("patientGet", patientService.PatientById(id));
+        if(consultationService.getAllConsultationsByDossierMedicale(patientService.PatientById(id).getDossierMedicale()) == null && patientService.PatientById(id).getDossierMedicale() == null){
+            model.addAttribute("noConsultations", false);
+        }
+        else {
+            model.addAttribute("consultations", consultationService.getAllConsultationsByDossierMedicale(patientService.PatientById(id).getDossierMedicale()));
+        }
         return "patient/patientInfo";
     }
 

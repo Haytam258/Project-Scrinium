@@ -13,6 +13,9 @@
         <div class="row">
           <div class="col-md-12 ">
             <div class="card ">
+              <div class="d-flex justify-content-center">
+                <a th:href="@{/patients}" class="btn btn-primary">Liste de Patients</a>
+              </div>
               <div class="card-header ">
                 <h4 class="card-title">Informations du patient <span th:text="${patientGet.nom + ' ' + patientGet.prenom}"></span> </h4>
               </div>
@@ -51,12 +54,12 @@
                         <div class="card-collapse">
                           <div class="card-header" role="tab" id="headingOne">
                             <h5 class="mb-0">
-                              <a data-toggle="collapse" th:each="consultation : ${patientGet.dossierMedicale.consultationList}" th:href="|#${consultation.id}" th:text="'Consultation du '+ ${consultation.rendezvous.dateRv}" aria-expanded="true" aria-controls="collapseOne">
+                              <a data-toggle="collapse" th:each="consultation : ${consultations}" th:href="|#${consultation.id}" th:text="'Consultation du '+ ${consultation.rendezvous.dateRv}" aria-expanded="true" aria-controls="collapseOne">
                                 <i class="material-icons">keyboard_arrow_down</i>
                               </a>
                             </h5>
                           </div>
-                          <div th:each="consultation : ${patientGet.dossierMedicale.consultationList}" th:id="${consultation.id}" class="collapse" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
+                          <div th:each="consultation : ${consultations}" th:id="${consultation.id}" class="collapse" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
                             <div class="card-body">
                               <div class="row">
                                 <div class="col-md-8">
@@ -82,7 +85,7 @@
                   </div>
                   <div class="tab-pane" id="link3">
 
-                    <div class="col-md-4" th:object="${patientGet.dossierMedicale}">
+                    <div class="col-md-4" th:if="${patientGet.dossierMedicale != null}" th:object="${patientGet.dossierMedicale}">
                       <p th:text="'Antécédant : ' + *{antecedent}"></p>
                       <p th:text="'Observations : ' + *{observations}"></p>
                     </div>

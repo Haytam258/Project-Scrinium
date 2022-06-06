@@ -33,7 +33,7 @@ public class DossierMedicalController {
     public String index(Model model){
         //fixed idMedecin here til we get it with spring security
         //Need to remember that this only gets DossierMedicals of patients that have a rendez vous, not all Dossiers.
-        List<DossierMedicale> dossiers = dossierMedicalService.getAllDossiersByMedecin(medecinService.medecinById(5));
+        List<DossierMedicale> dossiers = dossierMedicalService.getAllDossiersByMedecin(medecinService.medecinById(1));
         model.addAttribute("dossiers", dossiers);
         return "dossierMedical/indexMedecin";
     }
@@ -47,9 +47,11 @@ public class DossierMedicalController {
         return "dossierMedical/create";
     }
 
+    //Ici, on aura l'id du médecin connecté qui a créé le dossier médicale
     @PostMapping("/dossier/save")
     public String saveDossier(@ModelAttribute DossierMedicale dossierMedicale){
         if(patientService.PatientById(dossierMedicale.getPatient().getId()).getDossierMedicale() == null){
+
             dossierMedicalService.create(dossierMedicale);
             Patient patient = patientService.PatientById(dossierMedicale.getPatient().getId());
             patient.setDossierMedicale(dossierMedicale);
