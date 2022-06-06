@@ -55,12 +55,6 @@
     </div>
     <ul class="nav">
       <li class="nav-item ">
-        <a class="nav-link" href="../../static/examples/dashboard.html">
-          <i class="material-icons">dashboard</i>
-          <p> Dashboard </p>
-        </a>
-      </li>
-      <li class="nav-item ">
         <a class="nav-link" data-toggle="collapse" href="#agendaExamples">
           <i class="material-icons">list</i>
           <p> Agenda
@@ -79,6 +73,84 @@
               <a class="nav-link" th:href="@{/agenda/create}">
                 <span class="sidebar-mini"> AE </span>
                 <span class="sidebar-normal"> Créer Agenda </span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li class="nav-item ">
+        <a class="nav-link" data-toggle="collapse" href="#annonceExamples">
+          <i class="material-icons">notifications</i>
+          <p> Annonce
+            <b class="caret"></b>
+          </p>
+        </a>
+        <div class="collapse" id="annonceExamples">
+          <ul class="nav">
+            <li class="nav-item ">
+              <a class="nav-link" th:href="@{/createAnnonce}">
+                <span class="sidebar-mini"> E </span>
+                <span class="sidebar-normal"> Créer une annonce </span>
+              </a>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link" th:href="@{/annonces}">
+                <span class="sidebar-mini"> AE </span>
+                <span class="sidebar-normal"> Liste des annonces </span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li class="nav-item ">
+        <a class="nav-link" data-toggle="collapse" href="#adminExamples">
+          <i class="material-icons">admin_panel_settings</i>
+          <p> Admin
+            <b class="caret"></b>
+          </p>
+        </a>
+        <div class="collapse" id="adminExamples">
+          <ul class="nav">
+            <li class="nav-item ">
+              <a class="nav-link" th:href="@{/createAdmin}">
+                <span class="sidebar-mini"> E </span>
+                <span class="sidebar-normal"> Créer Administrateur </span>
+              </a>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link" th:href="@{/createMedecin}">
+                <span class="sidebar-mini"> E </span>
+                <span class="sidebar-normal"> Créer Médecin </span>
+              </a>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link" th:href="@{/createSecretaire}">
+                <span class="sidebar-mini"> E </span>
+                <span class="sidebar-normal"> Créer Secrétaire </span>
+              </a>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link" th:href="@{/adminDashboard}">
+                <span class="sidebar-mini"> DA </span>
+                <span class="sidebar-normal"> Dashboard Admin </span>
+              </a>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link" th:href="@{/secretaires}">
+                <span class="sidebar-mini"> L </span>
+                <span class="sidebar-normal"> Liste des secrétaires </span>
+              </a>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link" th:href="@{/medecins}">
+                <span class="sidebar-mini"> L </span>
+                <span class="sidebar-normal"> Liste des médecins </span>
+              </a>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link" th:href="@{/patients}">
+                <span class="sidebar-mini"> L </span>
+                <span class="sidebar-normal"> Liste des patients </span>
               </a>
             </li>
           </ul>
@@ -115,10 +187,27 @@
         </div>
       </li>
       <li class="nav-item ">
-        <a class="nav-link" th:href="@{/salles}">
+        <a class="nav-link" data-toggle="collapse" href="#collsalle">
           <i class="material-icons">airline_seat_legroom_extra</i>
-          <p> Salle d'attente </p>
+          <p> Salle d'attente <b class="caret"></b> </p>
         </a>
+        <div class="collapse" id="collsalle">
+          <ul class="nav">
+            <li class="nav-item ">
+              <a class="nav-link" th:href="@{/createSalle}">
+                <span class="sidebar-mini"> P </span>
+                <span class="sidebar-normal"> Créer une salle </span>
+              </a>
+            </li>
+
+            <li class="nav-item ">
+              <a class="nav-link" th:href="@{/salles}">
+                <span class="sidebar-mini"> P </span>
+                <span class="sidebar-normal"> Liste des salles </span>
+              </a>
+            </li>
+          </ul>
+        </div>
       </li>
 
       <li class="nav-item ">
@@ -268,10 +357,29 @@
       </li>
 
       <li class="nav-item ">
-        <a class="nav-link" href="../../examples/calendar.html">
-          <i class="material-icons">date_range</i>
-          <p> Calendar </p>
+        <a class="nav-link" data-toggle="collapse" href="#collpay">
+          <i class="material-icons">paid</i>
+          <p> Paiement
+            <b class="caret"></b>
+          </p>
         </a>
+        <div class="collapse" id="collpay">
+          <ul class="nav">
+            <li class="nav-item ">
+              <a class="nav-link" th:href="@{/createPaiement}">
+                <span class="sidebar-mini"> P </span>
+                <span class="sidebar-normal"> Créer Paiement </span>
+              </a>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link" th:href="@{/payments}">
+                <span class="sidebar-mini"> P </span>
+                <span class="sidebar-normal"> Liste Paiements </span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </li>
       </li>
     </ul>
   </div>

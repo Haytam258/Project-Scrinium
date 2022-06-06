@@ -23,8 +23,6 @@ public class AdminController {
 
     @GetMapping("/adminDashboard")
     public String dashboard(Model model){
-        System.out.println(adminService.getPayementPerMonth());
-
         model.addAttribute("paymentDataPerMonth",adminService.getPayementPerMonth().values());
         return "admin/adminDashboard";
     }
