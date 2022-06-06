@@ -50,7 +50,7 @@
                                             <td th:text="${consultation.rendezvous == null ? 'N/A' : consultation.rendezvous.medecin.nom}"></td>
                                             <td th:text="${consultation.rendezvous == null ? 'N/A' : consultation.rendezvous.dateRv}"></td>
                                             <td class="text-right">
-                                                <a th:href="@{/consultations/{id}(id=${consultation.id})}" class="btn btn-link btn-info btn-just-icon like" ><i class="material-icons">info</i></a>
+                                                <a th:href="@{/consultations/show/{id}(id=${consultation.id})}" class="btn btn-link btn-info btn-just-icon like" ><i class="material-icons">info</i></a>
                                                 <a th:href="@{/deleteConsultation/{id}(id=${consultation.id})}" onclick="return confirm('Etes vous sure ?');" class="btn btn-link btn-danger btn-just-icon remove"><i class="material-icons">close</i></a>
                                             </td>
                                         </tr>

@@ -79,14 +79,14 @@ public class ConsultationRestController {
         return "redirect:/consultations";
     }
 
-    @GetMapping("/consultations/index/{id}")
+    @GetMapping("/consultations/dossier/{id}")
     public String indexConsultations(@PathVariable(value = "id") int id, Model model){
         List<Consultation> consultations = consultationService.getAllConsultationsByDossierMedicale(dossierMedicalService.getDossierById(id));
         model.addAttribute("consultations", consultations);
         return "consultation/indexConsultations";
     }
 
-    @GetMapping("/consultation/show/{id}")
+    @GetMapping("/consultations/show/{id}")
     public String showConsultation(@PathVariable(value = "id") int id, Model model){
         Consultation consultation = consultationService.ConsultationlById(id);
         model.addAttribute("consultation", consultation);
