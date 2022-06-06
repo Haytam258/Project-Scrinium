@@ -1,9 +1,13 @@
 package com.mbc.clickclinic.service;
 
 
+import com.mbc.clickclinic.dao.PersonneRepository;
 import com.mbc.clickclinic.entities.Patient;
 import com.mbc.clickclinic.entities.Payment;
+import com.mbc.clickclinic.entities.Personne;
+import com.mbc.clickclinic.security.GeneralRole;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import java.util.Comparator;
 import java.util.HashMap;
@@ -17,12 +21,14 @@ public class AdminImple implements AdminService{
     private final PatientService patientService;
     private final PaymentService paymentService;
     private final ConsultationService consultationService;
+    private final PersonneRepository personneRepository;
 
-    public AdminImple(MedecinService medecinService, PatientService patientService, PaymentService paymentService, ConsultationService consultationService){
+    public AdminImple(MedecinService medecinService, PatientService patientService, PaymentService paymentService, ConsultationService consultationService, PersonneRepository personneRepository){
         this.medecinService = medecinService;
         this.patientService = patientService;
         this.paymentService = paymentService;
         this.consultationService = consultationService;
+        this.personneRepository = personneRepository;
     }
 
 
@@ -60,6 +66,15 @@ public class AdminImple implements AdminService{
 
     public Integer getConsultationTotal(){
         return consultationService.Consultations().size();
+    }
+
+    public Personne createAdmin(Personne personne, Model model){
+        personne.setRole(GeneralRole.ADMIN.getRole());
+        if(personneRepository.findPersonneByEmail(personne.getEmail()) != null){
+            model.addAttribute("emailAdminExist", "Cet email est déjà utilisé par un autre Admin !");
+            return null;
+        }
+        return personneRepository.saveAndFlush(personne);
     }
 
 }

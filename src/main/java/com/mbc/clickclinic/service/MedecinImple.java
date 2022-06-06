@@ -3,6 +3,7 @@ package com.mbc.clickclinic.service;
 import com.mbc.clickclinic.dao.MedecinRepository;
 import com.mbc.clickclinic.entities.Medecin;
 import com.mbc.clickclinic.entities.Patient;
+import com.mbc.clickclinic.security.GeneralRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -21,6 +22,7 @@ public class MedecinImple implements MedecinService{
 
     @Override
     public Medecin saveMedecin(Medecin medecin) {
+        medecin.setRole(GeneralRole.MEDECIN.getRole());
         return medecinRepository.saveAndFlush(medecin);
     }
 

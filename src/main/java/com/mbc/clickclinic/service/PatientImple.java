@@ -4,7 +4,9 @@ import com.mbc.clickclinic.dao.PatientRepository;
 import com.mbc.clickclinic.entities.Medecin;
 import com.mbc.clickclinic.entities.Patient;
 import com.mbc.clickclinic.entities.Rendezvous;
+import com.mbc.clickclinic.security.GeneralRole;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
@@ -26,6 +28,9 @@ public class PatientImple implements PatientService{
     }
     @Override
     public Patient savePatient(Patient patient) {
+        /*BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        patient.setPassword(bCryptPasswordEncoder.encode(patient.getPassword()));*/
+        patient.setRole(GeneralRole.PATIENT.getRole());
         return patientRepository.saveAndFlush(patient);
     }
 

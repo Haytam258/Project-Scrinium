@@ -14,7 +14,7 @@ import java.util.Objects;
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer id_role;
 
     @Enumerated(EnumType.STRING)
     private GeneralRole roles;
@@ -24,7 +24,7 @@ public class Role {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         Role role = (Role) o;
-        return id != null && Objects.equals(id, role.id);
+        return id_role != null && Objects.equals(id_role, role.id_role);
     }
 
     @Override

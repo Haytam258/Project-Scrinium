@@ -2,6 +2,7 @@ package com.mbc.clickclinic.service;
 
 import com.mbc.clickclinic.dao.SecretaireRepository;
 import com.mbc.clickclinic.entities.Secretaire;
+import com.mbc.clickclinic.security.GeneralRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -19,6 +20,7 @@ public class SecretaireImple implements SecretaireService{
     }
     @Override
     public Secretaire saveSecretaire(Secretaire secretaire) {
+        secretaire.setRole(GeneralRole.SECRETAIRE.getRole());
         return secretaireRepository.saveAndFlush(secretaire);
     }
 
