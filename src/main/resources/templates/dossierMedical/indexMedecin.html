@@ -17,7 +17,7 @@
                                 <div class="card-icon">
                                     <i class="material-icons">assignment</i>
                                 </div>
-                                <h4 class="card-title">Agenda</h4>
+                                <h4 class="card-title">Dossiers médicaux</h4>
                             </div>
                             <div class="card-body">
                                 <div style="float:right; margin-bottom:20px;">
@@ -38,7 +38,7 @@
                                             <td th:text="${dossier.patient == null ? '' : dossier.patient.cin}"></td>
                                             <td th:text="${dossier.patient == null ? '' : dossier.patient.prenom + ' ' + dossier.patient.nom}"></td>
                                             <td>
-                                                <a type="button" class="btn btn-primary" th:href="@{/consultations/index/{id}(id=${dossier.id})}">Voir Consultations</a>
+                                                <a type="button" class="btn btn-primary" th:href="@{/consultations/dossier/{id}(id=${dossier.id})}">Voir Consultations</a>
                                             </td>
                                             <td class="td-actions text-right">
                                                 <a th:href="@{/dossier/show/{id}(id=${dossier.id})}" rel="tooltip" class="btn btn-success btn-link" href="" data-original-title="" title="">

@@ -32,6 +32,7 @@
                                             <th>CIN Patient</th>
                                             <th>Date de création</th>
                                             <th>Type certification</th>
+                                            <th>Status</th>
                                             <th class="disabled-sorting text-right">Actions</th>
                                         </tr>
                                         </thead>
@@ -42,6 +43,7 @@
                                             <th>CIN Patient</th>
                                             <th>Date de création</th>
                                             <th>Type certification</th>
+                                            <th>Status</th>
                                             <th class="text-right">Actions</th>
                                         </tr>
                                         </tfoot>
@@ -51,7 +53,8 @@
                                             <td th:text="${certificat.patient == null ? 'N/A' : certificat.patient.nom}"></td>
                                             <td th:text="${certificat.patient == null ? 'N/A' : certificat.patient.cin}"></td>
                                             <td th:text="${certificat.dateCreation}"></td>
-                                            <td th:text="${certificat.typeCertification}"></td>
+                                            <td th:text="${certificat.typeCertification.type}"></td>
+                                            <td th:text="${certificat.demandeCertificat.status == 0 ? 'En traitement' : 'Accordé'}"></td>
                                             <td class="text-right">
                                                 <a th:href="@{/certificats/{id}(id=${certificat.id})}" class="btn btn-link btn-info btn-just-icon like" ><i class="material-icons">info</i></a>
                                                 <a th:href="@{/deleteCertificat/{id}(id=${certificat.id})}" onclick="return confirm('Etes vous sure ?');" class="btn btn-link btn-danger btn-just-icon remove"><i class="material-icons">close</i></a>

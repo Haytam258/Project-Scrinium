@@ -12,10 +12,10 @@
     Tip 2: you can also add an image using data-image tag
 -->
   <div class="logo"><a href="http://www.creative-tim.com" class="simple-text logo-mini">
-    CT
+    SP
   </a>
     <a href="http://www.creative-tim.com" class="simple-text logo-normal">
-      Creative Tim
+      Scrinium Project
     </a></div>
   <div class="sidebar-wrapper">
     <div class="user">
@@ -349,7 +349,25 @@
             <li class="nav-item ">
               <a class="nav-link" th:href="@{/createCertificat}">
                 <span class="sidebar-mini"> P </span>
-                <span class="sidebar-normal"> Creer certificat medical </span>
+                <span class="sidebar-normal"> Créer certificat medical </span>
+              </a>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link" th:href="@{/createDemandeCertificat}">
+                <span class="sidebar-mini"> P </span>
+                <span class="sidebar-normal"> Demander un nouveau certificat </span>
+              </a>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link" th:href="@{/createTypeCertificat}">
+                <span class="sidebar-mini"> P </span>
+                <span class="sidebar-normal"> Créer type medical </span>
+              </a>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link" th:href="@{/certificats}">
+                <span class="sidebar-mini"> P </span>
+                <span class="sidebar-normal"> Voir tous les certificats demandés / accordés </span>
               </a>
             </li>
           </ul>
@@ -375,6 +393,42 @@
               <a class="nav-link" th:href="@{/payments}">
                 <span class="sidebar-mini"> P </span>
                 <span class="sidebar-normal"> Liste Paiements </span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li class="nav-item ">
+        <a class="nav-link" data-toggle="collapse" href="#medExamples">
+          <i class="material-icons">vaccines</i>
+          <p> Medicament
+            <b class="caret"></b>
+          </p>
+        </a>
+        <div class="collapse" id="medExamples">
+          <ul class="nav">
+            <li class="nav-item ">
+              <a class="nav-link" th:href="@{/createMedicament}">
+                <span class="sidebar-mini"> ME </span>
+                <span class="sidebar-normal"> Créer Médicament </span>
+              </a>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link" th:href="@{/createTypeMedicament}">
+                <span class="sidebar-mini"> DC </span>
+                <span class="sidebar-normal"> Créer Type de médicament </span>
+              </a>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link" th:href="@{/createCategorieMedicament}">
+                <span class="sidebar-mini"> ME </span>
+                <span class="sidebar-normal"> Créer la catégorie de médicament </span>
+              </a>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link" th:href="@{/medicaments}">
+                <span class="sidebar-mini"> ME </span>
+                <span class="sidebar-normal"> Liste des médicaments </span>
               </a>
             </li>
           </ul>
