@@ -48,6 +48,7 @@ public class AgendaController {
 
     @PostMapping("/agenda/save")
     public String saveAgenda(@ModelAttribute("agenda")Agenda agenda){
+        agenda.setStatut(1);
         agendaService.createAgenda(agenda);
         return "redirect:/agenda/index";
     }

@@ -2,6 +2,7 @@ package com.mbc.clickclinic.controllers;
 
 import com.mbc.clickclinic.entities.Conges;
 import com.mbc.clickclinic.service.CongesService;
+import com.mbc.clickclinic.service.MedecinService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,8 +13,16 @@ import java.util.List;
 @Controller
 public class CongesController {
 
-    @Autowired
+
     private CongesService congesService;
+    private MedecinService medecinService;
+
+    @Autowired
+    public CongesController(MedecinService medecinService, CongesService congesService){
+        this.medecinService = medecinService;
+        this.congesService = congesService;
+    }
+
 
     @GetMapping("/conges/index")
     public String index(){
@@ -31,19 +40,19 @@ public class CongesController {
     public String create(Model model){
         Conges conges = new Conges();
         model.addAttribute("conges", conges);
+        model.addAttribute("medecins", medecinService.medecins());
         return "conges/create";
     }
 
     @PostMapping(path = "/conges/save")
-    public String saveConges(@ModelAttribute("conges")Conges conges, @RequestParam("nom") String nom) {
-        congesService.createConges(conges, nom);
-        return "redirect:/conges/index";
+    public String saveConges(@ModelAttribute("conges")Conges conges) {
+        congesService.createConges(conges, conges.getMedecin());
+        return "redirect:/admin/conges/index";
     }
 
     @GetMapping("/conges/accept/{id}")
     public String acceptConges(@PathVariable(value = "id") int id){
         Conges conges = congesService.acceptConges(id);
-        System.out.println(conges.getReponse());
         return "redirect:/admin/conges/index";
     }
 

@@ -8,7 +8,7 @@ import java.util.List;
 public interface CongesService {
 
     public List<Conges> getAllConges();
-    public Conges createConges(Conges conges, String nom);
+    public Conges createConges(Conges conges, Medecin medecin);
     public Conges getCongesById(int id);
     public List<Conges> getCongesByMedecin(Medecin medecin);
     public Conges acceptConges(int id);

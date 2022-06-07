@@ -2,6 +2,7 @@ package com.mbc.clickclinic.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.hibernate.Hibernate;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -24,10 +25,10 @@ public class Agenda {
     private Integer id;
     /*@JsonFormat
             (shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")*/
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @DateTimeFormat(pattern = "MM/dd/yyyy")
     private LocalDate dateDebut;
     //ajout d'attribut dateFin => necessaire pour visualiser la fin du conges
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @DateTimeFormat(pattern = "MM/dd/yyyy")
     private LocalDate dateFin;
     private String jour;
     private String heureDebut;
@@ -36,6 +37,10 @@ public class Agenda {
 
     //Statut : 1 = Vacances, Fournisseurs etc (Pas disponible), Statut : 2 = Travail (Disponible),
     private int statut;
+
+    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH})
+    @JsonManagedReference("agenda_conges")
+    private Conges conges;
 
     @ManyToOne
     @JoinColumn(name = "medecin_id")

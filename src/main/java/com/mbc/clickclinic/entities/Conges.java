@@ -33,6 +33,10 @@ public class Conges {
     //@JsonBackReference(value = "conges_medecin")
     private Medecin medecin;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JsonBackReference("agenda_conges")
+    private Agenda agenda;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
