@@ -67,7 +67,10 @@ public class CongesImpl implements CongesService{
     @Override
     public Conges refuseConges(int id) {
         Conges conges = congeRepository.findById(id).get();
-        agendaRepository.delete(conges.getAgenda());
+        Agenda agenda = conges.getAgenda();
+        conges.setAgenda(null);
+        agenda.setConges(null);
+        agendaRepository.delete(agenda);
         conges.setReponse("Demande Refusée");
         return congeRepository.save(conges);
     }
