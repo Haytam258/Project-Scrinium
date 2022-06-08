@@ -29,7 +29,11 @@ public class SecretaireImple implements SecretaireService{
             model.addAttribute("emailExists", "Cet Email existe déjà !");
             return null;
         }
-        return secretaireRepository.saveAndFlush(secretaire);
+        if(secretaire.getNom().matches(".*[0-9].*") || secretaire.getPrenom().matches(".*[0-9].*")){
+            model.addAttribute("numbers", "Nom ou prénom contient un nombre !");
+            return null;
+        }
+        return saveSecretaire(secretaire);
     }
 
     @Override

@@ -41,6 +41,10 @@
                                         <label for="prenom" class="bmd-label-floating">Last Name</label>
                                         <input type="text" class="form-control" id="prenom" th:field="*{prenom}">
                                     </div>
+                                    <div class="form-group has-danger" th:if="${numbers != null}">
+                                        <span class="alert text-danger" th:text="${numbers}"> </span>
+
+                                    </div>
                                     <div class="form-group">
                                         <label for="specialite" class="bmd-label-floating">Spécialité</label>
                                         <input type="text" class="form-control" id="specialite" th:field="*{specialite}">
@@ -81,6 +85,14 @@
                                     </div>
                                     <div class="card-footer ">
                                         <button type="submit" class="btn btn-fill btn-rose">Submit</button>
+                                    </div>
+                                    <div class="form-group has-success" th:if="${medecinSuccess != null}">
+                                        <span class="alert text-success" th:text="${medecinSuccess}"> </span>
+
+                                    </div>
+                                    <div class="form-group has-danger" th:if="${medecinFail != null}">
+                                        <span class="alert text-danger" th:text="${medecinFail}"> </span>
+
                                     </div>
 
                                 </form>

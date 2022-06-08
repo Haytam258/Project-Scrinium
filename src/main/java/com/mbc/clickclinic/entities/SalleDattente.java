@@ -7,6 +7,7 @@ import org.hibernate.Hibernate;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -24,7 +25,7 @@ public class SalleDattente {
    // @OneToMany
    // private Patient patient;
 
-    private String heure; // Look for hour datetime
+    private String heure = LocalTime.now().toString(); // Look for hour datetime
 
     @OneToMany(mappedBy = "salleDattente")
     @JsonManagedReference(value = "salle_patient")

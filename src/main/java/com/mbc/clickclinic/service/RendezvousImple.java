@@ -90,6 +90,15 @@ public class RendezvousImple implements RendezvousService{
 
     @Override
     public List<Rendezvous> Rendezvouss() {
+        /*List<Rendezvous> rendezvousList = rendezvousRepository.findAll();
+        for(Rendezvous rendezvous : rendezvousList){
+            if(rendezvous.getDateRv().isBefore(LocalDate.now()) && rendezvous.getStatut() == 0){
+                rendezvous.setMedecin(null);
+                rendezvous.setPatient(null);
+                rendezvous.setConsultation(null);
+                deleteRendezvous(rendezvous);
+            }
+        }*/
         return rendezvousRepository.findAll();
     }
 

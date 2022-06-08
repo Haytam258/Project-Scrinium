@@ -61,6 +61,7 @@ public class SalleDattenteRestController {
         else {
             medecin.setSalleDattente(salleDattente);
             medecinService.saveMedecin(medecin);
+            model.addAttribute("salleMedecinDone", "Salle d'attente a été créée avec succès !");
         }
         model.addAttribute("medecins", medecinService.medecins());
         return "salleAttente/createSalle";
@@ -74,8 +75,11 @@ public class SalleDattenteRestController {
         return "redirect:/salles";
     }
 
-    @PostMapping("/salles/patients/delete")
-    public void deletePatientFromSalle(@RequestParam Integer idp, @RequestParam Integer ids){
+    @GetMapping("/salles/patients/delete")
+    public String deletePatientFromSalle(@RequestParam Integer idp, @RequestParam Integer ids, Model model){
         salleDattenteService.deletePatientFromSalle(salleDattenteService.getSalleById(ids), patientService.PatientById(idp));
+        List<SalleDattente> salles = salleDattenteService.getSalles();
+        model.addAttribute("salles", salles);
+        return "redirect:/salles";
     }
 }

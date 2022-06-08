@@ -39,7 +39,11 @@ public class MedecinImple implements MedecinService{
             model.addAttribute("emailMedecinExist", "Email exits !");
             return null;
         }
-        return medecinRepository.saveAndFlush(medecin);
+        if(medecin.getNom().matches(".*[0-9].*") || medecin.getPrenom().matches(".*[0-9].*")){
+            model.addAttribute("numbers", "Nom ou prénom contient un nombre !");
+            return null;
+        }
+        return saveMedecin(medecin);
     }
 
     @Override

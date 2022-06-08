@@ -19,7 +19,7 @@
                 <br />
                 <ul class="nav nav-pills nav-pills-warning nav-pills-icons justify-content-center" role="tablist">
                   <li class="nav-item" th:each="medecin : ${medecins}">
-                    <a class="nav-link" data-toggle="tab" th:href="|#${medecin.nom}" role="tablist">
+                    <a class="nav-link" data-toggle="tab" th:if="${medecin.salleDattente != null}" th:href="|#${medecin.nom}" role="tablist">
                       <i class="material-icons">airline_seat_legroom_extra</i> Salle d'attente <div th:if="${medecin.salleDattente != null}"><span th:text="${medecin.salleDattente.id}"></span></div>
                     </a>
                   </li>
@@ -55,12 +55,12 @@
                                 <td th:text="${patient.sexe}"></td>
                                 <td class="td-actions text-right">
                                   <!--Insert button for infoPatient here(for both sec and doc), as well as button to remove from salleDattente(for secretary), button to go to consultation(for doctor), button to go to paiement(for secretary)      -->
-                                  <button type="button" rel="tooltip" class="btn btn-info btn-round" >
+                                  <a th:href="@{/dossier/show/{id}(id=${patient.dossierMedicale.id})}" type="button" rel="tooltip" class="btn btn-info btn-round text-right" >
                                     <i class="material-icons">person</i>
-                                  </button>
-                                  <button type="button" rel="tooltip" class="btn btn-danger btn-round">
+                                  </a>
+                                  <a th:href="@{/salles/patients/delete(ids=${patient.salleDattente.id}, idp=${patient.id})}" type="button" rel="tooltip" class="btn btn-danger btn-round text-right">
                                     <i class="material-icons">fast_forward</i>
-                                  </button>
+                                  </a>
                                 </td>
                               </tr>
                               </tbody>

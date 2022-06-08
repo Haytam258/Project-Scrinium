@@ -56,7 +56,11 @@ public class PatientImple implements PatientService{
             model.addAttribute("emailExist", "Email exists !");
             return null;
         }
-        return patientRepository.saveAndFlush(patient);
+        if(patient.getNom().matches(".*[0-9].*") || patient.getPrenom().matches(".*[0-9].*")){
+            model.addAttribute("numbers", "Nom ou prénom contient un nombre !");
+            return null;
+        }
+        return savePatient(patient);
     }
 
     @Override

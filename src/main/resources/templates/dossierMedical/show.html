@@ -14,8 +14,8 @@
                     <div class="col-md-12 ">
                         <div class="card ">
                             <div class="card-header ">
-                                <h4 class="card-title">Navigation Pills -
-                                    <small class="description">Horizontal Tabs</small>
+                                <h4 class="card-title">Dossier Médicale -
+                                    <small class="description" th:text="${dossier.patient == null ? '' : dossier.patient.prenom + ' ' + dossier.patient.nom}"></small>
                                 </h4>
                             </div>
                             <div class="card-body ">

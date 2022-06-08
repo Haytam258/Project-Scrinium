@@ -28,7 +28,12 @@ public class MedecinRestController {
 
     @PostMapping("/createMedecin")
     public String createMedecin(@ModelAttribute Medecin medecin, Model model){
-        medecinService.saveMedecin(medecin,model);
+        if(medecinService.saveMedecin(medecin,model) != null){
+            model.addAttribute("medecinSuccess","Médecin créé avec succès !");
+        }
+        else {
+            model.addAttribute("medecinFail","Veuillez vérifier les informations saisies !");
+        }
         model.addAttribute("medecin", medecin);
         return "medecin/createMedecin";
     }
