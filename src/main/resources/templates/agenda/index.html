@@ -20,32 +20,29 @@
                                 <h4 class="card-title">Agenda</h4>
                             </div>
                             <div class="card-body">
-                                <div style="float:right; margin-bottom:20px;">
+                                <div class="toolbar">
                                     <a th:href="@{/agenda/create}" class="btn btn-primary">Add Event</a>
                                 </div>
-                                <div class="table-responsive">
-                                    <table class="table table-striped">
+                                <div class="material-datatables">
+                                    <table id="datatables" class="table table-striped table-no-bordered table-hover" style="width: 100%;">
                                         <thead>
                                         <tr>
-                                            <th></th>
+                                            <th>Evenement</th>
+                                            <th>Date</th>
+                                            <th>Heure</th>
+                                            <th class="disabled-sorting text-right">Action</th>
+                                        </tr>
+                                        </thead>
+                                        <tfoot>
+                                        <tr>
                                             <th>Evenement</th>
                                             <th>Date</th>
                                             <th>Heure</th>
                                             <th class="text-right">Action</th>
                                         </tr>
-                                        </thead>
+                                        </tfoot>
                                         <tbody>
                                         <tr th:each="agenda : ${agendaMedecin}">
-                                            <td>
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" value="" >
-                                                        <span class="form-check-sign">
-                                                           <span class="check"></span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </td>
                                             <td th:text="*{agenda.description}"></td>
                                             <td th:text="*{agenda.dateDebut} + ' to '+ *{agenda.dateFin}"></td>
                                             <td th:text="*{agenda.heureDebut == null ? 'N/A' : agenda.heureDebut} + ' to ' + *{agenda.heureFin == null ? 'N/A' : agenda.heureFin}"></td>
@@ -75,5 +72,42 @@
 </div>
 <div th:replace="include/js :: js"></div>
 </body>
+<script>
+    $(document).ready(function() {
+        $('#datatables').DataTable({
+            "pagingType": "full_numbers",
+            "lengthMenu": [
+                [10, 25, 50, -1],
+                [10, 25, 50, "All"]
+            ],
+            responsive: true,
+            language: {
+                search: "_INPUT_",
+                searchPlaceholder: "Search records",
+            }
+        });
+
+        var table = $('#datatable').DataTable();
+
+        // Edit record
+        table.on('click', '.edit', function() {
+            $tr = $(this).closest('tr');
+            var data = table.row($tr).data();
+            alert('You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.');
+        });
+
+        // Delete a record
+        table.on('click', '.remove', function(e) {
+            $tr = $(this).closest('tr');
+            table.row($tr).remove().draw();
+            e.preventDefault();
+        });
+
+        //Like record
+        table.on('click', '.like', function() {
+            alert('You clicked on Like button');
+        });
+    });
+</script>
 
 </html>

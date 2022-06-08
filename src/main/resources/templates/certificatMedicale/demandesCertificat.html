@@ -19,15 +19,24 @@
                                     <p class="card-category"></p>
                                 </div>
                             </div>
-                            <div class="card-body table-responsive">
-                                <table class="table table-hover">
-                                    <thead class="text-warning">
+                            <div class="card-body table-responsive material-datatables">
+                                <table id="datatables" class="table table-hover" style="width:100%">
+                                    <thead>
                                     <th>Nom</th>
                                     <th>Prenom</th>
                                     <th>CIN</th>
-                                    <th>Type certificat</th>
+                                    <th>Type</th>
                                     <th>Statut</th>
                                     </thead>
+                                    <tfoot>
+                                    <tr>
+                                        <th>Nom</th>
+                                        <th>Prenom</th>
+                                        <th>CIN</th>
+                                        <th>Type</th>
+                                        <th>Statut</th>
+                                    </tr>
+                                    </tfoot>
                                     <tbody>
                                     <tr th:each="demande : ${allDemandes}">
                                         <td th:text="${demande.patient == null ? '' : demande.patient.nom}"></td>
@@ -113,4 +122,41 @@
 </div>
 <div th:replace="include/js :: js"></div>
 </body>
+<script>
+    $(document).ready(function() {
+        $('#datatables').DataTable({
+            "pagingType": "full_numbers",
+            "lengthMenu": [
+                [10, 25, 50, -1],
+                [10, 25, 50, "All"]
+            ],
+            responsive: true,
+            language: {
+                search: "_INPUT_",
+                searchPlaceholder: "Search records",
+            }
+        });
+
+        var table = $('#datatable').DataTable();
+
+        // Edit record
+        table.on('click', '.edit', function() {
+            $tr = $(this).closest('tr');
+            var data = table.row($tr).data();
+            alert('You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.');
+        });
+
+        // Delete a record
+        table.on('click', '.remove', function(e) {
+            $tr = $(this).closest('tr');
+            table.row($tr).remove().draw();
+            e.preventDefault();
+        });
+
+        //Like record
+        table.on('click', '.like', function() {
+            alert('You clicked on Like button');
+        });
+    });
+</script>
 </html>
