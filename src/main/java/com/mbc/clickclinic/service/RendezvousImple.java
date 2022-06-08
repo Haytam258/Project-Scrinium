@@ -11,10 +11,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class RendezvousImple implements RendezvousService{
@@ -38,6 +35,10 @@ public class RendezvousImple implements RendezvousService{
 
     public List<Rendezvous> rendezvousByDateAndStatut(LocalDate date, Integer statut){
         return rendezvousRepository.findRendezvousByDateRvAndStatut(date,statut);
+    }
+
+    public List<Rendezvous> rendezvousByStatut(Integer statut){
+        return rendezvousRepository.findRendezvousByStatut(statut);
     }
 
     @Override
@@ -99,7 +100,17 @@ public class RendezvousImple implements RendezvousService{
                 deleteRendezvous(rendezvous);
             }
         }*/
-        return rendezvousRepository.findAll();
+        List<Rendezvous> rendezvousList = rendezvousRepository.findAll();
+        for(Iterator<Rendezvous> rendezvousIterator = rendezvousList.listIterator(); rendezvousIterator.hasNext();){
+            Rendezvous rendezvous = rendezvousIterator.next();
+            if(rendezvous.getStatut() == 2){
+                rendezvousIterator.remove();
+            }
+            else {
+                continue;
+            }
+        }
+        return rendezvousList;
     }
 
     @Override

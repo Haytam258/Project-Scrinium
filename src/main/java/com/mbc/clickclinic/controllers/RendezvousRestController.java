@@ -64,6 +64,44 @@ public class RendezvousRestController {
         return "rendezvous/createRendezvous";
     }
 
+    //Demander rendez vous pour les patients
+    @GetMapping("/demanderRendezvous")
+    public String demandeRendezPage(Model model){
+        model.addAttribute("rendezvous", new Rendezvous());
+        model.addAttribute("medecinList", medecinService.medecins());
+        model.addAttribute("patientList", patientService.patients());
+        return "rendezvous/demanderRendezvous";
+    }
+
+    @PostMapping("/demanderRendezvous")
+    public String demandeRendezvous(Model model, @ModelAttribute Rendezvous rendezvous){
+        LocalDate localDateTime = LocalDate.parse(rendezvous.getDateRv().toString());
+        rendezvous.setDateRv(localDateTime);
+        Rendezvous rendezvous1 = rendezvousService.saveRendezvous(rendezvous, model);
+        if(rendezvous1 != null){
+            model.addAttribute("rendezCreated", "rendez vous créé avec succès !");
+            rendezvous.setStatut(2);
+            rendezvousService.updateRendezvous(rendezvous);
+        }
+        model.addAttribute("medecinList", medecinService.medecins());
+        model.addAttribute("patientList", patientService.patients());
+        return "rendezvous/demanderRendezvous";
+    }
+
+    @GetMapping("/demandesRendezvous")
+    public String demandesRendevous(Model model){
+        model.addAttribute("demandes", rendezvousService.rendezvousByStatut(2));
+        return "rendezvous/demandesRendezvous";
+    }
+
+    @GetMapping("/demandesRendezvous/accept/{id}")
+    public String demandeAccepte(Model model, @PathVariable("id") Integer id){
+        Rendezvous rendezvous = rendezvousService.RendezvousById(id);
+        rendezvous.setStatut(0);
+        rendezvousService.updateRendezvous(rendezvous);
+        return "redirect:/demandesRendezvous";
+    }
+
 
    /* @PostMapping("/createRendezvous")
     public Rendezvous createRendezvous(@RequestBody Rendezvous rendezvous){

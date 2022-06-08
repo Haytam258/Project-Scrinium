@@ -32,7 +32,7 @@ public class Rendezvous {
     @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
     private LocalTime heure;
     //private int heure;
-    private int statut; //Statut : 1 = Fini, Statut : 0 = A faire
+    private int statut; //Statut : 1 = Fini, Statut : 0 = A faire, Statut : 2 = Demande de rendez vous
 
     @ManyToOne
     @JoinColumn(name = "medecin_id")

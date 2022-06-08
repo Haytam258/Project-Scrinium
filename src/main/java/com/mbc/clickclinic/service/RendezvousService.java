@@ -31,5 +31,6 @@ public interface RendezvousService {
     List<Rendezvous> rendezvousByDate(LocalDate date);
     List<Rendezvous> getAllRendezvousByMedecin(Medecin medecin);
     List<Rendezvous> rendezvousByDateAndStatut(LocalDate date, Integer statut);
+    List<Rendezvous> rendezvousByStatut(Integer statut);
 
 }
