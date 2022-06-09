@@ -5,6 +5,7 @@ import com.mbc.clickclinic.entities.Medecin;
 import com.mbc.clickclinic.entities.Patient;
 import com.mbc.clickclinic.entities.Rendezvous;
 import com.mbc.clickclinic.security.GeneralRole;
+import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -58,6 +59,10 @@ public class PatientImple implements PatientService{
         }
         if(patient.getNom().matches(".*[0-9].*") || patient.getPrenom().matches(".*[0-9].*")){
             model.addAttribute("numbers", "Nom ou prénom contient un nombre !");
+            return null;
+        }
+        if(!EmailValidator.getInstance().isValid(patient.getEmail())){
+            model.addAttribute("emailInvalid", "Email est invalide, Vérifiez votre saisie !");
             return null;
         }
         return savePatient(patient);
