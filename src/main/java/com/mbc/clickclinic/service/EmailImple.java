@@ -24,4 +24,15 @@ public class EmailImple implements EmailService {
 
         javaMailSender.send(simpleMailMessage);
     }
+
+    @Override
+    public void sendToAll(String[] to, String body, String subject) {
+        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+        simpleMailMessage.setFrom("scrinium.projet@gmail.com");
+        simpleMailMessage.setTo(to);
+        simpleMailMessage.setSubject(subject);
+        simpleMailMessage.setText(body);
+
+        javaMailSender.send(simpleMailMessage);
+    }
 }

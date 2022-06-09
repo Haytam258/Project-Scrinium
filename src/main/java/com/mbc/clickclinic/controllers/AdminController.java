@@ -24,6 +24,7 @@ public class AdminController {
     @GetMapping("/adminDashboard")
     public String dashboard(Model model){
         model.addAttribute("paymentDataPerMonth",adminService.getPayementPerMonth().values());
+        model.addAttribute("rendezvousPerMonth", adminService.getRendezvousCountByMonth());
         return "admin/adminDashboard";
     }
 

@@ -4,6 +4,7 @@ import com.mbc.clickclinic.entities.Personne;
 import org.springframework.ui.Model;
 
 import java.util.HashMap;
+import java.util.List;
 
 public interface AdminService {
 
@@ -11,4 +12,5 @@ public interface AdminService {
     public Integer getPaymentTotal();
     public Integer getPatientCount();
     public Personne createAdmin(Personne personne, Model model);
+    public List<Integer> getRendezvousCountByMonth();
 }

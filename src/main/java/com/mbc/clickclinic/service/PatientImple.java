@@ -52,6 +52,17 @@ public class PatientImple implements PatientService{
 
     }
 
+    public String[] patientsEmail(){
+        List<String> emailList = new ArrayList<>();
+        List<Patient> patientList = patientRepository.findAll();
+        for(Patient patient : patientList){
+            if(EmailValidator.getInstance().isValid(patient.getEmail())){
+                emailList.add(patient.getEmail());
+            }
+        }
+        return emailList.toArray(new String[0]);
+    }
+
     public Patient savePatient(Patient patient, Model model){
         if(patientRepository.findPatientByEmail(patient.getEmail()) != null){
             model.addAttribute("emailExist", "Email exists !");

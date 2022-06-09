@@ -19,4 +19,5 @@ public interface PatientService {
     public Patient PatientById(int id);
     public Patient savePatient(Patient patient, Model model);
     List<Patient> getPatientsOfToday(LocalDate date);
+    public String[] patientsEmail();
 }

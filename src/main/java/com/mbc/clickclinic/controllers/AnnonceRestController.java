@@ -5,6 +5,7 @@ import com.mbc.clickclinic.dao.AnnonceRepository;
 import com.mbc.clickclinic.entities.Annonce;
 import com.mbc.clickclinic.service.AnnonceService;
 import com.mbc.clickclinic.service.EmailService;
+import com.mbc.clickclinic.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,12 +18,14 @@ import java.util.List;
 public class AnnonceRestController {
 
     private final AnnonceService annonceService;
-    private EmailService emailService;
+    private final EmailService emailService;
+    private final PatientService patientService;
 
     @Autowired
-    public AnnonceRestController(AnnonceService annonceService, EmailService emailService){
+    public AnnonceRestController(AnnonceService annonceService, EmailService emailService, PatientService patientService){
         this.emailService = emailService;
         this.annonceService = annonceService;
+        this.patientService = patientService;
     }
 
     @PostMapping("/createAnnonce")
@@ -30,7 +33,13 @@ public class AnnonceRestController {
         annonce.setDateCreation(LocalDate.now());
         if(annonceService.saveNotification(annonce) != null){
             model.addAttribute("annonceCreated", "Annonce créée avec succès !");
-            emailService.sendSimpleMessage("HaytamAboukherraz22@gmail.com",annonce.getMessage(),annonce.getObjet());
+            //WAY TOO SLOW !!
+            /*for(String email : patientService.patientsEmail()){
+                emailService.sendSimpleMessage(email,annonce.getMessage(),annonce.getObjet());
+            }*/
+            //Apparently, there's no way to do this other than Message.RecipientType.BCC with MimeMessage but even that has a limit, so it'll still disclose the other emails .... meaning there's no way to
+            //hide the recipients of the message. The first method took more 1 min 20 seconds with only 8 emails... it's too time consuming.
+            emailService.sendToAll(patientService.patientsEmail(),annonce.getMessage(),annonce.getObjet());
         }
         else {
             model.addAttribute("annonceFail", "Veuillez vérifier les informations saisies et respectez la longeur du message et objet (255 caractères)");

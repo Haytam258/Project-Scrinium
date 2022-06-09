@@ -478,15 +478,23 @@
 </script>
 <script>
     $(document).ready(function() {
-        var elements = [[${paymentDataPerMonth}]];
-        console.log(elements);
-        var data = {
+        var paymentElements = [[${paymentDataPerMonth}]];
+        var paymentData = {
             labels:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
             series:[
-                elements
+                paymentElements
             ]
         };
-        var myChart = Chartist.Line('#completedTasksChart', data);
+        var rendezvousElements = [[${rendezvousPerMonth}]];
+        console.log(rendezvousElements);
+        var rendezvousData = {
+            labels:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+            series:[
+                rendezvousElements
+            ]
+        }
+        var myChart = new Chartist.Line('#completedTasksChart', paymentData);
+        var myRendezChart = new Chartist.Line('#colouredRoundedLineChart', rendezvousData);
     });
 
 

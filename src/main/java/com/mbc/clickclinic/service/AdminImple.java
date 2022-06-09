@@ -5,14 +5,13 @@ import com.mbc.clickclinic.dao.PersonneRepository;
 import com.mbc.clickclinic.entities.Patient;
 import com.mbc.clickclinic.entities.Payment;
 import com.mbc.clickclinic.entities.Personne;
+import com.mbc.clickclinic.entities.Rendezvous;
 import com.mbc.clickclinic.security.GeneralRole;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class AdminImple implements AdminService{
@@ -22,18 +21,35 @@ public class AdminImple implements AdminService{
     private final PaymentService paymentService;
     private final ConsultationService consultationService;
     private final PersonneRepository personneRepository;
+    private final RendezvousService rendezvousService;
 
-    public AdminImple(MedecinService medecinService, PatientService patientService, PaymentService paymentService, ConsultationService consultationService, PersonneRepository personneRepository){
+    public AdminImple(MedecinService medecinService, PatientService patientService, PaymentService paymentService, ConsultationService consultationService, PersonneRepository personneRepository, @Lazy RendezvousService rendezvousService){
         this.medecinService = medecinService;
         this.patientService = patientService;
         this.paymentService = paymentService;
         this.consultationService = consultationService;
         this.personneRepository = personneRepository;
+        this.rendezvousService = rendezvousService;
     }
 
 
     public Integer getPatientCount(){
         return patientService.patients().size();
+    }
+
+    public List<Integer> getRendezvousCountByMonth(){
+        List<Rendezvous> rendezvousList = rendezvousService.Rendezvouss();
+        List<Integer> rendezCount = new ArrayList<>();
+        for(int i = 0; i < 12; i++){
+            int total = 0;
+            for(Rendezvous rendezvous : rendezvousList){
+                if(rendezvous.getDateRv().getMonth().getValue() == i+1){
+                    total += 1;
+                }
+            }
+            rendezCount.add(total);
+        }
+        return rendezCount;
     }
 
 
