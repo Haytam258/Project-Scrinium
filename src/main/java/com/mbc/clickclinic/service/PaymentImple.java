@@ -35,7 +35,8 @@ public class PaymentImple implements PaymentService{
 
     @Override
     public Payment updatePayment(Payment payment) {
-        return null;
+        payment.setEquilibre(payment.getTotalBrut() - payment.getMontantDepose());
+        return paymentRepository.saveAndFlush(payment);
     }
 
     @Override

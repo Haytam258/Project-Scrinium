@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -63,6 +64,32 @@ public class PaymentRestController {
     public String getPayments(Model model){
         model.addAttribute("allPayments", paymentService.payments());
         return "paiement/paiementList";
+    }
+
+    @GetMapping("/payments/modify/{id}")
+    public String modifyPayment(@PathVariable("id") Integer id, Model model){
+        model.addAttribute("payment",paymentService.paymentById(id));
+        return "paiement/modifyPaiement";
+    }
+
+    @PostMapping("/modifyPayment")
+    public String modifyPayment(@ModelAttribute("payment") Payment payment, Model model){
+        payment.setDatePaiement(LocalDateTime.now());
+        model.addAttribute("payment",payment);
+        if(payment.getTotalBrut() - payment.getMontantDepose() < 0){
+            model.addAttribute("paiementImpossible", "Le montant déposé par le client dépasse le total brut de l'opération !");
+            return "paiement/modifyPaiement";
+        }
+        else {
+            if(paymentService.updatePayment(payment) != null){
+                model.addAttribute("modificationSuccess", "Paiement a été mis en jour !");
+            }
+            else {
+                model.addAttribute("modificationFail", "Veuillez Vérifier les montants et données saisies !");
+                return "paiement/modifyPaiement";
+            }
+        }
+        return "redirect:/payments";
     }
 
     @GetMapping("/payments/{id}")

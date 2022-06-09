@@ -22,7 +22,7 @@ public class Payment {
     private String remarque;
     private LocalDateTime datePaiement;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH})
     @JoinColumn(name = "consultation_id")
     @JsonBackReference(value = "consultation_payment")
     private Consultation consultation;

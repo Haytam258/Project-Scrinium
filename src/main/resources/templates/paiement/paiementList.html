@@ -59,7 +59,7 @@
                                             <td th:text="${paiement.equilibre}"></td>
                                             <td th:text="${paiement.equilibre == 0 ? 'Effectué' : 'Paiement Non Fini'}"></td>
                                             <td class="text-right">
-                                                <a th:href="@{/payments/{id}(id=${paiement.id})}" class="btn btn-link btn-info btn-just-icon like" ><i class="material-icons">info</i></a>
+                                                <a th:href="@{/payments/modify/{id}(id=${paiement.id})}" class="btn btn-link btn-info btn-just-icon like" ><i class="material-icons">edit</i></a>
                                                 <a th:href="@{/deletePayment/{id}(id=${paiement.id})}" onclick="return confirm('Etes vous sure ?');" class="btn btn-link btn-danger btn-just-icon remove"><i class="material-icons">close</i></a>
                                             </td>
                                         </tr>

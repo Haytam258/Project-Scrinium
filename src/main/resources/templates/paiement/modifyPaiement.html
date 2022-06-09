@@ -1,10 +1,113 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="include/css :: head"></div>
+<body class=" ">
+<div class="wrapper ">
+    <div th:replace="include/sidebar :: sidebar-fragment"></div>
+    <div class="main-panel">
+        <!-- Navbar -->
+        <nav th:replace="include/navbar2 :: navbar"></nav>
+        <!-- End Navbar -->
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12 ">
+                        <div class="card ">
+                            <div class="card-header ">
+                                <h4 class="card-title">Paiement du Patient -
+                                    <small class="description" th:text="${payment.consultation.rendezvous == null ? '' : payment.consultation.rendezvous.patient.prenom + ' ' + payment.consultation.rendezvous.patient.nom + ' - Le : ' + payment.datePaiement}"></small>
+                                </h4>
+                            </div>
+                            <div class="card-body ">
+                                <div class="tab-content tab-space">
+                                    <div class="tab-pane active" id="link1">
+                                        <div class="row">
+                                            <div class="col-md-8">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label class="bmd-label-floating">Le total Brut</label>
+                                                        <input type="text" th:value="${payment.totalBrut == null ? '' : payment.totalBrut}" class="form-control" disabled="disabled" required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <div class="form-group">
+                                                            <label class="bmd-label-floating">L'ancien montant déposé :</label>
+                                                            <textarea th:text="${payment.montantDepose}" class="form-control" rows="4" disabled="disabled" required></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <div class="form-group">
+                                                            <label class="bmd-label-floating">L'ancien équilibre du :</label>
+                                                            <textarea th:text="${payment.equilibre}" class="form-control" rows="4" disabled="disabled" required></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="card ">
+                                                    <div class="card-header card-header-rose card-header-icon">
+                                                        <div class="card-icon">
+                                                            <i class="material-icons">mail_outline</i>
+                                                        </div>
+                                                        <h4 class="card-title">Mise a jour du paiement</h4>
+                                                    </div>
+                                                    <div class="card-body ">
+                                                        <form method="POST" action="#" th:object="${payment}" th:action="@{/modifyPayment}">
+                                                            <div class="form-group">
+                                                                <label for="newTotal" class="bmd-label-floating">Le nouveau total brut :</label>
+                                                                <input type="number" class="form-control" id="newTotal" th:field="*{totalBrut}" required>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="newMontant" class="bmd-label-floating">Le nouveau montant déposé total :</label>
+                                                                <input type="number" class="form-control" id="newMontant" th:field="*{montantDepose}" required>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="newRemarque" class="bmd-label-floating">Remarque :</label>
+                                                                <input type="text" class="form-control" id="newRemarque" th:field="*{remarque}" required>
+                                                            </div>
+
+                                                            <input type="hidden" th:value="${payment.id}" th:field="*{id}">
+                                                            <input type="hidden" th:value="${payment.consultation}" th:field="*{consultation}">
+                                                            <div class="card-footer ">
+                                                                <button type="submit" class="btn btn-fill btn-rose">Submit</button>
+                                                            </div>
+                                                            <div class="form-group has-success" th:if="${modificationSuccess != null}">
+                                                                <span class="alert text-success" th:text="${modificationSuccess}"> </span>
+
+                                                            </div>
+                                                            <div class="form-group has-danger" th:if="${modificationFail != null}">
+                                                                <span class="alert text-daner" th:text="${modificationFail}"> </span>
+
+                                                            </div>
+                                                            <div class="form-group has-danger" th:if="${paiementImpossible != null}">
+                                                                <span class="alert text-daner" th:text="${paiementImpossible}"> </span>
+
+                                                            </div>
+
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<div th:replace="include/js :: js"></div>
 
 </body>
 </html>
