@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import java.time.LocalDate;
 import java.util.*;
 
 @Service
@@ -61,6 +62,53 @@ public class AdminImple implements AdminService{
         }
         return total;
     }
+
+    public List<String> patientGenderPercent(){
+        List<Integer> genders = patientCountByGender();
+        int total = patientService.patients().size();
+        List<String> genderPercent = new ArrayList<>();
+        String genderMale = "0%";
+        String genderFemale = "0%";
+        if(total != 0){
+            int percentMale = genders.get(0)/total*100;
+            int percentFemale = genders.get(1)/total*100;
+            genderMale = String.valueOf(percentMale);
+            genderFemale = String.valueOf(percentFemale);
+        }
+        genderPercent.add(genderMale);
+        genderPercent.add(genderFemale);
+        return genderPercent;
+    }
+
+    public List<Integer> patientCountByGender(){
+        List<Patient> patientList = patientService.patients();
+        List<Integer> genderCount = new ArrayList<>();
+        int countMale = 0;
+        int countFemale = 0;
+        for(Patient patient : patientList){
+            if(Objects.equals(patient.getSexe(), "Male")){
+                countMale += 1;
+            }
+            if(Objects.equals(patient.getSexe(), "Female")){
+                countFemale += 1;
+            }
+        }
+        genderCount.add(countMale);
+        genderCount.add(countFemale);
+        return genderCount;
+    }
+
+    public Integer getThisYearTotalPayment(){
+        List<Payment> payments = paymentService.payments();
+        int total = 0;
+        for(Payment payment : payments){
+            if(payment.getDatePaiement().getYear() == LocalDate.now().getYear()){
+                total += payment.getMontantDepose();
+            }
+        }
+        return total;
+    }
+
     //On peut ajouter mois à l'entité Payment afin d'appeler directement Repository ByMonth et faire le calcul, ça peut optimiser la vitesse.
     public HashMap<Integer, Integer> getPayementPerMonth(){
         List<Payment> payments = paymentService.payments();

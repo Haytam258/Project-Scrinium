@@ -624,7 +624,7 @@ demo = {
 
       /*  **************** Public Preferences - Pie Chart ******************** */
 
-      var dataPreferences = {
+     /* var dataPreferences = {
         labels: ['62%', '32%', '6%'],
         series: [62, 32, 6]
       };
@@ -633,7 +633,7 @@ demo = {
         height: '230px'
       };
 
-      Chartist.Pie('#chartPreferences', dataPreferences, optionsPreferences);
+      Chartist.Pie('#chartPreferences', dataPreferences, optionsPreferences);*/
 
       /*  **************** Simple Bar Chart - barchart ******************** */
 

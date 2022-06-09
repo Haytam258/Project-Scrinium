@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.time.LocalDate;
+
 @Controller
 public class AdminController {
 
@@ -25,6 +27,11 @@ public class AdminController {
     public String dashboard(Model model){
         model.addAttribute("paymentDataPerMonth",adminService.getPayementPerMonth().values());
         model.addAttribute("rendezvousPerMonth", adminService.getRendezvousCountByMonth());
+        model.addAttribute("thisYearRevenue",adminService.getThisYearTotalPayment());
+        model.addAttribute("thisYear", LocalDate.now().getYear());
+        model.addAttribute("patientNumber", adminService.getPatientCount());
+        model.addAttribute("patientByGender", adminService.patientCountByGender());
+        model.addAttribute("genderPercent", adminService.patientGenderPercent());
         return "admin/adminDashboard";
     }
 

@@ -113,113 +113,9 @@
                                                 <h6 class="card-category">Legend</h6>
                                             </div>
                                             <div class="col-md-12">
-                                                <i class="fa fa-circle text-info"></i> Apple
-                                                <i class="fa fa-circle text-warning"></i> Samsung
-                                                <i class="fa fa-circle text-danger"></i> Windows Phone
+                                                <i class="fa fa-circle text-info"></i> Male
+                                                <i class="fa fa-circle text-warning"></i> Female
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="card ">
-                                <div class="card-header card-header-success card-header-icon">
-                                    <div class="card-icon">
-                                        <i class="material-icons"></i>
-                                    </div>
-                                    <h4 class="card-title">Global Sales by Top Locations</h4>
-                                </div>
-                                <div class="card-body ">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="table-responsive table-sales">
-                                                <table class="table">
-                                                    <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="flag">
-                                                                <img src="../assets/img/flags/US.png"/> </div>
-                                                        </td>
-                                                        <td>USA</td>
-                                                        <td class="text-right">
-                                                            2.920
-                                                        </td>
-                                                        <td class="text-right">
-                                                            53.23%
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="flag">
-                                                                <img src="../assets/img/flags/DE.png"/> </div>
-                                                        </td>
-                                                        <td>Germany</td>
-                                                        <td class="text-right">
-                                                            1.300
-                                                        </td>
-                                                        <td class="text-right">
-                                                            20.43%
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="flag">
-                                                                <img src="../assets/img/flags/AU.png"/> </div>
-                                                        </td>
-                                                        <td>Australia</td>
-                                                        <td class="text-right">
-                                                            760
-                                                        </td>
-                                                        <td class="text-right">
-                                                            10.35%
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="flag">
-                                                                <img src="../assets/img/flags/GB.png"/> </div>
-                                                        </td>
-                                                        <td>United Kingdom</td>
-                                                        <td class="text-right">
-                                                            690
-                                                        </td>
-                                                        <td class="text-right">
-                                                            7.87%
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="flag">
-                                                                <img src="../assets/img/flags/RO.png"/> </div>
-                                                        </td>
-                                                        <td>Romania</td>
-                                                        <td class="text-right">
-                                                            600
-                                                        </td>
-                                                        <td class="text-right">
-                                                            5.94%
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="flag">
-                                                                <img src="../assets/img/flags/BR.png"/> </div>
-                                                        </td>
-                                                        <td>Brasil</td>
-                                                        <td class="text-right">
-                                                            550
-                                                        </td>
-                                                        <td class="text-right">
-                                                            4.34%
-                                                        </td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 ml-auto mr-auto">
-                                            <div id="worldMap" style="height: 300px;"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -299,12 +195,12 @@
                                             <i class="material-icons">edit</i>
                                         </button>
                                     </div>
-                                    <h4 class="card-title">Completed Tasks</h4>
-                                    <p class="card-category">Last Campaign Performance</p>
+                                    <h4 class="card-title">Total des montants déposés par mois</h4>
+                                    <p class="card-category">Revenue Reçu</p>
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
-                                        <i class="material-icons">access_time</i> campaign sent 2 days ago
+                                        <i class="material-icons">access_time</i> <span th:text="${'Année : ' + thisYear}"></span>
                                     </div>
                                 </div>
                             </div>
@@ -350,12 +246,12 @@
                                     <div class="card-icon">
                                         <i class="material-icons">store</i>
                                     </div>
-                                    <p class="card-category">Revenue</p>
-                                    <h3 class="card-title">$34,245</h3>
+                                    <p class="card-category">Total Déposé par les patients :</p>
+                                    <h3 class="card-title" th:text="${thisYearRevenue + ' DH'}"></h3>
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
-                                        <i class="material-icons">date_range</i> Last 24 Hours
+                                        <i class="material-icons">date_range</i> <span th:text="${'Année : ' + thisYear}"></span>
                                     </div>
                                 </div>
                             </div>
@@ -364,10 +260,10 @@
                             <div class="card card-stats">
                                 <div class="card-header card-header-info card-header-icon">
                                     <div class="card-icon">
-                                        <i class="fa fa-twitter"></i>
+                                        <i class="material-icons">face</i>
                                     </div>
-                                    <p class="card-category">Followers</p>
-                                    <h3 class="card-title">+245</h3>
+                                    <p class="card-category">Total Patients : </p>
+                                    <h3 class="card-title" th:text="${patientNumber + ' patients enregistrés'}"></h3>
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
@@ -486,15 +382,31 @@
             ]
         };
         var rendezvousElements = [[${rendezvousPerMonth}]];
-        console.log(rendezvousElements);
         var rendezvousData = {
             labels:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
             series:[
                 rendezvousElements
             ]
-        }
+        };
+        var patientByGender = [[${patientByGender}]];
+        var genderPercent = [[${genderPercent}]];
+        var optionsPreferences = {
+            height: '230px'
+        };
+        var percentage = genderPercent.map(function(e){
+            return e.toString() + "%";
+        }).toString().split(",");
+        var patientGenderData = {
+            labels:
+                percentage
+            ,
+            series:
+                genderPercent
+
+        };
         var myChart = new Chartist.Line('#completedTasksChart', paymentData);
         var myRendezChart = new Chartist.Line('#colouredRoundedLineChart', rendezvousData);
+        var myPieChart = new Chartist.Pie('#chartPreferences', patientGenderData, optionsPreferences);
     });
 
 

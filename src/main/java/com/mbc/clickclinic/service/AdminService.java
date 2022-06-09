@@ -13,4 +13,7 @@ public interface AdminService {
     public Integer getPatientCount();
     public Personne createAdmin(Personne personne, Model model);
     public List<Integer> getRendezvousCountByMonth();
+    public Integer getThisYearTotalPayment();
+    public List<Integer> patientCountByGender();
+    public List<String> patientGenderPercent();
 }
