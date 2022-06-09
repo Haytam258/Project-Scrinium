@@ -24,4 +24,9 @@ public class ControllerAdviceAnnonce {
         return annonceService.getWeeklyAnnonces();
     }
 
+    @ModelAttribute(value = "createDossier")
+    public String creerDossier(){
+        return "Le patient n'a pas de dossier médicale, veuillez créer le dossier avant de saisir la consultation";
+    }
+
 }

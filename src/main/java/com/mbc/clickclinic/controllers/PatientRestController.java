@@ -2,10 +2,8 @@ package com.mbc.clickclinic.controllers;
 
 
 import com.mbc.clickclinic.entities.Patient;
-import com.mbc.clickclinic.service.ConsultationService;
-import com.mbc.clickclinic.service.MedecinService;
-import com.mbc.clickclinic.service.PatientService;
-import com.mbc.clickclinic.service.RendezvousService;
+import com.mbc.clickclinic.service.*;
+import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
@@ -22,13 +20,15 @@ public class PatientRestController {
     private final MedecinService medecinService;
     private final RendezvousService rendezvousService;
     private final ConsultationService consultationService;
+    private final EmailService emailService;
 
     @Autowired
-    public PatientRestController(PatientService patientService, MedecinService medecinService, @Lazy RendezvousService rendezvousService, ConsultationService consultationService){
+    public PatientRestController(PatientService patientService, MedecinService medecinService, @Lazy RendezvousService rendezvousService, ConsultationService consultationService, EmailService emailService){
         this.patientService = patientService;
         this.medecinService = medecinService;
         this.rendezvousService = rendezvousService;
         this.consultationService = consultationService;
+        this.emailService = emailService;
     }
 
     @GetMapping("/patients")
@@ -64,6 +64,9 @@ public class PatientRestController {
         else {
             if(patientService.savePatient(patient, model) != null){
                 model.addAttribute("patientCreated", "Le patient a été enregistré !");
+                if(EmailValidator.getInstance().isValid(patient.getEmail())){
+                    emailService.sendSimpleMessage(patient.getEmail(),"Bienvenu à Scrinium \nVotre compte de la clinique Scrinium a été créé.","Compte Créé");
+                }
             }
         }
         return "patient/createPatient";
@@ -90,7 +93,11 @@ public class PatientRestController {
 
     @GetMapping("/deletePatient/{id}")
     public String deletePatient(@PathVariable Integer id){
-        patientService.deletePatient(patientService.PatientById(id));
+        Patient patient = patientService.PatientById(id);
+        if(EmailValidator.getInstance().isValid(patient.getEmail())){
+            emailService.sendSimpleMessage(patient.getEmail(),"Votre compte Scrinium a été supprimé.","Compte Supprimé Scrinium");
+        }
+        patientService.deletePatient(patient);
         return "redirect:/patients";
     }
 

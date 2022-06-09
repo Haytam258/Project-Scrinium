@@ -40,6 +40,9 @@ public class ConsultationRestController {
 
     @PostMapping("/createConsultation")
     public String createConsultation(@ModelAttribute(value = "consultation") Consultation consultation,@ModelAttribute(value = "ordonnance") Ordonnance ordonnance, Model model){
+        if(consultation.getRendezvous().getPatient().getDossierMedicale() == null){
+            return "redirect:/dossier/create";
+        }
         consultation.setOrdonnance(ordonnance);
         consultation.setDossierMedicale(consultation.getRendezvous().getPatient().getDossierMedicale());
         consultationService.saveConsultation(consultation);

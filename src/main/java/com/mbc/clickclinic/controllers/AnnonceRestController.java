@@ -4,6 +4,7 @@ package com.mbc.clickclinic.controllers;
 import com.mbc.clickclinic.dao.AnnonceRepository;
 import com.mbc.clickclinic.entities.Annonce;
 import com.mbc.clickclinic.service.AnnonceService;
+import com.mbc.clickclinic.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,9 +17,11 @@ import java.util.List;
 public class AnnonceRestController {
 
     private final AnnonceService annonceService;
+    private EmailService emailService;
 
     @Autowired
-    public AnnonceRestController(AnnonceService annonceService){
+    public AnnonceRestController(AnnonceService annonceService, EmailService emailService){
+        this.emailService = emailService;
         this.annonceService = annonceService;
     }
 
@@ -27,6 +30,7 @@ public class AnnonceRestController {
         annonce.setDateCreation(LocalDate.now());
         if(annonceService.saveNotification(annonce) != null){
             model.addAttribute("annonceCreated", "Annonce créée avec succès !");
+            emailService.sendSimpleMessage("HaytamAboukherraz22@gmail.com",annonce.getMessage(),annonce.getObjet());
         }
         else {
             model.addAttribute("annonceFail", "Veuillez vérifier les informations saisies et respectez la longeur du message et objet (255 caractères)");

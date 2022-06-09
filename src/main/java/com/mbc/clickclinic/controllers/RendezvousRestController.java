@@ -2,10 +2,8 @@ package com.mbc.clickclinic.controllers;
 
 
 import com.mbc.clickclinic.entities.Rendezvous;
-import com.mbc.clickclinic.service.ConsultationService;
-import com.mbc.clickclinic.service.MedecinService;
-import com.mbc.clickclinic.service.PatientService;
-import com.mbc.clickclinic.service.RendezvousService;
+import com.mbc.clickclinic.service.*;
+import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,13 +21,15 @@ public class RendezvousRestController {
     private final MedecinService medecinService;
     private final PatientService patientService;
     private final ConsultationService consultationService;
+    private final EmailService emailService;
 
     @Autowired
-    public RendezvousRestController(RendezvousService rendezvousService, PatientService patientService, MedecinService medecinService, ConsultationService consultationService){
+    public RendezvousRestController(RendezvousService rendezvousService, PatientService patientService, MedecinService medecinService, ConsultationService consultationService, EmailService emailService){
         this.rendezvousService = rendezvousService;
         this.patientService = patientService;
         this.medecinService = medecinService;
         this.consultationService = consultationService;
+        this.emailService = emailService;
     }
 
     @GetMapping("/allRendezvous")
@@ -97,6 +97,9 @@ public class RendezvousRestController {
     @GetMapping("/demandesRendezvous/accept/{id}")
     public String demandeAccepte(Model model, @PathVariable("id") Integer id){
         Rendezvous rendezvous = rendezvousService.RendezvousById(id);
+        if(EmailValidator.getInstance().isValid(rendezvous.getPatient().getEmail())){
+            emailService.sendSimpleMessage(rendezvous.getPatient().getEmail(),"Votre rendez vous a été accepté !\n Votre date de rendez vous est : " + rendezvous.getDateRv() + " - l'heure : " + rendezvous.getHeure(),"Demande de rendez vous acceptée");
+        }
         rendezvous.setStatut(0);
         rendezvousService.updateRendezvous(rendezvous);
         return "redirect:/demandesRendezvous";
@@ -118,7 +121,11 @@ public class RendezvousRestController {
 
     @GetMapping("/deleteRendezvous/{id}")
     public String deleteRendezvous(@PathVariable Integer id){
-        rendezvousService.deleteRendezvous(rendezvousService.RendezvousById(id));
+        Rendezvous rendezvous = rendezvousService.RendezvousById(id);
+        if(EmailValidator.getInstance().isValid(rendezvous.getPatient().getEmail())){
+            emailService.sendSimpleMessage(rendezvous.getPatient().getEmail(),"Votre demande de rendez vous a été refusé !","Demande de rendez vous refusée");
+        }
+        rendezvousService.deleteRendezvous(rendezvous);
         return "redirect:/allRendezvous";
     }
 
