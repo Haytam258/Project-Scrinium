@@ -32,6 +32,8 @@ public class AdminController {
         model.addAttribute("patientNumber", adminService.getPatientCount());
         model.addAttribute("patientByGender", adminService.patientCountByGender());
         model.addAttribute("genderPercent", adminService.patientGenderPercent());
+        model.addAttribute("remainingMontant", adminService.getRemainingPayment());
+        model.addAttribute("remainingThisYear", adminService.getThisYearRemainingPayment());
         return "admin/adminDashboard";
     }
 

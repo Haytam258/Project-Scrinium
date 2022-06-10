@@ -25,6 +25,7 @@ public class PaymentImple implements PaymentService{
     }
     @Override
     public Payment savePayment(Payment payment) {
+        payment.setEquilibre(payment.getTotalBrut() - payment.getMontantDepose());
         return paymentRepository.saveAndFlush(payment);
     }
 

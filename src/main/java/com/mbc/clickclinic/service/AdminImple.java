@@ -53,6 +53,26 @@ public class AdminImple implements AdminService{
         return rendezCount;
     }
 
+    public Integer getThisYearRemainingPayment(){
+        List<Payment> payments = paymentService.payments();
+        int total = 0;
+        for(Payment payment : payments){
+            if(payment.getDatePaiement().getYear() == LocalDate.now().getYear()){
+                total += payment.getEquilibre();
+            }
+        }
+        return total;
+    }
+
+    public Integer getRemainingPayment(){
+        List<Payment> payments = paymentService.payments();
+        int total = 0;
+        for(Payment payment : payments){
+            total += payment.getEquilibre();
+        }
+        return total;
+    }
+
 
     public Integer getPaymentTotal(){
         List<Payment> payments = paymentService.payments();

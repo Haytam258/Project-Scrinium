@@ -16,4 +16,6 @@ public interface AdminService {
     public Integer getThisYearTotalPayment();
     public List<Integer> patientCountByGender();
     public List<String> patientGenderPercent();
+    public Integer getRemainingPayment();
+    public Integer getThisYearRemainingPayment();
 }
