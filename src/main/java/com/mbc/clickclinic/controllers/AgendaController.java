@@ -43,6 +43,7 @@ public class AgendaController {
     public String create(Model model){
         Agenda agenda =new Agenda();
         model.addAttribute("agenda", agenda);
+        model.addAttribute("medecins", medecinService.medecins());
         return "agenda/create";
     }
 
