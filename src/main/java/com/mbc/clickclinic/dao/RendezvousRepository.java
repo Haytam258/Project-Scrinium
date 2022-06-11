@@ -16,7 +16,7 @@ import java.util.List;
 public interface RendezvousRepository extends JpaRepository<Rendezvous, Integer> {
 
     public List<Rendezvous> findRendezvousByDateRv(LocalDate rendezvous);
-    public Rendezvous findRendezvousByPatient(Patient patient);
+    public List<Rendezvous> findRendezvousByPatient(Patient patient);
     List<Rendezvous> findRendezvousByDateRvBetween(LocalDate date1, LocalDate date2);
     List<Rendezvous> findRendezvousByDateRvAndMedecin(LocalDate rendezvous, Medecin medecin);
     List<Rendezvous> findRendezvousByMedecin(Medecin medecin);

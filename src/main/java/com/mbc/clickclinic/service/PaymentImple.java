@@ -50,9 +50,9 @@ public class PaymentImple implements PaymentService{
         return paymentRepository.findById(id).get();
     }
 
-    public Optional<Payment> getPayementOfPatient(Patient patient){
+    /*public Optional<Payment> getPayementOfPatient(Patient patient){
         return paymentRepository.findById(rendezvousService.getRendezvousByPatient(patient).getConsultation().getPayment().getId());
-    }
+    }*/
 
     public Payment setConsultationForPaiement(Consultation consultation, Payment payment){
         payment.setConsultation(consultation);

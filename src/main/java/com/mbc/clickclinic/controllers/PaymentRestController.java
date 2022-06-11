@@ -108,8 +108,8 @@ public class PaymentRestController {
         return paymentService.getPaymentByConsultation(consultationService.ConsultationlById(id.intValue()));
     }
 
-    @GetMapping("/payment/patient/{id}")
+    /*@GetMapping("/payment/patient/{id}")
     public Optional<Payment> getPaymentOfPatient(@PathVariable Long id){
         return paymentService.getPayementOfPatient(patientService.PatientById(id.intValue()));
-    }
+    }*/
 }

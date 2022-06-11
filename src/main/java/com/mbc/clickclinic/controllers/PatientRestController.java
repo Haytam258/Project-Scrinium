@@ -86,9 +86,32 @@ public class PatientRestController {
         return "patient/patientParRendezvous";
     }
 
+    @GetMapping("/modifyPatient")
+    public String modifyPatient(Model model){
+        model.addAttribute("newpatient", new Patient());
+        return "patient/patientProfile";
+    }
+
     @PostMapping("/modifyPatient")
-    public Patient modifyPatient(@RequestBody Patient patient){
-        return patientService.updatePatient(patient);
+    public String modifyPatient(@ModelAttribute("newpatient") Patient patient, Model model){
+        Patient patient1 = patientService.PatientById(2);
+        patient1.setEmail(patient.getEmail());
+        patient1.setPassword(patient.getPassword());
+        patient1.setRegion(patient.getRegion());
+        patient1.setMobil(patient.getMobil());
+        patient1.setCin(patient.getCin());
+        if(!(patient.getMobil().matches("[0][6][0-9]{8}"))){
+            model.addAttribute("telInvalid", "Numéro de téléphone invalide !");
+        }
+        else {
+            if(patientService.savePatient(patient1, model) != null){
+                model.addAttribute("patientCreated", "Vos informations ont été modifiées !");
+                if(EmailValidator.getInstance().isValid(patient.getEmail())){
+                    emailService.sendSimpleMessage(patient.getEmail(),"Votre compte Scrinium a été modifié avec succès !","Compte Modifié");
+                }
+            }
+        }
+        return "patient/patientProfile";
     }
 
     @GetMapping("/deletePatient/{id}")

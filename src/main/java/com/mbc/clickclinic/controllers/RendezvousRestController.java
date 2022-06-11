@@ -43,6 +43,12 @@ public class RendezvousRestController {
         return rendezvousService.RendezvousById(id.intValue());
     }
 
+    @GetMapping("/myRendezvous")
+    public String myRendezvous(Model model){
+        model.addAttribute("rendezvousList", rendezvousService.getRendezvousByPatient(patientService.PatientById(2)));
+        return "rendezvous/mesRendezvous";
+    }
+
    @GetMapping("/createRendezvous")
     public String createRendezPage(Model model){
         model.addAttribute("rendezvous", new Rendezvous());
@@ -140,7 +146,7 @@ public class RendezvousRestController {
     }
 
     @GetMapping("/rendezvous/patient/{id}")
-    public Rendezvous getRendezvousByPatient(@PathVariable Long id){
+    public List<Rendezvous> getRendezvousByPatient(@PathVariable Long id){
         return rendezvousService.getRendezvousByPatient(patientService.PatientById(id.intValue()));
     }
 

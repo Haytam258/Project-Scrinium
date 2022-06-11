@@ -26,7 +26,7 @@ public interface RendezvousService {
     public List<Rendezvous> RendezvousByDate(LocalDate dateRv);
     public Rendezvous AddPatientToRendezVous(Patient patient, Rendezvous rendezvous);
     public Rendezvous AddMedecinToPatient(Medecin medecin, Rendezvous rendezvous);
-    public Rendezvous getRendezvousByPatient(Patient patient);
+    public List<Rendezvous> getRendezvousByPatient(Patient patient);
     public Rendezvous AddConsultationToRendezVous(Consultation consultation, Rendezvous rendezvous);
     List<Rendezvous> rendezvousByDate(LocalDate date);
     List<Rendezvous> getAllRendezvousByMedecin(Medecin medecin);

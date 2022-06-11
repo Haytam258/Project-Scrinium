@@ -50,8 +50,9 @@ public class MedecinRestController {
     }
 
     @GetMapping("/medecins/{id}")
-    public Medecin getMedecin(@PathVariable Integer id){
-        return medecinService.medecinById(id);
+    public String getMedecin(@PathVariable Integer id, Model model){
+        model.addAttribute("medecin", medecinService.medecinById(id));
+        return "medecin/medecinProfile";
     }
 
     @GetMapping("/medecins")
@@ -59,4 +60,5 @@ public class MedecinRestController {
         model.addAttribute("allMedecins",medecinService.medecins());
         return "medecin/medecinList";
     }
+
 }

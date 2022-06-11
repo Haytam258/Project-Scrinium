@@ -133,8 +133,10 @@ public class RendezvousImple implements RendezvousService{
         return rendezvousRepository.saveAndFlush(rendezvous);
     }
 
-    public Rendezvous getRendezvousByPatient(Patient patient){
-        return rendezvousRepository.findRendezvousByPatient(patient);
+    public List<Rendezvous> getRendezvousByPatient(Patient patient){
+        List<Rendezvous> rendezvousList = rendezvousRepository.findRendezvousByPatient(patient);
+        rendezvousList.removeIf(rendezvous -> rendezvous.getDateRv().isBefore(LocalDate.now()));
+        return rendezvousList;
     }
 
     public Rendezvous AddConsultationToRendezVous(Consultation consultation, Rendezvous rendezvous){

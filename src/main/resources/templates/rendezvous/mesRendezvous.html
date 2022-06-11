@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="include/css :: head"></div>
+<body class="">
+<div class="wrapper ">
+    <div th:replace="include/sidebar :: sidebar-fragment"></div>
+    <div class="main-panel">
+        <!-- Navbar -->
+        <nav th:replace="include/navbar2 :: navbar"></nav>
+        <!-- End Navbar -->
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header card-header-primary card-header-icon">
+                                <div class="card-icon">
+                                    <i class="material-icons">assignment</i>
+                                </div>
+                                <h4 class="card-title">Liste de mes prochains rendez vous</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="toolbar">
+                                    <!--        Here you can write extra buttons/actions for the toolbar              -->
+                                </div>
+                                <div class="material-datatables">
+                                    <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                                        <thead>
+                                        <tr>
+                                            <th>Date Rendez vous</th>
+                                            <th>Heure Rendez vous</th>
+                                            <th>Médecin</th>
+                                            <th>Statut</th>
+                                            <th class="disabled-sorting text-right">Actions</th>
+                                        </tr>
+                                        </thead>
+                                        <tfoot>
+                                        <tr>
+                                            <th>Date Rendez vous</th>
+                                            <th>Heure Rendez vous</th>
+                                            <th>Médecin</th>
+                                            <th>Statut</th>
+                                            <th class="text-right">Actions</th>
+                                        </tr>
+                                        </tfoot>
+                                        <tbody>
+                                        <tr th:each="rendez : ${rendezvousList}">
+                                            <td th:text="${rendez.dateRv}"></td>
+                                            <td th:text="${rendez.heure}"></td>
+                                            <td th:text="${rendez.medecin == null ? '' : rendez.medecin.nom + ' ' + rendez.medecin.prenom}"></td>
+                                            <td th:text="${rendez.statut == 0 ? 'A faire' : 'Effectué'}"></td>
+                                            <td class="text-right">
+                                                <a th:if="${rendez.patient.dossierMedicale != null}" th:href="@{/dossier/show/{id}(id=${rendez.patient.dossierMedicale.id})}" rel="tooltip" class="btn btn-success btn-link" href="" data-original-title="" title="">
+                                                    <i class="material-icons">visibility</i>
+                                                    <div class="ripple-container"></div>
+                                                </a>
+                                                <a th:if="${rendez.medecin != null}" th:href="@{/medecins/{id}(id=${rendez.medecin.id})}" rel="tooltip" class="btn btn-success btn-link" href="" data-original-title="" title="">
+                                                    <i class="material-icons">assignment_ind</i>
+                                                    <div class="ripple-container"></div>
+                                                </a>
+                                                <a th:if="${rendez.statut == 0}" th:href="@{/deleteRendezvous/{id}(id = ${rendez.id})}" onclick="return confirm('Etes vous sure ?');" href="#" class="btn btn-link btn-danger btn-just-icon remove" ><i class="material-icons">close</i></a>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <!-- end content-->
+                        </div>
+                        <!--  end card  -->
+                    </div>
+                    <!-- end col-md-12 -->
+                </div>
+                <!-- end row -->
+            </div>
+        </div>
+
+
+        <footer th:replace="include/footer :: footer"></footer>
+    </div>
+</div>
+
+
+
+<div th:replace="include/js :: js"></div>
+<script>
+    $(document).ready(function() {
+        $('#datatables').DataTable({
+            "pagingType": "full_numbers",
+            "lengthMenu": [
+                [10, 25, 50, -1],
+                [10, 25, 50, "All"]
+            ],
+            responsive: true,
+            language: {
+                search: "_INPUT_",
+                searchPlaceholder: "Search records",
+            }
+        });
+
+        var table = $('#datatable').DataTable();
+
+        // Edit record
+        table.on('click', '.edit', function() {
+            $tr = $(this).closest('tr');
+            var data = table.row($tr).data();
+            alert('You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.');
+        });
+
+        // Delete a record
+        table.on('click', '.remove', function(e) {
+            $tr = $(this).closest('tr');
+            table.row($tr).remove().draw();
+            e.preventDefault();
+        });
+
+        //Like record
+        table.on('click', '.like', function() {
+            alert('You clicked on Like button');
+        });
+    });
+</script>
+</body>
+</html>

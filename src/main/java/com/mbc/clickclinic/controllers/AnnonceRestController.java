@@ -39,7 +39,8 @@ public class AnnonceRestController {
             }*/
             //Apparently, there's no way to do this other than Message.RecipientType.BCC with MimeMessage but even that has a limit, so it'll still disclose the other emails .... meaning there's no way to
             //hide the recipients of the message. The first method took more 1 min 20 seconds with only 8 emails... it's too time consuming.
-            emailService.sendToAll(patientService.patientsEmail(),annonce.getMessage(),annonce.getObjet());
+            //This apparently locked the gmail account ...
+            //emailService.sendToAll(patientService.patientsEmail(),annonce.getMessage(),annonce.getObjet());
         }
         else {
             model.addAttribute("annonceFail", "Veuillez vérifier les informations saisies et respectez la longeur du message et objet (255 caractères)");
