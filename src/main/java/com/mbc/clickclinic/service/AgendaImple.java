@@ -27,6 +27,7 @@ public class AgendaImple implements AgendaService {
         for(Rendezvous rendezvous : rendezvousList){
             if(agenda.getMedecin() == rendezvous.getMedecin() && rendezvous.getDateRv().isBefore(agenda.getDateFin()) && rendezvous.getDateRv().isAfter(agenda.getDateDebut())){
                 rendezvousService.deleteRendezvous(rendezvous);
+                // Créer une annonce qui décrit la création de l'agenda et l'annulation des rendez vous de cette date.
             }
         }
         return agendaRepository.saveAndFlush(agenda);

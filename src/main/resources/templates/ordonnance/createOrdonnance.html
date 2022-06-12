@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="include/css :: head"></div>
+<body class=" ">
+<div class="wrapper ">
+    <div th:replace="include/sidebar :: sidebar-fragment"></div>
+    <div class="main-panel">
+        <!-- Navbar -->
+        <nav th:replace="include/navbar2 :: navbar"></nav>
+        <!-- End Navbar -->
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12 ">
+                        <div class="card ">
+                            <div class="card-header ">
+                                <h4 class="card-title">Ordonnance -
+                                    <small class="description">Créer une ordonnance</small>
+                                </h4>
+                            </div>
+                            <div class="card-body ">
+                                <div class="tab-content tab-space">
+                                    <div class="tab-pane active">
+                                        <form method="POST" th:action="@{/createOrdonnance}" th:object="${ordonnance}">
+                                            <div class="form-group">
+                                                <label class="bmd-label-floating">Faite pour la consultation du patient :</label>
+                                                <div class="col-lg-5 col-md-6 col-sm-3">
+                                                    <select class="selectpicker" data-size="7" data-style="btn btn-primary btn-round" title="Patient" th:field="*{consultation}" required>
+                                                        <option th:each="consultation : ${consultations}" th:value="${consultation.id}" th:text="${consultation.rendezvous.patient.nom + ' ' + consultation.rendezvous.patient.prenom + ' - Heure : ' + consultation.rendezvous.heure}"></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-8" th:each="ordonnanceItem, itemStat : *{ordonnanceItemsList}">
+                                                    <div class="col-md-12" >
+                                                        <div class="form-group">
+                                                            <label class="bmd-label-floating">Médicament :</label>
+                                                            <select class="selectpicker" data-size="7" data-style="btn btn-primary btn-round" title="Médicament" th:field="*{ordonnanceItemsList[__${itemStat.index}__].medicament}" required>
+                                                                <option th:each="medicament : ${medicaments}" th:value="${medicament.id}" th:text="${medicament.codeATC + ' ' + medicament.libelle}"></option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label class="bmd-label-floating">Posologie</label>
+                                                            <input type="text" class="form-control" th:field="*{ordonnanceItemsList[__${itemStat.index}__].posologie}" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label class="bmd-label-floating">Durée de traitement</label>
+                                                            <input type="text" class="form-control" th:field="*{ordonnanceItemsList[__${itemStat.index}__].dureeTraitement}" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label class="bmd-label-floating">Nbr de fois par jour</label>
+                                                            <input type="text" class="form-control" th:field="*{ordonnanceItemsList[__${itemStat.index}__].nbrFoisParJour}" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label class="bmd-label-floating">Dose</label>
+                                                            <input type="text" class="form-control" th:field="*{ordonnanceItemsList[__${itemStat.index}__].dose}" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <button type="submit" class="btn btn-rose pull-right">Sauvegarder</button>
+                                            <div class="clearfix"></div>
+
+                                        </form>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="include/js :: js"></div>
+
+</body>
+</html>

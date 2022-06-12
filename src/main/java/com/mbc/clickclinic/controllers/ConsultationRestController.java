@@ -39,28 +39,47 @@ public class ConsultationRestController {
     }
 
     @PostMapping("/createConsultation")
-    public String createConsultation(@ModelAttribute(value = "consultation") Consultation consultation,@ModelAttribute(value = "ordonnance") Ordonnance ordonnance, Model model){
+    public String createConsultation(@ModelAttribute(value = "consultation") Consultation consultation, Model model){
         if(consultation.getRendezvous().getPatient().getDossierMedicale() == null){
             return "redirect:/dossier/create";
         }
-        consultation.setOrdonnance(ordonnance);
         consultation.setDossierMedicale(consultation.getRendezvous().getPatient().getDossierMedicale());
         consultationService.saveConsultation(consultation);
-        ordonnance.setConsultation(consultation);
-        ordonnanceService.saveOrdonnance(ordonnance);
         Rendezvous rendezvous = rendezvousService.RendezvousById(consultation.getRendezvous().getId());
         rendezvous.setConsultation(consultation);
         rendezvous.setStatut(1);
         rendezvousService.updateRendezvous(rendezvous);
-        return "consultation/createConsultation";
+        return "redirect:/createOrdonnance";
+    }
+
+    @GetMapping("/createOrdonnance")
+    public String createOrdonnance(Model model){
+        Ordonnance ordonnance = new Ordonnance();
+        for(int i = 0; i < 4; i++){
+            ordonnance.add(new OrdonnanceItems());
+        }
+        model.addAttribute("ordonnance", ordonnance);
+        model.addAttribute("consultations", consultationService.getTodayConsultation());
+        model.addAttribute("medicaments", medicamentService.Medicaments());
+        return "ordonnance/createOrdonnance";
+    }
+
+    @PostMapping("/createOrdonnance")
+    public String createOrdonnance(@ModelAttribute("ordonnance") Ordonnance ordonnance, Model model){
+        for(OrdonnanceItems ordonnanceItems : ordonnance.getOrdonnanceItemsList()){
+            ordonnanceItems.setOrdonnance(ordonnance);
+        }
+        ordonnanceService.saveOrdonnance(ordonnance);
+        Consultation consultation = ordonnance.getConsultation();
+        consultation.setOrdonnance(ordonnance);
+        consultationService.saveConsultation(consultation);
+        return "redirect:/consultations";
     }
 
     @GetMapping("/createConsultation")
     public String createConsultation(Model model){
         model.addAttribute("consultation", new Consultation());
         model.addAttribute("rendezList", rendezvousService.rendezvousByDateAndStatut(LocalDate.now(),0));
-        model.addAttribute("ordonnance", new Ordonnance());
-        model.addAttribute("medicamentList", medicamentService.Medicaments());
         return "consultation/createConsultation";
     }
 

@@ -19,20 +19,8 @@
                                 </h4>
                             </div>
                             <div class="card-body ">
-                                <ul class="nav nav-pills nav-pills-warning" role="tablist">
-                                    <li class="nav-item">
-                                        <a class="nav-link active" data-toggle="tab" href="#link1" role="tablist">
-                                            Consultation
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" data-toggle="tab" href="#link2" role="tablist">
-                                            Ordonnance
-                                        </a>
-                                    </li>
-                                </ul>
                                 <div class="tab-content tab-space">
-                                    <div class="tab-pane active" id="link1">
+                                    <div class="tab-pane active">
                                         <form method="POST" th:action="@{/createConsultation}" th:object="${consultation}">
 
                                             <div class="row">
@@ -115,42 +103,6 @@
                                                             <input type="number" class="form-control" th:field="*{pressionArterielle}">
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                            </div>
-
-                                        <div class="tab-pane" id="link2">
-                                            <div class="row">
-                                                <div class="col-md-2">
-                                                    <div class="form-check">
-                                                        <label class="bmd-label-floating">Médicament :</label>
-                                                        <label class="form-check-label">
-                                                            <input class="form-check-input" type="checkbox" th:each="medicament : ${medicamentList}" th:value="${medicament.id}" th:text="${medicament.libelle}" th:field="${ordonnance.medicamentList}">
-                                                            <span class="form-check-sign">
-                                                            <span class="check"></span>
-                                                            </span>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-2">
-                                                    <div class="form-group"></div>
-                                                    <label class="bmd-label-floating">dose</label>
-                                                    <input type="number" class="form-control" th:field="${ordonnance.dose}">
-                                                </div>
-                                                <div class="col-md-2">
-                                                    <div class="form-group"></div>
-                                                    <label class="bmd-label-floating">Nbr fois par jour</label>
-                                                    <input type="number" class="form-control" th:field="${ordonnance.nbrFoisParJour}" >
-                                                </div>
-                                                <div class="col-md-2">
-                                                    <div class="form-group"></div>
-                                                    <label class="bmd-label-floating">Duée traitement</label>
-                                                    <input type="text" class="form-control" th:field="${ordonnance.dureeTraitement}">
-                                                </div>
-                                                <div class="col-md-2">
-                                                    <div class="form-group"></div>
-                                                    <label class="bmd-label-floating">posologie</label>
-                                                    <input type="text" class="form-control" th:field="${ordonnance.posologie}">
                                                 </div>
                                             </div>
                                             <button type="submit" class="btn btn-rose pull-right">Sauvegarder</button>

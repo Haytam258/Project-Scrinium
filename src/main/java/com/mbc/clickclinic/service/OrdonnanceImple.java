@@ -1,8 +1,10 @@
 package com.mbc.clickclinic.service;
 
+import com.mbc.clickclinic.dao.OrdonnanceItemsRepository;
 import com.mbc.clickclinic.dao.OrdonnanceRepository;
 import com.mbc.clickclinic.entities.Medicament;
 import com.mbc.clickclinic.entities.Ordonnance;
+import com.mbc.clickclinic.entities.OrdonnanceItems;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,12 +15,19 @@ public class OrdonnanceImple implements OrdonnanceService{
 
     private final OrdonnanceRepository ordonnanceRepository;
 
+    private final OrdonnanceItemsRepository ordonnanceItemsRepository;
+
     private final MedicamentService medicamentService;
 
     @Autowired
-    public OrdonnanceImple(OrdonnanceRepository ordonnanceRepository, MedicamentService medicamentService){
+    public OrdonnanceImple(OrdonnanceRepository ordonnanceRepository, MedicamentService medicamentService, OrdonnanceItemsRepository ordonnanceItemsRepository){
         this.ordonnanceRepository = ordonnanceRepository;
         this.medicamentService = medicamentService;
+        this.ordonnanceItemsRepository = ordonnanceItemsRepository;
+    }
+
+    public OrdonnanceItems saveOrdonnanceItems(OrdonnanceItems ordonnanceItems){
+        return ordonnanceItemsRepository.saveAndFlush(ordonnanceItems);
     }
 
     @Override
@@ -46,7 +55,7 @@ public class OrdonnanceImple implements OrdonnanceService{
         return ordonnanceRepository.findById(id).get();
     }
 
-    public Ordonnance addMedicamentToOrdonnance(Medicament medicament, Ordonnance ordonnance){
+    /*public Ordonnance addMedicamentToOrdonnance(Medicament medicament, Ordonnance ordonnance){
         if(ordonnance.getMedicamentList().contains(medicament)){
             return ordonnance;
         }
@@ -54,5 +63,5 @@ public class OrdonnanceImple implements OrdonnanceService{
             ordonnance.getMedicamentList().add(medicament);
             return ordonnanceRepository.saveAndFlush(ordonnance);
         }
-    }
+    }*/
 }

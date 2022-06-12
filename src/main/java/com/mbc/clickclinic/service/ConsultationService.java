@@ -18,5 +18,6 @@ public interface ConsultationService {
     public Consultation AddPaiementToConsultation(Payment payment, Consultation consultation);
     public Optional<Consultation> getConsultationByRendezVous(Rendezvous rendezvous);
     public List<Consultation> getAllConsultationsByDossierMedicale(DossierMedicale dossier);
+    public List<Consultation> getTodayConsultation();
 
 }

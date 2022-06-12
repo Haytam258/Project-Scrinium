@@ -29,10 +29,10 @@ public class OrdonnanceRestController {
         return ordonnanceService.OrdonnanceById(id.intValue());
     }
 
-    @PostMapping("/createOrdonnance")
+    /*@PostMapping("/createOrdonnance")
     public Ordonnance createOrdonnance(@RequestBody Ordonnance ordonnance){
         return ordonnanceService.saveOrdonnance(ordonnance);
-    }
+    }*/
 
     @PostMapping("/updateOrdonnance")
     public Ordonnance updateOrdonnance(@RequestBody Ordonnance ordonnance){

@@ -1,6 +1,7 @@
 package com.mbc.clickclinic.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.hibernate.Hibernate;
 
@@ -19,23 +20,17 @@ public class Ordonnance {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     //private List<Medicament> medicaments;
-    private String posologie; //Nombre de géllule à prendre à la fois par exemple
-    private int nbrFoisParJour;
-    private String dureeTraitement;
-    private int dose;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "medicament_ordonance",
-    joinColumns = @JoinColumn(name = "ordonnance_id"),
-    inverseJoinColumns = @JoinColumn(name = "medicament_id"))
+    @OneToMany(mappedBy = "ordonnance", cascade = CascadeType.ALL)
+    @JsonManagedReference("ordonnance_items")
     @ToString.Exclude
-    private List<Medicament> medicamentList;
+    private List<OrdonnanceItems> ordonnanceItemsList;
 
-    public void add(Medicament medicament){
-        if(this.medicamentList == null ){
-            medicamentList = new ArrayList<>();
+    public void add(OrdonnanceItems ordonnanceItems){
+        if(this.ordonnanceItemsList == null ){
+            ordonnanceItemsList = new ArrayList<>();
         }
-        medicamentList.add(medicament);
+        ordonnanceItemsList.add(ordonnanceItems);
     }
 
     @OneToOne(cascade = CascadeType.ALL)

@@ -8,6 +8,8 @@ import com.mbc.clickclinic.entities.Rendezvous;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,6 +27,13 @@ public class ConsultationImpl implements ConsultationService{
     @Override
     public Consultation saveConsultation(Consultation consultation) {
         return consultationRepository.saveAndFlush(consultation);
+    }
+
+    public List<Consultation> getTodayConsultation(){
+        List<Consultation> consultations = consultationRepository.findAll();
+        consultations.removeIf(consultation -> !consultation.getRendezvous().getDateRv().equals(LocalDate.now()));
+        consultations.removeIf(consultation -> consultation.getOrdonnance() != null);
+        return consultations;
     }
 
     @Override
