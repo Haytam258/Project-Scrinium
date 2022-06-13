@@ -98,6 +98,40 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                        <div class="row">
+                                            <div class="material-datatables" th:if="${nulled}">
+                                                <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Nombre de fois par jour</th>
+                                                        <th>Durée de traitement</th>
+                                                        <th>Posologie</th>
+                                                        <th>Libellé du médicament</th>
+                                                        <th>CodeATC du médicament</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tfoot>
+                                                    <tr>
+                                                        <th>Nombre de fois par jour</th>
+                                                        <th>Durée de traitement</th>
+                                                        <th>Posologie</th>
+                                                        <th>Libellé du médicament</th>
+                                                        <th>CodeATC du médicament</th>
+                                                    </tr>
+                                                    </tfoot>
+                                                    <tbody>
+                                                    <tr th:each="ordonnance : ${consultation.ordonnance.ordonnanceItemsList}" th:if="${ordonnance != null}">
+                                                        <td th:text="${ordonnance.nbrFoisParJour == null ? '' : ordonnance.nbrFoisParJour}"></td>
+                                                        <td th:text="${ordonnance.dureeTraitement == null ? '' : ordonnance.dureeTraitement}"></td>
+                                                        <td th:text="${ordonnance.posologie == null ? '' : ordonnance.posologie}"></td>
+                                                        <td th:text="${ordonnance.medicament.libelle == null ? '' : ordonnance.medicament.libelle}"></td>
+                                                        <td th:text="${ordonnance.medicament.codeATC == null ? '' : ordonnance.medicament.codeATC}"></td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -109,6 +143,42 @@
     </div>
 </div>
 <div th:replace="include/js :: js"></div>
+<script>
+    $(document).ready(function() {
+        $('#datatables').DataTable({
+            "pagingType": "full_numbers",
+            "lengthMenu": [
+                [10, 25, 50, -1],
+                [10, 25, 50, "All"]
+            ],
+            responsive: true,
+            language: {
+                search: "_INPUT_",
+                searchPlaceholder: "Search records",
+            }
+        });
 
+        var table = $('#datatable').DataTable();
+
+        // Edit record
+        table.on('click', '.edit', function() {
+            $tr = $(this).closest('tr');
+            var data = table.row($tr).data();
+            alert('You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.');
+        });
+
+        // Delete a record
+        table.on('click', '.remove', function(e) {
+            $tr = $(this).closest('tr');
+            table.row($tr).remove().draw();
+            e.preventDefault();
+        });
+
+        //Like record
+        table.on('click', '.like', function() {
+            alert('You clicked on Like button');
+        });
+    });
+</script>
 </body>
 </html>

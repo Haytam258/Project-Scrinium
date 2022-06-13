@@ -111,6 +111,15 @@ public class ConsultationRestController {
     @GetMapping("/consultations/show/{id}")
     public String showConsultation(@PathVariable(value = "id") int id, Model model){
         Consultation consultation = consultationService.ConsultationlById(id);
+        if(consultation.getOrdonnance() == null){
+            model.addAttribute("nulled", false);
+        }
+        else if(consultation.getOrdonnance().getOrdonnanceItemsList() == null){
+            model.addAttribute("listnull", false);
+        }
+        else {
+            model.addAttribute("nulled", true);
+        }
         model.addAttribute("consultation", consultation);
         return "consultation/showConsultation";
     }
