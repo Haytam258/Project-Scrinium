@@ -2,22 +2,27 @@ package com.mbc.clickclinic.controllers;
 
 
 import com.mbc.clickclinic.entities.Medecin;
+import com.mbc.clickclinic.service.AdminService;
 import com.mbc.clickclinic.service.MedecinService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
 public class MedecinRestController {
 
     private final MedecinService medecinService;
+    private final AdminService adminService;
 
     @Autowired
-    public MedecinRestController(MedecinService medecinService){
+    public MedecinRestController(MedecinService medecinService, @Lazy AdminService adminService){
         this.medecinService = medecinService;
+        this.adminService = adminService;
     }
 
     @GetMapping("/createMedecin")
@@ -36,6 +41,15 @@ public class MedecinRestController {
         }
         model.addAttribute("medecin", medecin);
         return "medecin/createMedecin";
+    }
+
+    @GetMapping("/myRevenu")
+    public String getMyRevenu(Model model){
+        model.addAttribute("myRevenuData", adminService.getPaymentPerMonthByMedecin(medecinService.medecinById(1)));
+        model.addAttribute("thisYear", LocalDate.now().getYear());
+        model.addAttribute("thisYearPayment", adminService.getThisYearPaymentByMedecin(medecinService.medecinById(1)));
+        model.addAttribute("thisMonthPayment", adminService.getThisMonthPaymentByMedecin(medecinService.medecinById(1)));
+        return "medecin/myRevenu";
     }
 
     @PostMapping("/modifyMedecin")

@@ -14,62 +14,7 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="row">
-                        <div class="col-md-4">
-                            <div class="card card-chart">
-                                <div class="card-header card-header-rose" data-header-animation="true">
-                                    <div class="ct-chart" id="websiteViewsChart"></div>
-                                </div>
-                                <div class="card-body">
-                                    <div class="card-actions">
-                                        <button type="button" class="btn btn-danger btn-link fix-broken-card">
-                                            <i class="material-icons">build</i> Fix Header!
-                                        </button>
-                                        <button type="button" class="btn btn-info btn-link" rel="tooltip" data-placement="bottom" title="Refresh">
-                                            <i class="material-icons">refresh</i>
-                                        </button>
-                                        <button type="button" class="btn btn-default btn-link" rel="tooltip" data-placement="bottom" title="Change Date">
-                                            <i class="material-icons">edit</i>
-                                        </button>
-                                    </div>
-                                    <h4 class="card-title">Website Views</h4>
-                                    <p class="card-category">Last Campaign Performance</p>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="stats">
-                                        <i class="material-icons">access_time</i> campaign sent 2 days ago
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="card card-chart">
-                                <div class="card-header card-header-success" data-header-animation="true">
-                                    <div class="ct-chart" id="dailySalesChart"></div>
-                                </div>
-                                <div class="card-body">
-                                    <div class="card-actions">
-                                        <button type="button" class="btn btn-danger btn-link fix-broken-card">
-                                            <i class="material-icons">build</i> Fix Header!
-                                        </button>
-                                        <button type="button" class="btn btn-info btn-link" rel="tooltip" data-placement="bottom" title="Refresh">
-                                            <i class="material-icons">refresh</i>
-                                        </button>
-                                        <button type="button" class="btn btn-default btn-link" rel="tooltip" data-placement="bottom" title="Change Date">
-                                            <i class="material-icons">edit</i>
-                                        </button>
-                                    </div>
-                                    <h4 class="card-title">Daily Sales</h4>
-                                    <p class="card-category">
-                                        <span class="text-success"><i class="fa fa-long-arrow-up"></i> 55% </span> increase in today sales.</p>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="stats">
-                                        <i class="material-icons">access_time</i> updated 4 minutes ago
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
+                        <div class="col-md-4 m-auto">
                             <div class="card card-chart">
                                 <div class="card-header card-header-info" data-header-animation="true">
                                     <div class="ct-chart" id="completedTasksChart"></div>
@@ -104,8 +49,8 @@
                                         <div class="card-icon">
                                             <i class="material-icons">timeline</i>
                                         </div>
-                                        <h4 class="card-title">Coloured Line Chart
-                                            <small> - Rounded</small>
+                                        <h4 class="card-title">Total des rendez vous
+                                            <small> - Par mois</small>
                                         </h4>
                                     </div>
                                     <div class="card-body">
@@ -119,8 +64,8 @@
                                         <div class="card-icon">
                                             <i class="material-icons">insert_chart</i>
                                         </div>
-                                        <h4 class="card-title">Multiple Bars Chart
-                                            <small>- Bar Chart</small>
+                                        <h4 class="card-title">Total des paiements
+                                            <small>- Par mois</small>
                                         </h4>
                                     </div>
                                     <div class="card-body">
@@ -164,7 +109,7 @@
                                         <i class="material-icons">weekend</i>
                                     </div>
                                     <p class="card-category">Ce qui reste à recevoir cette année :</p>
-                                    <h3 class="card-title" th:text="${remainingThisYear}"></h3>
+                                    <h3 class="card-title" th:text="${remainingThisYear + ' DH'}"></h3>
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
@@ -180,7 +125,7 @@
                                         <i class="material-icons">equalizer</i>
                                     </div>
                                     <p class="card-category">Le total à recevoir :</p>
-                                    <h3 class="card-title" th:text="${remainingMontant}"></h3>
+                                    <h3 class="card-title" th:text="${remainingMontant + ' DH'}"></h3>
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
@@ -356,6 +301,9 @@
             showPoint: true,
             height: '300px'
         };
+        var plugins = Chartist.plugins.ctPointLabels({
+            textAnchor: 'middle'
+        });
         var percentage = genderPercent.map(function(e){
             return e.toString() + "%";
         }).toString().split(",");
@@ -370,8 +318,7 @@
         var dataMultipleBarsChart = {
             labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
             series: [
-                [542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 895],
-                [412, 243, 280, 580, 453, 353, 300, 364, 368, 410, 636, 695]
+                [542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 895]
             ]
         };
 
@@ -394,7 +341,7 @@
             }]
         ];
 
-        var multipleBarsChart = Chartist.Bar('#multipleBarsChart', dataMultipleBarsChart, optionsMultipleBarsChart, responsiveOptionsMultipleBarsChart);
+        var multipleBarsChart = Chartist.Bar('#multipleBarsChart', paymentData, optionsMultipleBarsChart, responsiveOptionsMultipleBarsChart);
         var myChart = new Chartist.Line('#completedTasksChart', paymentData);
         var myRendezChart = new Chartist.Line('#colouredRoundedLineChart', rendezvousData, optionsColouredRoundedLineChart);
         var myPieChart = new Chartist.Pie('#chartPreferences', patientGenderData, optionsPreferences);

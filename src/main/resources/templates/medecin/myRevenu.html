@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="include/css :: head"></div>
+
+<body class="">
+<div class="wrapper ">
+    <div th:replace="include/sidebar :: sidebar-fragment"></div>
+    <div class="main-panel">
+        <!-- Navbar -->
+        <nav th:replace="include/navbar2 :: navbar"></nav>
+        <!-- End Navbar -->
+        <div class="content">
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="row">
+                            <div class="col-md-6 m-auto">
+                                <div class="card">
+                                    <div class="card-header card-header-icon card-header-info">
+                                        <div class="card-icon">
+                                            <i class="material-icons">timeline</i>
+                                        </div>
+                                        <h4 class="card-title">Total des payments
+                                            <small> - Par mois</small>
+                                        </h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <div id="colouredRoundedLineChart" class="ct-chart"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3 col-md-6 col-sm-6 m-auto">
+                            <div class="card card-stats">
+                                <div class="card-header card-header-warning card-header-icon">
+                                    <div class="card-icon">
+                                        <i class="material-icons">receipt</i>
+                                    </div>
+                                    <p class="card-category">Ce que vous avez reçu cette année :</p>
+                                    <h3 class="card-title" th:text="${thisYearPayment + ' DH'}"></h3>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        <i class="material-icons text-danger">warning</i> <span th:text="${'Année : ' + thisYear}"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6 m-auto">
+                            <div class="card card-stats">
+                                <div class="card-header card-header-info card-header-icon">
+                                    <div class="card-icon">
+                                        <i class="material-icons">paid</i>
+                                    </div>
+                                    <p class="card-category">Ce que vous avez reçu ce mois : </p>
+                                    <h3 class="card-title" th:text="${thisMonthPayment + ' DH'}"></h3>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        <i class="material-icons">update</i> Just Updated
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer th:replace="include/footer :: footer"></footer>
+    </div>
+</div>
+<div class="fixed-plugin">
+    <div class="dropdown show-dropdown">
+        <a href="#" data-toggle="dropdown">
+            <i class="fa fa-cog fa-2x"> </i>
+        </a>
+        <ul class="dropdown-menu">
+            <li class="header-title"> Sidebar Filters</li>
+            <li class="adjustments-line">
+                <a href="javascript:void(0)" class="switch-trigger active-color">
+                    <div class="badge-colors ml-auto mr-auto">
+                        <span class="badge filter badge-purple" data-color="purple"></span>
+                        <span class="badge filter badge-azure" data-color="azure"></span>
+                        <span class="badge filter badge-green" data-color="green"></span>
+                        <span class="badge filter badge-warning" data-color="orange"></span>
+                        <span class="badge filter badge-danger" data-color="danger"></span>
+                        <span class="badge filter badge-rose active" data-color="rose"></span>
+                    </div>
+                    <div class="clearfix"></div>
+                </a>
+            </li>
+            <li class="header-title">Sidebar Background</li>
+            <li class="adjustments-line">
+                <a href="javascript:void(0)" class="switch-trigger background-color">
+                    <div class="ml-auto mr-auto">
+                        <span class="badge filter badge-black active" data-background-color="black"></span>
+                        <span class="badge filter badge-white" data-background-color="white"></span>
+                        <span class="badge filter badge-red" data-background-color="red"></span>
+                    </div>
+                    <div class="clearfix"></div>
+                </a>
+            </li>
+            <li class="adjustments-line">
+                <a href="javascript:void(0)" class="switch-trigger">
+                    <p>Sidebar Mini</p>
+                    <label class="ml-auto">
+                        <div class="togglebutton switch-sidebar-mini">
+                            <label>
+                                <input type="checkbox">
+                                <span class="toggle"></span>
+                            </label>
+                        </div>
+                    </label>
+                    <div class="clearfix"></div>
+                </a>
+            </li>
+            <li class="adjustments-line">
+                <a href="javascript:void(0)" class="switch-trigger">
+                    <p>Sidebar Images</p>
+                    <label class="switch-mini ml-auto">
+                        <div class="togglebutton switch-sidebar-image">
+                            <label>
+                                <input type="checkbox" checked="">
+                                <span class="toggle"></span>
+                            </label>
+                        </div>
+                    </label>
+                    <div class="clearfix"></div>
+                </a>
+            </li>
+            <li class="header-title">Images</li>
+            <li class="active">
+                <a class="img-holder switch-trigger" href="javascript:void(0)">
+                    <img src="../assets/img/sidebar-1.jpg" alt="">
+                </a>
+            </li>
+            <li>
+                <a class="img-holder switch-trigger" href="javascript:void(0)">
+                    <img src="../assets/img/sidebar-2.jpg" alt="">
+                </a>
+            </li>
+            <li>
+                <a class="img-holder switch-trigger" href="javascript:void(0)">
+                    <img src="../assets/img/sidebar-3.jpg" alt="">
+                </a>
+            </li>
+            <li>
+                <a class="img-holder switch-trigger" href="javascript:void(0)">
+                    <img src="../assets/img/sidebar-4.jpg" alt="">
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div th:replace="include/js :: js"></div>
+<script>
+    $(document).ready(function() {
+        // Javascript method's body can be found in assets/js/demos.js
+        md.initDashboardPageCharts();
+
+        md.initVectorMap();
+
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        var paymentElements = [[${myRevenuData}]];
+        var paymentData = {
+            labels:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+            series:[
+                paymentElements
+            ]
+        };
+        var optionsColouredRoundedLineChart = {
+            lineSmooth: Chartist.Interpolation.cardinal({
+                tension: 10
+            }),
+            axisY: {
+                showGrid: true,
+                offset: 40
+            },
+            axisX: {
+                showGrid: false,
+            },
+            showPoint: true,
+            height: '300px'
+        };
+
+        var myRendezChart = new Chartist.Line('#colouredRoundedLineChart', paymentData, optionsColouredRoundedLineChart);
+        var myChart = new Chartist.Line('#completedTasksChart', paymentData);
+    });
+
+
+
+</script>
+</body>
+
+</html>

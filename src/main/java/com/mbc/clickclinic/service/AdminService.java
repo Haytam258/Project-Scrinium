@@ -1,5 +1,6 @@
 package com.mbc.clickclinic.service;
 
+import com.mbc.clickclinic.entities.Medecin;
 import com.mbc.clickclinic.entities.Personne;
 import org.springframework.ui.Model;
 
@@ -18,4 +19,7 @@ public interface AdminService {
     public List<String> patientGenderPercent();
     public Integer getRemainingPayment();
     public Integer getThisYearRemainingPayment();
+    public List<Integer> getPaymentPerMonthByMedecin(Medecin medecin);
+    public Integer getThisYearPaymentByMedecin(Medecin medecin);
+    public Integer getThisMonthPaymentByMedecin(Medecin medecin);
 }

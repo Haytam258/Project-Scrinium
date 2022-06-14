@@ -2,10 +2,7 @@ package com.mbc.clickclinic.service;
 
 
 import com.mbc.clickclinic.dao.PersonneRepository;
-import com.mbc.clickclinic.entities.Patient;
-import com.mbc.clickclinic.entities.Payment;
-import com.mbc.clickclinic.entities.Personne;
-import com.mbc.clickclinic.entities.Rendezvous;
+import com.mbc.clickclinic.entities.*;
 import com.mbc.clickclinic.security.GeneralRole;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
@@ -51,6 +48,46 @@ public class AdminImple implements AdminService{
             rendezCount.add(total);
         }
         return rendezCount;
+    }
+
+    public List<Integer> getPaymentPerMonthByMedecin(Medecin medecin){
+        List<Payment> payments = paymentService.payments();
+        List<Integer> paymentTotal = new ArrayList<>();
+        payments.removeIf(payment -> payment.getConsultation().getRendezvous().getMedecin() != medecin);
+        for(int i = 0; i < 12; i++){
+            int total = 0;
+            for(Payment payment : payments){
+                if(payment.getDatePaiement().getMonth().getValue() == i+1 && payment.getDatePaiement().getYear() == LocalDate.now().getYear()){
+                    total += payment.getMontantDepose();
+                }
+            }
+            paymentTotal.add(total);
+        }
+        return paymentTotal;
+    }
+
+    public Integer getThisYearPaymentByMedecin(Medecin medecin){
+        List<Payment> payments = paymentService.payments();
+        payments.removeIf(payment -> payment.getConsultation().getRendezvous().getMedecin() != medecin);
+        int total = 0;
+        for(Payment payment : payments){
+            if(payment.getDatePaiement().getYear() == LocalDate.now().getYear()){
+                total += payment.getMontantDepose();
+            }
+        }
+        return total;
+    }
+
+    public Integer getThisMonthPaymentByMedecin(Medecin medecin){
+        List<Payment> payments = paymentService.payments();
+        payments.removeIf(payment -> payment.getConsultation().getRendezvous().getMedecin() != medecin);
+        int total = 0;
+        for(Payment payment : payments){
+            if(payment.getDatePaiement().getMonth() == LocalDate.now().getMonth()){
+                total += payment.getMontantDepose();
+            }
+        }
+        return total;
     }
 
     public Integer getThisYearRemainingPayment(){
@@ -138,7 +175,7 @@ public class AdminImple implements AdminService{
             int total = 0;
             totalPerMonth.put(i,0);
             for(Payment payment: payments){
-                if(payment.getDatePaiement().getMonth().getValue() == i){
+                if(payment.getDatePaiement().getMonth().getValue() == i && payment.getDatePaiement().getYear() == LocalDate.now().getYear()){
                     total += payment.getMontantDepose();
                     totalPerMonth.put(i,total);
                 }
