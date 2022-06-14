@@ -97,11 +97,12 @@ public class PaymentRestController {
         return paymentService.paymentById(id.intValue());
     }
 
-    @GetMapping("/deletePayment/{id}")
+    /*@GetMapping("/deletePayment/{id}")
     public String deletePayment(@PathVariable Integer id){
         paymentService.deletePayment(paymentService.paymentById(id));
         return "redirect:/payments";
-    }
+        <a th:href="@{/deletePayment/{id}(id=${paiement.id})}" onclick="return confirm('Etes vous sure ?');" class="btn btn-link btn-danger btn-just-icon remove"><i class="material-icons">close</i></a>
+    }*/
 
     @GetMapping("/payment/consultation/{id}")
     public Payment getPayementByConsultation(@PathVariable Long id){
