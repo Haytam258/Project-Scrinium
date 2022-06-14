@@ -39,7 +39,7 @@
                                         <i class="material-icons">receipt</i>
                                     </div>
                                     <p class="card-category">Ce que vous avez reçu cette année :</p>
-                                    <h3 class="card-title" th:text="${thisYearPayment + ' DH'}"></h3>
+                                    <h3 class="card-title" th:text="${thisYearPayment == null ? '' : thisYearPayment + ' DH'}"></h3>
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
@@ -55,7 +55,7 @@
                                         <i class="material-icons">paid</i>
                                     </div>
                                     <p class="card-category">Ce que vous avez reçu ce mois : </p>
-                                    <h3 class="card-title" th:text="${thisMonthPayment + ' DH'}"></h3>
+                                    <h3 class="card-title" th:text="${thisMonthPayment == null ? '' : thisMonthPayment + ' DH'}"></h3>
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
