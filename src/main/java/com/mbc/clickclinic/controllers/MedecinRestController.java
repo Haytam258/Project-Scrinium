@@ -6,6 +6,9 @@ import com.mbc.clickclinic.service.AdminService;
 import com.mbc.clickclinic.service.MedecinService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -43,12 +46,15 @@ public class MedecinRestController {
         return "medecin/createMedecin";
     }
 
+    @PreAuthorize("hasAuthority('MEDECIN')")
     @GetMapping("/myRevenu")
     public String getMyRevenu(Model model){
-        model.addAttribute("myRevenuData", adminService.getPaymentPerMonthByMedecin(medecinService.medecinById(1)));
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Medecin medecin = medecinService.getMedecinByEmail(user.getUsername());
+        model.addAttribute("myRevenuData", adminService.getPaymentPerMonthByMedecin(medecinService.medecinById(medecin.getId())));
         model.addAttribute("thisYear", LocalDate.now().getYear());
-        model.addAttribute("thisYearPayment", adminService.getThisYearPaymentByMedecin(medecinService.medecinById(1)));
-        model.addAttribute("thisMonthPayment", adminService.getThisMonthPaymentByMedecin(medecinService.medecinById(1)));
+        model.addAttribute("thisYearPayment", adminService.getThisYearPaymentByMedecin(medecinService.medecinById(medecin.getId())));
+        model.addAttribute("thisMonthPayment", adminService.getThisMonthPaymentByMedecin(medecinService.medecinById(medecin.getId())));
         return "medecin/myRevenu";
     }
 

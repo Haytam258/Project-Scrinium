@@ -16,4 +16,5 @@ public interface MedecinService {
     List<Medecin> medecins();
     Medecin medecinById(Integer id);
     Medecin saveMedecin(Medecin medecin, Model model);
+    public Medecin getMedecinByEmail(String email);
 }

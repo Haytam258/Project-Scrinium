@@ -20,6 +20,11 @@ public class MedecinImple implements MedecinService{
         this.medecinRepository = medecinRepository;
     }
 
+
+    public Medecin getMedecinByEmail(String email){
+        return medecinRepository.findMedecinByEmail(email);
+    }
+
     @Override
     public Medecin saveMedecin(Medecin medecin) {
         medecin.setRole(GeneralRole.MEDECIN.getRole());
