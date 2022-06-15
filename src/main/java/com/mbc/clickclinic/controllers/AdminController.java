@@ -1,11 +1,16 @@
 package com.mbc.clickclinic.controllers;
 
 
+import com.mbc.clickclinic.dao.MedecinRepository;
+import com.mbc.clickclinic.entities.Medecin;
 import com.mbc.clickclinic.entities.Personne;
 import com.mbc.clickclinic.service.AdminService;
+import com.mbc.clickclinic.service.MedecinService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,15 +23,22 @@ import java.time.LocalDate;
 public class AdminController {
 
     private AdminService adminService;
+    private final MedecinRepository medecinService;
 
     @Autowired
-    public AdminController(AdminService adminService){
+    public AdminController(AdminService adminService, MedecinRepository medecinService){
+        this.medecinService = medecinService;
         this.adminService = adminService;
     }
 
-    @PreAuthorize("hasAuthority('MEDECIN')")
+    //@PreAuthorize("hasAuthority('MEDECIN')")
     @GetMapping("/adminDashboard")
     public String dashboard(Model model){
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Medecin medecin = medecinService.findMedecinByEmail(user.getUsername());
+        if(medecin != null){
+            model.addAttribute("test", medecin);
+        }
         model.addAttribute("paymentDataPerMonth",adminService.getPayementPerMonth().values());
         model.addAttribute("rendezvousPerMonth", adminService.getRendezvousCountByMonth());
         model.addAttribute("thisYearRevenue",adminService.getThisYearTotalPayment());

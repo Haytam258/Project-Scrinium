@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -398,7 +398,7 @@
         </div>
       </li>
 
-      <li class="nav-item ">
+      <li class="nav-item " sec:authorize="hasAuthority('MEDECIN')">
         <a class="nav-link" data-toggle="collapse" href="#collpay">
           <i class="material-icons">paid</i>
           <p> Paiement
