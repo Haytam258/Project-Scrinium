@@ -1,47 +1,37 @@
 package com.mbc.clickclinic.security;
 
-import com.mbc.clickclinic.service.MedecinDetailsService;
 import com.mbc.clickclinic.service.PatientDetailsService;
-import com.mbc.clickclinic.service.SecretaireDetailsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-//@Configuration
 //@EnableWebSecurity
 //@EnableGlobalMethodSecurity(
-//        prePostEnabled = true,
+//       prePostEnabled = true,
 //        securedEnabled = true
 //)
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+//@Order(Ordered.HIGHEST_PRECEDENCE)
+public class PatientSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final MedecinDetailsService medecinDetailsService;
+    private final PatientDetailsService patientDetailsService;
 
-    public SecurityConfig(MedecinDetailsService medecinDetailsService) {
-        this.medecinDetailsService = medecinDetailsService;
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder(){
-        return NoOpPasswordEncoder.getInstance();
-    }
-
-    @Override
-    @Bean
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
+    @Autowired
+    public PatientSecurityConfig(PatientDetailsService patientDetailsService){
+        this.patientDetailsService = patientDetailsService;
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(medecinDetailsService);
+        auth.userDetailsService(patientDetailsService);
     }
 
     @Override

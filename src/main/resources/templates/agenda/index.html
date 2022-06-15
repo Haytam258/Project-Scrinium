@@ -30,6 +30,7 @@
                                             <th>Evenement</th>
                                             <th>Date</th>
                                             <th>Heure</th>
+                                            <th>Médecin</th>
                                             <th class="disabled-sorting text-right">Action</th>
                                         </tr>
                                         </thead>
@@ -38,6 +39,7 @@
                                             <th>Evenement</th>
                                             <th>Date</th>
                                             <th>Heure</th>
+                                            <th>Médecin</th>
                                             <th class="text-right">Action</th>
                                         </tr>
                                         </tfoot>
@@ -46,6 +48,7 @@
                                             <td th:text="*{agenda.description}"></td>
                                             <td th:text="*{agenda.dateDebut} + ' to '+ *{agenda.dateFin}"></td>
                                             <td th:text="*{agenda.heureDebut == null ? 'N/A' : agenda.heureDebut} + ' to ' + *{agenda.heureFin == null ? 'N/A' : agenda.heureFin}"></td>
+                                            <td th:text="*{agenda.medecin.prenom} + '  '+ *{agenda.medecin.nom}"></td>
                                             <td class="td-actions text-right">
                                                 <button type="button" rel="tooltip" class="btn btn-info" data-original-title="" title="">
                                                     <i class="material-icons">person</i>
