@@ -50,9 +50,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.formLogin().usernameParameter("email").passwordParameter("password");
-        http.authorizeRequests().antMatchers("/resources/**").permitAll();
-        http.authorizeHttpRequests().antMatchers("/admin").hasAuthority("ADMIN").antMatchers("/login").permitAll()
+        http.formLogin().loginPage("/login").usernameParameter("email").passwordParameter("password").defaultSuccessUrl("/adminDashboard").and().logout().logoutUrl("/logout");
+        http.authorizeRequests().antMatchers("/resources/**","/static/**","/resources/templates/include/**","/assets/**").permitAll();
+        http.authorizeHttpRequests().antMatchers("/admin").hasAuthority("ADMIN").antMatchers("/login","/resources/**","/static/**","/resources/templates/include/**","/assets/**","/include/**","/static/assets/js/**","/static/assets/css/**","/static/assets/scss/**").permitAll()
+                .antMatchers("/resources/**","/static/**","/include/**").permitAll()
                 .anyRequest().authenticated().and().exceptionHandling().accessDeniedPage("/forbidden");
     }
 }
