@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <div th:replace="include/css :: head"></div>
+<style>
+    @media print {
+        .noPrint{
+            display: none;
+        }
+    }
+</style>
 <body class=" ">
 <div class="wrapper ">
     <div th:replace="include/sidebar :: sidebar-fragment"></div>
@@ -21,10 +28,10 @@
                                            + consultation.rendezvous.patient.nom + '/' + consultation.rendezvous.dateRv}">
                                 </h4>
                             </div>
-                            <div class="card-body ">
+                            <div class="card-body">
                                 <div class="tab-content tab-space">
                                     <div class="tab-pane active">
-                                            <div class="row">
+                                            <div class="row noPrint">
                                                 <div class="col-md-8">
                                                     <div class="col-md-12">
                                                     </div>
@@ -100,7 +107,7 @@
                                             </div>
                                         <div class="row">
                                             <div class="material-datatables" th:if="${nulled}">
-                                                <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                                                <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%;">
                                                     <thead>
                                                     <tr>
                                                         <th>Nombre de fois par jour</th>
@@ -129,6 +136,7 @@
                                                     </tr>
                                                     </tbody>
                                                 </table>
+                                                <button th:if="${nulled}" onclick="window.print();" class="noPrint btn btn-fill btn-rose">Print</button>
                                             </div>
 
                                         </div>
