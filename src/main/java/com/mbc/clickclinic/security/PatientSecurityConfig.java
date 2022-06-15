@@ -14,12 +14,11 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-//@EnableWebSecurity
-//@EnableGlobalMethodSecurity(
-//       prePostEnabled = true,
-//        securedEnabled = true
-//)
-//@Order(Ordered.HIGHEST_PRECEDENCE)
+/*@EnableWebSecurity
+@EnableGlobalMethodSecurity(
+        prePostEnabled = true,
+        securedEnabled = true
+)*/
 public class PatientSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final PatientDetailsService patientDetailsService;

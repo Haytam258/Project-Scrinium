@@ -27,7 +27,7 @@ public class PatientDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Patient patient = patientRepository.findPatientByEmail(username);
         if(patient == null){
-            return null;
+            throw new UsernameNotFoundException(username);
         }
         Collection<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority(patient.getRole()));
