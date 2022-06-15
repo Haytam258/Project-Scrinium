@@ -2,9 +2,11 @@ package com.mbc.clickclinic.service;
 
 import com.mbc.clickclinic.dao.MedecinRepository;
 import com.mbc.clickclinic.dao.PatientRepository;
+import com.mbc.clickclinic.dao.PersonneRepository;
 import com.mbc.clickclinic.dao.SecretaireRepository;
 import com.mbc.clickclinic.entities.Medecin;
 import com.mbc.clickclinic.entities.Patient;
+import com.mbc.clickclinic.entities.Personne;
 import com.mbc.clickclinic.entities.Secretaire;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -24,11 +26,13 @@ public class MedecinDetailsService implements UserDetailsService {
     private final MedecinRepository medecinRepository;
     private final PatientRepository patientRepository;
     private final SecretaireRepository secretaireRepository;
+    private final PersonneRepository personneRepository;
     @Autowired
-    public MedecinDetailsService(MedecinRepository medecinRepository, PatientRepository patientRepository, SecretaireRepository secretaireRepository){
+    public MedecinDetailsService(MedecinRepository medecinRepository, PatientRepository patientRepository, SecretaireRepository secretaireRepository, PersonneRepository personneRepository){
         this.medecinRepository = medecinRepository;
         this.patientRepository = patientRepository;
         this.secretaireRepository = secretaireRepository;
+        this.personneRepository = personneRepository;
     }
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -38,7 +42,13 @@ public class MedecinDetailsService implements UserDetailsService {
             if(patient == null){
                 Secretaire secretaire = secretaireRepository.findSecretaireByEmail(username);
                 if(secretaire == null){
-                    throw new UsernameNotFoundException("Invalid Login");
+                    Personne personne = personneRepository.findPersonneByEmail(username);
+                    if(personne == null){
+                        throw new UsernameNotFoundException("Invalid Login");
+                    }
+                    Collection<GrantedAuthority> grantedAuthorityCollection = new ArrayList<>();
+                    grantedAuthorityCollection.add(new SimpleGrantedAuthority(personne.getRole()));
+                    return new User(personne.getEmail(), personne.getPassword(), grantedAuthorityCollection);
                 }
                 Collection<GrantedAuthority> grantedAuthorities = new ArrayList<>();
                 grantedAuthorities.add(new SimpleGrantedAuthority(secretaire.getRole()));

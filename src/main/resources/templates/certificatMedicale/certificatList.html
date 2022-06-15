@@ -56,7 +56,7 @@
                                             <td th:text="${certificat.typeCertification.type}"></td>
                                             <td th:text="${certificat.demandeCertificat.status == 0 ? 'En traitement' : 'Accordé'}"></td>
                                             <td class="text-right">
-                                                <a th:href="@{/certificats/{id}(id=${certificat.id})}" class="btn btn-link btn-info btn-just-icon like" ><i class="material-icons">info</i></a>
+                                                <a th:href="@{/patients/{id}(id=${certificat.patient.id})}" class="btn btn-link btn-info btn-just-icon like" ><i class="material-icons">info</i></a>
                                                 <a th:href="@{/deleteCertificat/{id}(id=${certificat.id})}" onclick="return confirm('Etes vous sure ?');" class="btn btn-link btn-danger btn-just-icon remove"><i class="material-icons">close</i></a>
                                             </td>
                                         </tr>
