@@ -84,6 +84,13 @@
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>ab</groupId>
+            <artifactId>com.google</artifactId>
+            <scope>system</scope>
+            <systemPath>${basedir}/src/lib/Ab.jar</systemPath>
+            <version>0.0.4.3</version>
+        </dependency>
     </dependencies>
 
     <build>

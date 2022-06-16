@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="include/css :: head"></div>
+<style>
+    .userText
+    {
+        color:blue;
+    }
+    .botText
+    {
+        color:red;
+
+    }
+
+    #chatwindow{
+        height:400px;
+        width:400px;
+        overflow: auto;
+    }
+    span {
+
+        padding: 2px;
+        color: white;
+    }
+
+    #spanleft {
+        background-color: red;
+
+    }
+    #spanright {
+        background-color: blue;
+    }
+
+
+</style>
+<body>
+<div id="chatwindow">
+
+</div>
+<input type="text" id="chatbox" />
+<button id="send">Send</button>
+
+</body>
+<div th:replace="include/js :: js"></div>
+<script>
+    $(document).ready(function () {
+        $("#send").click(function () {
+            var chatText=$("#chatbox").val();
+            var p="<p align='right' class='userText'><span id='spanright'>"+chatText+"</span></p>";
+            $("#chatwindow").append(p);
+            $.ajax({
+                url: 'getResponse',
+                data: {
+                    request: chatText,
+                },
+                success: function(data){
+                    var p="<p align='left' class='botText'><span id='spanleft'>"+data+"</span></p>";
+                    $("#chatwindow").append(p);
+                }
+
+            });
+        });
+    });
+</script>
+</html>
