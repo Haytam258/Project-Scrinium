@@ -27,16 +27,18 @@
                                                 <label class="bmd-label-floating" for="id_patient">Faite pour la consultation du patient :</label>
                                                 <div class="col-lg-5 col-md-6 col-sm-3">
                                                     <select th:field="*{consultation}" name="id_patient" id="id_patient" class="form-control" >
+                                                        <option th:value="NULL" th:text="NULL"></option>
                                                         <option th:each="consultation : ${consultations}" th:value="${consultation.id}" th:text="${consultation.rendezvous.patient.nom + ' ' + consultation.rendezvous.patient.prenom + ' - Heure : ' + consultation.rendezvous.heure}"></option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="col-md-8" th:each="ordonnanceItem, itemStat : *{ordonnanceItemsList}">
+                                                <div class="col-md-8" style="display: none;" th:each="ordonnanceItem, itemStat : *{ordonnanceItemsList}" th:id="${'showDiv' + itemStat.index}">
                                                     <div class="col-md-12" >
                                                         <div class="form-group">
                                                             <label class="bmd-label-floating" >Médicament :</label>
-                                                            <select th:field="*{ordonnanceItemsList[__${itemStat.index}__].medicament}" class="form-control medicament_class" required>
+                                                            <select th:field="*{ordonnanceItemsList[__${itemStat.index}__].medicament}" class="form-control medicament_class" >
+                                                                <option th:value="NULL" th:text="NULL"></option>
                                                                 <option th:each="medicament : ${medicaments}" th:value="${medicament.id}" th:text="${medicament.codeATC + ' ' + medicament.libelle}"></option>
                                                             </select>
                                                         </div>
@@ -44,25 +46,25 @@
                                                     <div class="col-md-12">
                                                         <div class="form-group">
                                                             <label class="bmd-label-floating">Posologie</label>
-                                                            <input type="text" class="form-control" th:field="*{ordonnanceItemsList[__${itemStat.index}__].posologie}" required>
+                                                            <input type="text" class="form-control" th:field="*{ordonnanceItemsList[__${itemStat.index}__].posologie}" >
                                                         </div>
                                                     </div>
                                                     <div class="col-md-12">
                                                         <div class="form-group">
                                                             <label class="bmd-label-floating">Durée de traitement</label>
-                                                            <input type="text" class="form-control" th:field="*{ordonnanceItemsList[__${itemStat.index}__].dureeTraitement}" required>
+                                                            <input type="text" class="form-control" th:field="*{ordonnanceItemsList[__${itemStat.index}__].dureeTraitement}" >
                                                         </div>
                                                     </div>
                                                     <div class="col-md-12">
                                                         <div class="form-group">
                                                             <label class="bmd-label-floating">Nbr de fois par jour</label>
-                                                            <input type="text" class="form-control" th:field="*{ordonnanceItemsList[__${itemStat.index}__].nbrFoisParJour}" required>
+                                                            <input type="text" class="form-control" th:field="*{ordonnanceItemsList[__${itemStat.index}__].nbrFoisParJour}" >
                                                         </div>
                                                     </div>
                                                     <div class="col-md-12">
                                                         <div class="form-group">
                                                             <label class="bmd-label-floating">Dose</label>
-                                                            <input type="text" class="form-control" th:field="*{ordonnanceItemsList[__${itemStat.index}__].dose}" required>
+                                                            <input type="text" class="form-control" th:field="*{ordonnanceItemsList[__${itemStat.index}__].dose}" >
                                                         </div>
                                                     </div>
                                                 </div>
@@ -71,6 +73,7 @@
                                             <div class="clearfix"></div>
 
                                         </form>
+                                        <button style="display: block;" class="btn btn-success pull-center" id="show">Ajouter Médicament</button>
 
 
                                     </div>
@@ -89,13 +92,30 @@
 
     $("#id_patient").select2({
         placeholder: "Selectionner un patient",
-        allowClear: true
+        allowClear: true,
+        width: '100%'
     });
 
     $(".medicament_class").select2({
         placeholder: "Selectionner un médicament",
-        allowClear: true
+        allowClear: true,
+        width: '100%'
     });
+
+    var counter = 0;
+    $(document).ready(function() {
+        $("#show").click(function () {
+            if (counter < 4){
+                counter += 1;
+                $("#showDiv" + counter).toggle();
+            }
+            else {
+                counter = 0;
+                $("#show").toggle();
+            }
+        })
+
+    })
 </script>
 
 </body>

@@ -66,8 +66,11 @@ public class ConsultationRestController {
 
     @PostMapping("/createOrdonnance")
     public String createOrdonnance(@ModelAttribute("ordonnance") Ordonnance ordonnance, Model model){
-        for(OrdonnanceItems ordonnanceItems : ordonnance.getOrdonnanceItemsList()){
-            ordonnanceItems.setOrdonnance(ordonnance);
+        List<OrdonnanceItems> ordonnanceItems = ordonnance.getOrdonnanceItemsList();
+        ordonnanceItems.removeIf(ordonnanceItems1 -> ordonnanceItems1.getMedicament() == null);
+        ordonnance.setOrdonnanceItemsList(ordonnanceItems);
+        for(OrdonnanceItems ordonnanceItem : ordonnanceItems){
+            ordonnanceItem.setOrdonnance(ordonnance);
         }
         ordonnanceService.saveOrdonnance(ordonnance);
         Consultation consultation = ordonnance.getConsultation();
