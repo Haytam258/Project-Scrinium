@@ -4,17 +4,29 @@
 <style>
     .userText
     {
-        color:blue;
+        margin-top: auto;
+        margin-bottom: auto;
+        margin-left: 10px;
+        border-radius: 25px;
+        background-color: #82ccdd;
+        padding: 10px;
+        position: relative;
     }
     .botText
     {
-        color:red;
+        margin-top: auto;
+        margin-bottom: auto;
+        margin-right: 10px;
+        border-radius: 25px;
+        background-color: #78e08f;
+        padding: 10px;
+        position: relative;
 
     }
 
     #chatwindow{
-        height:400px;
-        width:400px;
+        max-height:90%;
+        width:100%;
         overflow: auto;
     }
     span {
@@ -23,22 +35,45 @@
         color: white;
     }
 
-    #spanleft {
-        background-color: red;
-
-    }
-    #spanright {
-        background-color: blue;
+    #chatbox{
+        width: 82%;
     }
 
 
 </style>
-<body>
-<div id="chatwindow">
+<body class="">
+<div class="wrapper ">
+        <!-- Navbar -->
+        <nav th:replace="include/navbar :: navbar"></nav>
+        <!-- End Navbar -->
+        <div class="content " >
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="row">
+                            <div class="col-md-5 m-auto">
+                                <div class="card card-chart h-100" >
+                                    <div class="card-header card-header-icon card-header-danger">
+                                        <div class="card-icon">
+                                            <i class="material-icons">question_answer</i>
+                                        </div>
+                                        <h4 class="card-title">Chatroom avec Chatbot </h4>
+                                    </div>
+                                    <div class="card-body overflow-auto" style="height: 700px;">
+                                        <div class="overflow-auto h-100" id="chatwindow" >
 
+                                        </div>
+                                        <input type="text" id="chatbox" />
+                                        <button id="send" class="btn btn-rose">Send</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 </div>
-<input type="text" id="chatbox" />
-<button id="send">Send</button>
 
 </body>
 <div th:replace="include/js :: js"></div>
@@ -46,7 +81,7 @@
     $(document).ready(function () {
         $("#send").click(function () {
             var chatText=$("#chatbox").val();
-            var p="<p align='right' class='userText'><span id='spanright'>"+chatText+"</span></p>";
+            var p="<div class='d-flex justify-content-end mb-4'><div class='userText'>"+chatText+"</div></div>";
             $("#chatwindow").append(p);
             $.ajax({
                 url: 'getResponse',
@@ -54,7 +89,7 @@
                     request: chatText,
                 },
                 success: function(data){
-                    var p="<p align='left' class='botText'><span id='spanleft'>"+data+"</span></p>";
+                    var p="<div class='d-flex justify-content-start mb-4'><div class='botText'>"+data+"</div></div>";
                     $("#chatwindow").append(p);
                 }
 
