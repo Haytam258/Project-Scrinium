@@ -1,11 +1,37 @@
 <?xml version = "1.0" encoding = "UTF-8"?>
 <aiml>
     <category>
-        <pattern>Hi</pattern>
+        <pattern>Bonjour *</pattern>
         <template>
-            Welcome to ACLEDA ToanChet, How can I help you?
+            <random>
+                <li>Bonjour à vous, je suis Alice, comment pourrais-je vous aider ?</li>
+                <li>Bonjour et bienvenue à Scrinium, comment je peux vous aider ?</li>
+                <li>Bonjour, vous êtes le bienvenue à Scrinium, quelles sont vos questions ? </li>
+            </random>
         </template>
     </category>
+
+    <category>
+        <pattern>Bonjour</pattern>
+        <template>
+            <srai>Bonjour *</srai>
+        </template>
+    </category>
+
+    <category>
+        <pattern>Bonne journée</pattern>
+        <template>
+            Bonne journée à vous  <get name="username"/> et merci pour cette conversation !
+        </template>
+    </category>
+
+    <category>
+        <pattern>Salut, je suis *</pattern>
+        <template>
+            Salut <set name="username"> <star/> !</set> et bienvenue à Scrinium, quelles sont vos questions ?
+        </template>
+    </category>
+
 
     <category>
         <pattern>This is *</pattern>

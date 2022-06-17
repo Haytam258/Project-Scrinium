@@ -83,6 +83,11 @@
 <div th:replace="include/js :: js"></div>
 <script>
     $(document).ready(function () {
+        $("#chatbox").keypress(function (e){
+            if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)){
+                $("#send").click();
+            }
+        });
         $("#send").click(function () {
             var chatText=$("#chatbox").val();
             var p="<div class='d-flex justify-content-end mb-4'><div class='userText'>"+chatText+"</div></div>";
@@ -98,6 +103,7 @@
                 }
 
             });
+            $("#chatbox").val('');
         });
     });
 </script>
