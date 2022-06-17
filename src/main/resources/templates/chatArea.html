@@ -41,12 +41,14 @@
 
 
 </style>
-<body class="">
+<body class="" style="background-image: url('/assets/img/register.jpg');">
 <div class="wrapper ">
         <!-- Navbar -->
         <nav th:replace="include/navbar :: navbar"></nav>
         <!-- End Navbar -->
-        <div class="content " >
+    <div class="wrapper wrapper-full-page">
+        <div class="page-header ">
+        <div class="container-fluid content " >
             <div class="content">
                 <div class="container-fluid">
                     <div class="row">
@@ -73,9 +75,11 @@
                 </div>
             </div>
         </div>
+        </div>
+    </div>
 </div>
 
-</body>
+</body >
 <div th:replace="include/js :: js"></div>
 <script>
     $(document).ready(function () {
