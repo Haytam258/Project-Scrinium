@@ -2,6 +2,7 @@ package com.mbc.clickclinic.service;
 
 import com.mbc.clickclinic.dao.AgendaRepository;
 import com.mbc.clickclinic.entities.Agenda;
+import com.mbc.clickclinic.entities.Conges;
 import com.mbc.clickclinic.entities.Medecin;
 import com.mbc.clickclinic.entities.Rendezvous;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +16,15 @@ public class AgendaImple implements AgendaService {
 
     private final AgendaRepository agendaRepository;
     private final RendezvousService rendezvousService;
+    private final CongesService congesService;
+    private final MedecinService medecinService;
 
     @Autowired
-    public AgendaImple(AgendaRepository agendaRepository, @Lazy RendezvousService rendezvousService){
+    public AgendaImple(AgendaRepository agendaRepository, @Lazy RendezvousService rendezvousService, CongesService congesService, @Lazy MedecinService medecinService){
         this.rendezvousService = rendezvousService;
         this.agendaRepository = agendaRepository;
+        this.congesService = congesService;
+        this.medecinService = medecinService;
     }
 
     public Agenda createAgenda(Agenda agenda){
@@ -45,6 +50,21 @@ public class AgendaImple implements AgendaService {
         return agendaRepository.findAll();
     }
 
+    public void deleteAgenda(Agenda agenda){
+        Conges conges = agenda.getConges();
+        Medecin medecin = agenda.getMedecin();
+        agenda.setMedecin(null);
+        agenda.setConges(null);
+        if(conges != null){
+            conges.setAgenda(null);
+            congesService.updateConges(conges);
+        }
+        if(medecin != null){
+            medecin.remove(agenda);
+            medecinService.saveMedecin(medecin);
+        }
+        agendaRepository.delete(agenda);
+    }
 
 
 

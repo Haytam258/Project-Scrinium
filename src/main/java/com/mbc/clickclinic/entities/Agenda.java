@@ -17,7 +17,6 @@ import java.util.TimeZone;
 @Entity
 @Getter
 @Setter
-@ToString
 @RequiredArgsConstructor
 @AllArgsConstructor
 public class Agenda {
@@ -38,7 +37,7 @@ public class Agenda {
     //Statut : 1 = Vacances, Fournisseurs etc (Pas disponible), Statut : 2 = Travail (Disponible),
     private int statut;
 
-    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH})
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH})
     @JsonManagedReference("agenda_conges")
     private Conges conges;
 

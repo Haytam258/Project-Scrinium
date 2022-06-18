@@ -48,17 +48,14 @@
                                             <td th:text="*{agenda.description}"></td>
                                             <td th:text="*{agenda.dateDebut} + ' to '+ *{agenda.dateFin}"></td>
                                             <td th:text="*{agenda.heureDebut == null ? 'N/A' : agenda.heureDebut} + ' to ' + *{agenda.heureFin == null ? 'N/A' : agenda.heureFin}"></td>
-                                            <td th:text="*{agenda.medecin.prenom} + '  '+ *{agenda.medecin.nom}"></td>
+                                            <td th:text="*{agenda.medecin == null ? '' : agenda.medecin.prenom + '  '+ agenda.medecin.nom}"></td>
                                             <td class="td-actions text-right">
-                                                <button type="button" rel="tooltip" class="btn btn-info" data-original-title="" title="">
-                                                    <i class="material-icons">person</i>
-                                                </button>
-                                                <button type="button" rel="tooltip" class="btn btn-success" data-original-title="" title="">
+                                                <a th:href="@{/agenda/modify/{id}(id = ${agenda.id})}" rel="tooltip" class="btn btn-link btn-success btn-just-icon success" >
                                                     <i class="material-icons">edit</i>
-                                                </button>
-                                                <button type="button" rel="tooltip" class="btn btn-danger" data-original-title="" title="">
+                                                </a>
+                                                <a th:href="@{/agenda/delete/{id}(id = ${agenda.id})}" onclick="return confirm('Etes vous sure ?');" class="btn btn-link btn-info btn-just-icon remove">
                                                     <i class="material-icons">close</i>
-                                                </button>
+                                                </a>
                                             </td>
                                         </tr>
                                         </tbody>

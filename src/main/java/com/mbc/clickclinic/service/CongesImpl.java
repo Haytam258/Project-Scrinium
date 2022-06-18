@@ -74,4 +74,8 @@ public class CongesImpl implements CongesService{
         conges.setReponse("Demande Refusée");
         return congeRepository.save(conges);
     }
+
+    public Conges updateConges(Conges conges){
+        return congeRepository.saveAndFlush(conges);
+    }
 }

@@ -1,7 +1,7 @@
 0,BONJOUR *,*,*,<random>#Newline                <li>Bonjour à vous#Comma je suis Alice#Comma comment pourrais-je vous aider ?</li>#Newline                <li>Bonjour et bienvenue à Scrinium#Comma comment je peux vous aider ?</li>#Newline                <li>Bonjour#Comma vous êtes le bienvenue à Scrinium#Comma quelles sont vos questions ? </li>#Newline            </random>,test.aiml
 0,BONJOUR,*,*,<srai>Bonjour *</srai>,test.aiml
 0,BONNE JOURNÉE,*,*,Bonne journée à vous  <get name="username"/> et merci pour cette conversation !,test.aiml
-0,SALUT, JE SUIS *,*,*,Salut <set name="username"> <star/> !</set> et bienvenue à Scrinium#Comma quelles sont vos questions ?,test.aiml
+0,SALUT, JE SUIS *,*,*,Salut <set name="username"> <star/></set> ! et bienvenue à Scrinium#Comma quelles sont vos questions ?,test.aiml
 0,THIS IS *,*,*,Hello <star/> !!#Newline            How can I help you ?,test.aiml
 0,MY NAME IS *,*,*,Hello <star/> !!#Newline            How can I help you ?,test.aiml
 0,I AM *,*,*,Hello <star/> !!#Newline            How can I help you ?,test.aiml

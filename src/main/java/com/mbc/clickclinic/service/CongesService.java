@@ -13,5 +13,6 @@ public interface CongesService {
     public List<Conges> getCongesByMedecin(Medecin medecin);
     public Conges acceptConges(int id);
     public Conges refuseConges(int id);
+    public Conges updateConges(Conges conges);
 
 }

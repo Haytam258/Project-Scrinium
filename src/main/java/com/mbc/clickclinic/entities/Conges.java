@@ -12,7 +12,6 @@ import java.util.Objects;
 @Entity
 @Getter
 @Setter
-@ToString
 @RequiredArgsConstructor
 @AllArgsConstructor
 public class Conges {
@@ -33,7 +32,7 @@ public class Conges {
     //@JsonBackReference(value = "conges_medecin")
     private Medecin medecin;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JsonBackReference("agenda_conges")
     private Agenda agenda;
 

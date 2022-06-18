@@ -3,6 +3,10 @@
 <div th:replace="include/css :: head"></div>
 <style>
     @media print {
+        .toBePrinted{
+            display: block!important;
+        }
+
         .noPrint{
             display: none;
         }
@@ -21,10 +25,10 @@
                     <div class="col-md-12 ">
                         <div class="card ">
                             <div class="card-header card-header-primary card-header-icon">
-                                <div class="card-icon">
+                                <div class="noPrint card-icon">
                                     <i class="material-icons">assignment</i>
                                 </div>
-                                <h4 class="card-title" th:text="${consultation.rendezvous == null ? '' : consultation.rendezvous.patient.prenom + ' '
+                                <h4 class="card-title noPrint" th:text="${consultation.rendezvous == null ? '' : consultation.rendezvous.patient.prenom + ' '
                                            + consultation.rendezvous.patient.nom + '/' + consultation.rendezvous.dateRv}">
                                 </h4>
                             </div>
@@ -106,6 +110,8 @@
                                                 </div>
                                             </div>
                                         <div class="row">
+                                            <h3 th:if="${nulled}" th:text="'Ordonnance faite par le médecin : ' + ${consultation.rendezvous.medecin.prenom + ' ' + consultation.rendezvous.medecin.nom }"></h3>
+                                            <h3 th:if="${nulled}" th:text="'Spécialité : ' + ${consultation.rendezvous.medecin.specialite }"></h3> <img src="/assets/img/logoDoctor.jpg" class="toBePrinted" style="display: none;height: 150px; width: 150px; justify-content: center;">
                                             <div class="material-datatables" th:if="${nulled}">
                                                 <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%;">
                                                     <thead>
@@ -136,7 +142,10 @@
                                                     </tr>
                                                     </tbody>
                                                 </table>
-                                                <button th:if="${nulled}" onclick="window.print();" class="noPrint btn btn-fill btn-rose">Print</button>
+                                                <button th:if="${nulled}" id="printButton" onclick="window.print();"  class="noPrint btn btn-fill btn-rose">Print</button>
+                                                <div style="display: none;" class="toBePrinted">
+                                                <h3 class="mt-5 d-flex justify-content-center"  > Cachet, Signature et date de signature du médecin </h3>
+                                                </div>
                                             </div>
 
                                         </div>
@@ -186,6 +195,8 @@
         table.on('click', '.like', function() {
             alert('You clicked on Like button');
         });
+
+
     });
 </script>
 </body>

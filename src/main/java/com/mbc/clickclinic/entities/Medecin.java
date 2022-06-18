@@ -41,6 +41,10 @@ public class Medecin extends Personne {
         rendezvousList.add(rendezvous);
     }
 
+    public void remove(Agenda agenda1){
+        this.agenda.remove(agenda1);
+    }
+
     @OneToMany(mappedBy = "medecin")
     @JsonManagedReference(value = "medecin_certificat")
     @ToString.Exclude

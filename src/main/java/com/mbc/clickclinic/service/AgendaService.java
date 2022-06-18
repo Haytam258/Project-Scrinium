@@ -11,4 +11,5 @@ public interface AgendaService {
     public Agenda getAgendaById(int id);
     public List<Agenda> getAgendaByMedecin(Medecin medecin);
     public List<Agenda> allAgenda();
+    public void deleteAgenda(Agenda agenda);
 }

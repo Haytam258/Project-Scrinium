@@ -1,10 +1,182 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="include/css :: head"></div>
+<body class="">
+<div class="wrapper ">
+    <div th:replace="include/sidebar :: sidebar-fragment"></div>
+    <div class="main-panel">
+        <!-- Navbar -->
+        <nav th:replace="include/navbar2 :: navbar"></nav>
+        <!-- End Navbar -->
+        <div class="content">
+            <div class="container-fluid">
+                <div style="float:right; margin-bottom:20px;">
+                    <a th:href="@{/agenda/index}" class="btn btn-primary">Back</a>
+                </div>
+                <div class="card">
+                    <div class="card-header card-header-primary card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">mail_outline</i>
+                        </div>
+                        <h4 class="card-title">Modifier Agenda</h4>
+                    </div>
+                    <div class="card-body ">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <div class="col-lg-5 col-md-6 col-sm-3">
+                                            <label for="medecin" class="bmd-label-floating">Evenement</label>
+                                            <input type="text" th:value="${agenda.medecin == null ? '' : agenda.medecin.nom + ' ' + agenda.medecin.prenom}" class="form-control" name="description" id="medecin" disabled readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-5 pr-md-1">
+                                    <div class="form-group bmd-form-group">
+                                        <label for="description" class="bmd-label-floating">Evenement</label>
+                                        <input type="text" th:value="${agenda.description}" class="form-control" name="description" id="description" disabled readonly>
+                                    </div>
+                                </div>
+                                <div class="col-md-5 pr-md-1">
+                                    <div class="form-group bmd-form-group">
+                                        <label for="jour" class="bmd-label-floating">Jour</label>
+                                        <input type="text" th:value="${agenda.jour}" class="form-control" name="jour" id="jour" readonly disabled>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5 pr-md-1">
+                                    <div class="card ">
+                                        <div class="card-header card-header-rose card-header-text">
+                                            <h4 class="card-title">Date Debut</h4>
+                                        </div>
+                                        <div class="card-body ">
+                                            <div class="form-group bmd-form-group is-filled">
+                                                <input type="text" th:value="${agenda.dateDebut}" name="date_debut" class="form-control" readonly disabled>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-5 pr-md-1">
+                                    <div class="card ">
+                                        <div class="card-header card-header-rose card-header-text">
+                                            <h4 class="card-title">Date Fin</h4>
+                                        </div>
+                                        <div class="card-body ">
+                                            <div class="form-group bmd-form-group is-filled">
+                                                <input type="text" th:value="${agenda.dateFin}" name="date_fin" class="form-control" readonly disabled>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5 pr-md-1">
+                                    <div class="card ">
+                                        <div class="card-header card-header-rose card-header-text">
+                                            <h4 class="card-title">Heure Debut</h4>
+                                        </div>
+                                        <div class="card-body ">
+                                            <div class="form-group bmd-form-group is-filled">
+                                                <input type="text" th:value="${agenda.heureDebut}" name="heure_debut" class="form-control" readonly disabled>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-5 pr-md-1">
+                                    <div class="card ">
+                                        <div class="card-header card-header-rose card-header-text">
+                                            <h4 class="card-title">Heure Fin</h4>
+                                        </div>
+                                        <div class="card-body ">
+                                            <div class="form-group bmd-form-group is-filled">
+                                                <input type="text" th:value="${agenda.heureFin}" name="heure_fin" class="form-control" readonly disabled>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <form action="#" th:action="@{/modifyAgenda}" th:object="${agenda}" method="post">
+                            <div class="row">
+                                <input type="hidden" th:value="${agenda.medecin.id}" th:field="*{medecin}">
+                                <input type="hidden" th:value="${agenda.id}" th:field="*{id}">
+                                <input th:if="${agenda.conges != null}" type="hidden" th:value="${agenda.conges.id}" th:field="*{conges}">
+                                <div class="col-md-5 pr-md-1">
+                                    <div class="form-group bmd-form-group">
+                                        <label for="description2" class="bmd-label-floating">Evenement</label>
+                                        <input type="text" th:field="*{description}" class="form-control" name="description" id="description2">
+                                    </div>
+                                </div>
+                                <div class="col-md-5 pr-md-1">
+                                    <div class="form-group bmd-form-group">
+                                        <label for="jour2" class="bmd-label-floating">Jour</label>
+                                        <input type="text" th:field="*{jour}" class="form-control" name="jour" id="jour2">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5 pr-md-1">
+                                    <div class="card ">
+                                        <div class="card-header card-header-rose card-header-text">
+                                            <h4 class="card-title">Date Debut</h4>
+                                        </div>
+                                        <div class="card-body ">
+                                            <div class="form-group bmd-form-group is-filled">
+                                                <input type="text" th:field="*{dateDebut}" name="date_debut" class="form-control datepicker" placeholder="select date" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-5 pr-md-1">
+                                    <div class="card ">
+                                        <div class="card-header card-header-rose card-header-text">
+                                            <h4 class="card-title">Date Fin</h4>
+                                        </div>
+                                        <div class="card-body ">
+                                            <div class="form-group bmd-form-group is-filled">
+                                                <input type="text" th:field="*{dateFin}" name="date_fin" class="form-control datepicker" placeholder="select date" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5 pr-md-1">
+                                    <div class="card ">
+                                        <div class="card-header card-header-rose card-header-text">
+                                            <h4 class="card-title">Heure Debut</h4>
+                                        </div>
+                                        <div class="card-body ">
+                                            <div class="form-group bmd-form-group is-filled">
+                                                <input type="text" th:field="*{heureDebut}" name="heure_debut" class="form-control timepicker" placeholder="select time" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-5 pr-md-1">
+                                    <div class="card ">
+                                        <div class="card-header card-header-rose card-header-text">
+                                            <h4 class="card-title">Heure Fin</h4>
+                                        </div>
+                                        <div class="card-body ">
+                                            <div class="form-group bmd-form-group is-filled">
+                                                <input type="text" th:field="*{heureFin}" name="heure_fin" class="form-control timepicker" placeholder="select time" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-fill btn-primary">Submit</button>
+                            </div>
+                        </form>
 
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div th:replace="include/footer :: footer"></div>
+    </div>
+</div>
+<div th:replace="include/js :: js"></div>
 </body>
 </html>

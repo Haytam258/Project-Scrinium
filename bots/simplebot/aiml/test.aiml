@@ -28,7 +28,7 @@
     <category>
         <pattern>Salut, je suis *</pattern>
         <template>
-            Salut <set name="username"> <star/> !</set> et bienvenue à Scrinium, quelles sont vos questions ?
+            Salut <set name="username"> <star/></set> ! et bienvenue à Scrinium, quelles sont vos questions ?
         </template>
     </category>
 
