@@ -11,42 +11,44 @@
 
     Tip 2: you can also add an image using data-image tag
 -->
-  <div class="logo"><a href="http://www.creative-tim.com" class="simple-text logo-mini">
+  <div class="logo"><span href="#" class="simple-text logo-mini ml-4">
     SP
-  </a>
-    <a href="http://www.creative-tim.com" class="simple-text logo-normal">
+  </span>
+    <span href="#" class="simple-text logo-normal">
       Scrinium Project
-    </a></div>
+    </span></div>
   <div class="sidebar-wrapper">
     <div class="user">
       <div class="photo">
-        <img src="/assets/img/faces/avatar.jpg" />
+        <img src="/assets/img/default-avatar.png" />
       </div>
-      <div class="user-info">
+      <div class="user-info" sec:authorize="isAuthenticated()">
         <a data-toggle="collapse" href="#collapseExample" class="username">
-              <span>
-                Tania Andrew
+              <span th:text="${#authentication.principal.nom + ' ' + #authentication.principal.prenom}">
+
                 <b class="caret"></b>
               </span>
         </a>
         <div class="collapse" id="collapseExample">
           <ul class="nav">
             <li class="nav-item">
-              <a class="nav-link" href="#">
+              <a class="nav-link" th:href="@{/myMedecinProfil}" th:if="${#authentication.principal.type == 2}">
+                <span class="sidebar-mini"> MP </span>
+                <span class="sidebar-normal"> My Profile </span>
+              </a>
+              <a class="nav-link" th:href="@{/myProfil}" th:if="${#authentication.principal.type == 3}">
+                <span class="sidebar-mini"> MP </span>
+                <span class="sidebar-normal"> My Profile </span>
+              </a>
+              <a class="nav-link" th:href="@{/mySecretaireProfil}" th:if="${#authentication.principal.type == 4}">
                 <span class="sidebar-mini"> MP </span>
                 <span class="sidebar-normal"> My Profile </span>
               </a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
+            <li class="nav-item" sec:authorize="hasAuthority('PATIENT')">
+              <a class="nav-link" th:href="@{/modifyMyProfil}">
                 <span class="sidebar-mini"> EP </span>
                 <span class="sidebar-normal"> Edit Profile </span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                <span class="sidebar-mini"> S </span>
-                <span class="sidebar-normal"> Settings </span>
               </a>
             </li>
           </ul>
@@ -54,7 +56,7 @@
       </div>
     </div>
     <ul class="nav">
-      <li class="nav-item ">
+      <li class="nav-item " sec:authorize="hasAnyAuthority('MEDECIN','SECRETAIRE')">
         <a class="nav-link" data-toggle="collapse" href="#agendaExamples">
           <i class="material-icons">list</i>
           <p> Agenda
@@ -64,21 +66,27 @@
         <div class="collapse" id="agendaExamples">
           <ul class="nav">
             <li class="nav-item ">
-              <a class="nav-link" th:href="@{/agenda/index}">
+              <a class="nav-link" sec:authorize="hasAuthority('MEDECIN')" th:href="@{/agenda/index}">
                 <span class="sidebar-mini"> E </span>
                 <span class="sidebar-normal"> Agenda </span>
               </a>
             </li>
             <li class="nav-item ">
-              <a class="nav-link" th:href="@{/agenda/create}">
+              <a class="nav-link" sec:authorize="hasAuthority('MEDECIN')" th:href="@{/agenda/create}">
                 <span class="sidebar-mini"> AE </span>
                 <span class="sidebar-normal"> Créer Agenda </span>
+              </a>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link" sec:authorize="hasAuthority('SECRETAIRE')" th:href="@{/medecins}">
+                <span class="sidebar-mini"> AE </span>
+                <span class="sidebar-normal"> Liste des médecins </span>
               </a>
             </li>
           </ul>
         </div>
       </li>
-      <li class="nav-item ">
+      <li class="nav-item " sec:authorize="hasAuthority('SECRETAIRE')">
         <a class="nav-link" data-toggle="collapse" href="#annonceExamples">
           <i class="material-icons">notifications</i>
           <p> Annonce
@@ -156,7 +164,7 @@
           </ul>
         </div>
       </li>
-      <li class="nav-item ">
+      <li class="nav-item " sec:authorize="hasAnyAuthority('ADMIN','MEDECIN')">
         <a class="nav-link" data-toggle="collapse" href="#congesExamples">
           <i class="material-icons">perm_identity</i>
           <p> Conges
@@ -166,19 +174,19 @@
         <div class="collapse" id="congesExamples">
           <ul class="nav">
             <li class="nav-item ">
-              <a class="nav-link" th:href="@{/conges/index}">
+              <a class="nav-link" sec:authorize="hasAuthority('MEDECIN')" th:href="@{/conges/index}">
                 <span class="sidebar-mini"> ME </span>
                 <span class="sidebar-normal"> Mes Conges </span>
               </a>
             </li>
             <li class="nav-item ">
-              <a class="nav-link" th:href="@{/conges/create}">
+              <a class="nav-link" sec:authorize="hasAuthority('MEDECIN')" th:href="@{/conges/create}">
                 <span class="sidebar-mini"> DC </span>
                 <span class="sidebar-normal"> Demander Conges </span>
               </a>
             </li>
             <li class="nav-item ">
-              <a class="nav-link" th:href="@{/admin/conges/index}">
+              <a class="nav-link" sec:authorize="hasAuthority('ADMIN')" th:href="@{/admin/conges/index}">
                 <span class="sidebar-mini"> ME </span>
                 <span class="sidebar-normal"> Tous les Conges </span>
               </a>
@@ -186,7 +194,7 @@
           </ul>
         </div>
       </li>
-      <li class="nav-item ">
+      <li class="nav-item " sec:authorize="hasAnyAuthority('MEDECIN','ADMIN','SECRETAIRE')">
         <a class="nav-link" data-toggle="collapse" href="#collsalle">
           <i class="material-icons">airline_seat_legroom_extra</i>
           <p> Salle d'attente <b class="caret"></b> </p>
@@ -194,14 +202,14 @@
         <div class="collapse" id="collsalle">
           <ul class="nav">
             <li class="nav-item ">
-              <a class="nav-link" th:href="@{/createSalle}">
+              <a class="nav-link" sec:authorize="hasAuthority('ADMIN')" th:href="@{/createSalle}">
                 <span class="sidebar-mini"> P </span>
                 <span class="sidebar-normal"> Créer une salle </span>
               </a>
             </li>
 
             <li class="nav-item ">
-              <a class="nav-link" th:href="@{/salles}">
+              <a class="nav-link" sec:authorize="hasAnyAuthority('MEDECIN','SECRETAIRE','ADMIN')" th:href="@{/salles}">
                 <span class="sidebar-mini"> P </span>
                 <span class="sidebar-normal"> Liste des salles </span>
               </a>
@@ -213,30 +221,42 @@
       <li class="nav-item ">
         <a class="nav-link" data-toggle="collapse" href="#collpatient">
           <i class="material-icons">groups</i>
-          <p> Patients
+          <p> Patient
             <b class="caret"></b>
           </p>
         </a>
         <div class="collapse" id="collpatient">
           <ul class="nav">
             <li class="nav-item ">
-              <a class="nav-link" th:href="@{/todayPatient}">
+              <a class="nav-link" sec:authorize="hasAnyAuthority('MEDECIN','SECRETAIRE')" th:href="@{/todayPatient}">
                 <span class="sidebar-mini"> P </span>
                 <span class="sidebar-normal"> Patients d'aujourd'hui </span>
               </a>
             </li>
 
             <li class="nav-item ">
-              <a class="nav-link" th:href="@{/patients}">
+              <a class="nav-link" sec:authorize="hasAnyAuthority('ADMIN','SECRETAIRE')" th:href="@{/patients}">
                 <span class="sidebar-mini"> P </span>
                 <span class="sidebar-normal"> Tous les patients </span>
               </a>
             </li>
 
             <li class="nav-item ">
-              <a class="nav-link" th:href="@{/createPatient}">
+              <a class="nav-link" sec:authorize="hasAnyAuthority('ADMIN','SECRETAIRE')" th:href="@{/createPatient}">
                 <span class="sidebar-mini"> P </span>
                 <span class="sidebar-normal"> Créer Nouveau Patient </span>
+              </a>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link" sec:authorize="hasAuthority('PATIENT')" th:href="@{/modifyMyProfil}">
+                <span class="sidebar-mini"> P </span>
+                <span class="sidebar-normal"> Modifier Mon Profil </span>
+              </a>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link" sec:authorize="hasAuthority('PATIENT')" th:href="@{/myProfil}">
+                <span class="sidebar-mini"> P </span>
+                <span class="sidebar-normal"> Voir Mon Profil avec Dossier </span>
               </a>
             </li>
           </ul>
@@ -252,41 +272,47 @@
         </a>
         <div class="collapse" id="collrdv">
           <ul class="nav">
-            <li class="nav-item ">
+            <li class="nav-item " sec:authorize="hasAnyAuthority('SECRETAIRE','MEDECIN','ADMIN')" >
               <a class="nav-link" th:href="@{/allRendezvous}">
                 <span class="sidebar-mini"> P </span>
                 <span class="sidebar-normal"> List des rendez vous </span>
               </a>
             </li>
-            <li class="nav-item ">
+            <li class="nav-item " sec:authorize="hasAuthority('SECRETAIRE')">
               <a class="nav-link" th:href="@{/createRendezvous}">
                 <span class="sidebar-mini"> P </span>
                 <span class="sidebar-normal"> Créer Rendez vous </span>
               </a>
             </li>
-            <li class="nav-item ">
+            <li class="nav-item " sec:authorize="hasAuthority('PATIENT')">
               <a class="nav-link" th:href="@{/demanderRendezvous}">
                 <span class="sidebar-mini"> P </span>
                 <span class="sidebar-normal"> Demander un Rendez vous </span>
               </a>
             </li>
-            <li class="nav-item ">
+            <li class="nav-item " sec:authorize="hasAuthority('SECRETAIRE')">
               <a class="nav-link" th:href="@{/demandesRendezvous}">
                 <span class="sidebar-mini"> P </span>
                 <span class="sidebar-normal"> Demandes de Rendez vous </span>
               </a>
             </li>
-            <li class="nav-item ">
+            <li class="nav-item " sec:authorize="hasAuthority('PATIENT')">
               <a class="nav-link" th:href="@{/myRendezvous}">
                 <span class="sidebar-mini"> P </span>
                 <span class="sidebar-normal"> Mes Rendez vous </span>
+              </a>
+            </li>
+            <li class="nav-item " sec:authorize="hasAuthority('PATIENT')">
+              <a class="nav-link" th:href="@{/myDemandesRendezvous}">
+                <span class="sidebar-mini"> P </span>
+                <span class="sidebar-normal"> Mes Demandes de Rendez vous </span>
               </a>
             </li>
           </ul>
         </div>
       </li>
 
-      <li class="nav-item ">
+      <li class="nav-item " sec:authorize="hasAnyAuthority('ADMIN','MEDECIN')">
         <a class="nav-link" data-toggle="collapse" href="#collcons">
           <i class="material-icons">medical_services</i>
           <p> Consultations
@@ -296,19 +322,19 @@
         <div class="collapse" id="collcons">
           <ul class="nav">
             <li class="nav-item ">
-              <a class="nav-link" th:href="@{/consultations}">
+              <a class="nav-link" sec:authorize="hasAnyAuthority('ADMIN','MEDECIN')" th:href="@{/consultations}">
                 <span class="sidebar-mini"> P </span>
                 <span class="sidebar-normal"> List Consultations </span>
               </a>
             </li>
             <li class="nav-item ">
-              <a class="nav-link" th:href="@{/createConsultation}">
+              <a class="nav-link" sec:authorize="hasAnyAuthority('MEDECIN')" th:href="@{/createConsultation}">
                 <span class="sidebar-mini"> P </span>
                 <span class="sidebar-normal"> Creer consultation </span>
               </a>
             </li>
             <li class="nav-item ">
-              <a class="nav-link" th:href="@{/createOrdonnance}">
+              <a class="nav-link" sec:authorize="hasAuthority('MEDECIN')" th:href="@{/createOrdonnance}">
                 <span class="sidebar-mini"> P </span>
                 <span class="sidebar-normal"> Creer ordonnance </span>
               </a>
@@ -317,7 +343,7 @@
         </div>
       </li>
 
-      <li class="nav-item ">
+      <li class="nav-item " sec:authorize="hasAnyAuthority('MEDECIN')" >
         <a class="nav-link" data-toggle="collapse" href="#colldm">
           <i class="material-icons">folder_copy</i>
           <p> Dossiers medicaux
@@ -327,13 +353,13 @@
         <div class="collapse" id="colldm">
           <ul class="nav">
             <li class="nav-item ">
-              <a class="nav-link" th:href="@{/dossier/index}">
+              <a class="nav-link" sec:authorize="hasAuthority('MEDECIN')" th:href="@{/dossier/index}">
                 <span class="sidebar-mini"> P </span>
                 <span class="sidebar-normal"> List dossier medicaux </span>
               </a>
             </li>
             <li class="nav-item ">
-              <a class="nav-link" th:href="@{/dossier/create}">
+              <a class="nav-link" sec:authorize="hasAuthority('MEDECIN')" th:href="@{/dossier/create}">
                 <span class="sidebar-mini"> P </span>
                 <span class="sidebar-normal"> Creer dossier Medical </span>
               </a>
@@ -342,26 +368,7 @@
         </div>
       </li>
 
-     <!-- <li class="nav-item ">
-        <a class="nav-link" data-toggle="collapse" href="#collord">
-          <i class="material-icons">medication</i>
-          <p> Ordonnance
-            <b class="caret"></b>
-          </p>
-        </a>
-        <div class="collapse" id="collord">
-          <ul class="nav">
-            <li class="nav-item ">
-              <a class="nav-link" th:href="@{/}">
-                <span class="sidebar-mini"> P </span>
-                <span class="sidebar-normal"> Creer ordonnance </span>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </li> -->
-
-      <li class="nav-item ">
+      <li class="nav-item " sec:authorize="hasAnyAuthority('MEDECIN','PATIENT','ADMIN')">
         <a class="nav-link" data-toggle="collapse" href="#collcm">
           <i class="material-icons">approval</i>
           <p> Certificat medicale
@@ -371,34 +378,46 @@
         <div class="collapse" id="collcm">
           <ul class="nav">
             <li class="nav-item ">
-              <a class="nav-link" th:href="@{/createCertificat}">
+              <a class="nav-link" sec:authorize="hasAuthority('MEDECIN')" th:href="@{/createCertificat}">
                 <span class="sidebar-mini"> P </span>
                 <span class="sidebar-normal"> Créer certificat medical </span>
               </a>
             </li>
             <li class="nav-item ">
-              <a class="nav-link" th:href="@{/createDemandeCertificat}">
+              <a class="nav-link" sec:authorize="hasAuthority('PATIENT')" th:href="@{/createDemandeCertificat}">
                 <span class="sidebar-mini"> P </span>
                 <span class="sidebar-normal"> Demander un nouveau certificat </span>
               </a>
             </li>
             <li class="nav-item ">
-              <a class="nav-link" th:href="@{/createTypeCertificat}">
+              <a class="nav-link" sec:authorize="hasAuthority('PATIENT')" th:href="@{/maDemandeCertificat}">
+                <span class="sidebar-mini"> P </span>
+                <span class="sidebar-normal"> Ma demande de certificat </span>
+              </a>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link" sec:authorize="hasAuthority('ADMIN')" th:href="@{/createTypeCertificat}">
                 <span class="sidebar-mini"> P </span>
                 <span class="sidebar-normal"> Créer type medical </span>
               </a>
             </li>
             <li class="nav-item ">
-              <a class="nav-link" th:href="@{/certificats}">
+              <a class="nav-link" sec:authorize="hasAuthority('ADMIN')" th:href="@{/certificats}">
                 <span class="sidebar-mini"> P </span>
                 <span class="sidebar-normal"> Voir tous les certificats demandés / accordés </span>
               </a>
+            </li>
+            <li class="nav-item " >
+            <a class="nav-link" sec:authorize="hasAuthority('PATIENT')" th:href="@{/myCertificats}">
+              <span class="sidebar-mini"> P </span>
+              <span class="sidebar-normal"> Voir tous mes certificats </span>
+            </a>
             </li>
           </ul>
         </div>
       </li>
 
-      <li class="nav-item " sec:authorize="hasAuthority('MEDECIN')">
+      <li class="nav-item " sec:authorize="hasAnyAuthority('SECRETAIRE','MEDECIN','ADMIN')">
         <a class="nav-link" data-toggle="collapse" href="#collpay">
           <i class="material-icons">paid</i>
           <p> Paiement
@@ -408,19 +427,19 @@
         <div class="collapse" id="collpay">
           <ul class="nav">
             <li class="nav-item ">
-              <a class="nav-link" th:href="@{/createPaiement}">
+              <a class="nav-link" sec:authorize="hasAuthority('SECRETAIRE')" th:href="@{/createPaiement}">
                 <span class="sidebar-mini"> P </span>
                 <span class="sidebar-normal"> Créer Paiement </span>
               </a>
             </li>
             <li class="nav-item ">
-              <a class="nav-link" th:href="@{/payments}">
+              <a class="nav-link" sec:authorize="hasAnyAuthority('SECRETAIRE','ADMIN')" th:href="@{/payments}">
                 <span class="sidebar-mini"> P </span>
                 <span class="sidebar-normal"> Liste Paiements </span>
               </a>
             </li>
             <li class="nav-item ">
-              <a class="nav-link" th:href="@{/myRevenu}">
+              <a class="nav-link" sec:authorize="hasAuthority('MEDECIN')" th:href="@{/myRevenu}">
                 <span class="sidebar-mini"> P </span>
                 <span class="sidebar-normal"> my Revenu </span>
               </a>
@@ -428,7 +447,7 @@
           </ul>
         </div>
       </li>
-      <li class="nav-item ">
+      <li class="nav-item " sec:authorize="hasAnyAuthority('ADMIN', 'MEDECIN')">
         <a class="nav-link" data-toggle="collapse" href="#medExamples">
           <i class="material-icons">vaccines</i>
           <p> Medicament
@@ -438,25 +457,25 @@
         <div class="collapse" id="medExamples">
           <ul class="nav">
             <li class="nav-item ">
-              <a class="nav-link" th:href="@{/createMedicament}">
+              <a class="nav-link" sec:authorize="hasAuthority('ADMIN')" th:href="@{/createMedicament}">
                 <span class="sidebar-mini"> ME </span>
                 <span class="sidebar-normal"> Créer Médicament </span>
               </a>
             </li>
             <li class="nav-item ">
-              <a class="nav-link" th:href="@{/createTypeMedicament}">
+              <a class="nav-link" sec:authorize="hasAuthority('ADMIN')" th:href="@{/createTypeMedicament}">
                 <span class="sidebar-mini"> DC </span>
                 <span class="sidebar-normal"> Créer Type de médicament </span>
               </a>
             </li>
             <li class="nav-item ">
-              <a class="nav-link" th:href="@{/createCategorieMedicament}">
+              <a class="nav-link" sec:authorize="hasAuthority('ADMIN')" th:href="@{/createCategorieMedicament}">
                 <span class="sidebar-mini"> ME </span>
                 <span class="sidebar-normal"> Créer la catégorie de médicament </span>
               </a>
             </li>
             <li class="nav-item ">
-              <a class="nav-link" th:href="@{/medicaments}">
+              <a class="nav-link" sec:authorize="hasAnyAuthority('ADMIN', 'MEDECIN')" th:href="@{/medicaments}">
                 <span class="sidebar-mini"> ME </span>
                 <span class="sidebar-normal"> Liste des médicaments </span>
               </a>

@@ -45,9 +45,9 @@
                                         </tfoot>
                                         <tbody>
                                         <tr th:each="consultation : ${allConsultations}">
-                                            <td th:text="${consultation.rendezvous == null ? 'N/A' : consultation.rendezvous.patient.nom}"></td>
-                                            <td th:text="${consultation.rendezvous == null ? 'N/A' : consultation.rendezvous.patient.cin}"></td>
-                                            <td th:text="${consultation.rendezvous == null ? 'N/A' : consultation.rendezvous.medecin.nom}"></td>
+                                            <td th:text="${consultation.rendezvous == null or consultation.rendezvous.patient == null ? 'N/A' : consultation.rendezvous.patient.nom}"></td>
+                                            <td th:text="${consultation.rendezvous == null or consultation.rendezvous.patient == null? 'N/A' : consultation.rendezvous.patient.cin}"></td>
+                                            <td th:text="${consultation.rendezvous == null or consultation.rendezvous.medecin == null? 'N/A' : consultation.rendezvous.medecin.nom}"></td>
                                             <td th:text="${consultation.rendezvous == null ? 'N/A' : consultation.rendezvous.dateRv}"></td>
                                             <td class="text-right">
                                                 <a th:href="@{/consultations/show/{id}(id=${consultation.id})}" class="btn btn-link btn-info btn-just-icon like" ><i class="material-icons">info</i></a>
@@ -69,7 +69,6 @@
         </div>
 
 
-        <footer th:replace="include/footer :: footer"></footer>
     </div>
 </div>
 

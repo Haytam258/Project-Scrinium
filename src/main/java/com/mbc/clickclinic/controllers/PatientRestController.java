@@ -1,11 +1,14 @@
 package com.mbc.clickclinic.controllers;
 
 
+import com.mbc.clickclinic.entities.CustomUser;
 import com.mbc.clickclinic.entities.Patient;
 import com.mbc.clickclinic.service.*;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -31,12 +34,14 @@ public class PatientRestController {
         this.emailService = emailService;
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','SECRETAIRE')")
     @GetMapping("/patients")
     public String getPatients(Model model){
         model.addAttribute("allPatients", patientService.patients());
         return "patient/patientList";
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'SECRETAIRE', 'MEDECIN')")
     @GetMapping("/patients/{id}")
     public String getPatient(@PathVariable Integer id,Model model){
         model.addAttribute("patientGet", patientService.PatientById(id));
@@ -49,13 +54,22 @@ public class PatientRestController {
         return "patient/patientInfo";
     }
 
+    @PreAuthorize("hasAuthority('PATIENT')")
+    @GetMapping("/myProfil")
+    public String myPatientProfile(Model model){
+        CustomUser customUser = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("myInfo", patientService.PatientById(customUser.getId()));
+        return "patient/myProfile";
+    }
 
+    @PreAuthorize("hasAnyAuthority('SECRETAIRE','ADMIN')")
     @GetMapping("/createPatient")
     public String createPatient(Model model){
         model.addAttribute("patient", new Patient());
         return "patient/createPatient";
     }
 
+    @PreAuthorize("hasAnyAuthority('SECRETAIRE','ADMIN')")
     @PostMapping("/createPatient")
     public String createPatient(Model model, @ModelAttribute Patient patient){
         if(!(patient.getMobil().matches("[0][6][0-9]{8}"))){
@@ -72,6 +86,7 @@ public class PatientRestController {
         return "patient/createPatient";
     }
 
+    @PreAuthorize("hasAnyAuthority('MEDECIN', 'SECRETAIRE')")
     @GetMapping("/todayPatient")
     public String getPatientOfToday(Model model){
         List<Patient> patientList = patientService.getPatientsOfToday(LocalDate.now());
@@ -86,25 +101,29 @@ public class PatientRestController {
         return "patient/patientParRendezvous";
     }
 
-    @GetMapping("/modifyPatient")
-    public String modifyPatient(Model model){
-        model.addAttribute("newpatient", new Patient());
+    @PreAuthorize("hasAuthority('PATIENT')")
+    @GetMapping("/modifyMyProfil")
+    public String modifyMyProfil(Model model){
+        CustomUser customUser = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("newpatient", patientService.PatientById(customUser.getId()));
         return "patient/patientProfile";
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','SECRETAIRE')")
+    @GetMapping("/modifyPatient/{id}")
+    public String modifyPatient(@PathVariable(value = "id")Integer id ,Model model){
+        model.addAttribute("newpatient", patientService.PatientById(id));
+        return "patient/patientProfile";
+    }
+
+    @PreAuthorize("hasAnyAuthority('ADMIN','SECRETAIRE','PATIENT')")
     @PostMapping("/modifyPatient")
     public String modifyPatient(@ModelAttribute("newpatient") Patient patient, Model model){
-        Patient patient1 = patientService.PatientById(2);
-        patient1.setEmail(patient.getEmail());
-        patient1.setPassword(patient.getPassword());
-        patient1.setRegion(patient.getRegion());
-        patient1.setMobil(patient.getMobil());
-        patient1.setCin(patient.getCin());
         if(!(patient.getMobil().matches("[0][6][0-9]{8}"))){
             model.addAttribute("telInvalid", "Numéro de téléphone invalide !");
         }
         else {
-            if(patientService.savePatient(patient1, model) != null){
+            if(patientService.savePatient(patient, model) != null){
                 model.addAttribute("patientCreated", "Vos informations ont été modifiées !");
                 if(EmailValidator.getInstance().isValid(patient.getEmail())){
                     //emailService.sendSimpleMessage(patient.getEmail(),"Votre compte Scrinium a été modifié avec succès !","Compte Modifié");
@@ -114,6 +133,7 @@ public class PatientRestController {
         return "patient/patientProfile";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/deletePatient/{id}")
     public String deletePatient(@PathVariable Integer id){
         Patient patient = patientService.PatientById(id);

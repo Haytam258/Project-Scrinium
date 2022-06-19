@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>Not Navbar</title>
     <meta charset="UTF-8">
@@ -21,11 +21,32 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown" sec:authorize="!isAuthenticated()">
                     <a class="nav-link" th:href="@{/login}" >
                         <i class="material-icons">person</i>
                         <p >
                             Se connecter
+                        </p>
+                    </a>
+
+                </li>
+                <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
+                    <a class="nav-link" th:href="@{/myMedecinProfil}" th:if="${#authentication.principal.type == 2}" >
+                        <i class="material-icons">person</i>
+                        <p >
+                            Mon Profile
+                        </p>
+                    </a>
+                    <a class="nav-link" th:href="@{/myProfil}" th:if="${#authentication.principal.type == 3}" >
+                        <i class="material-icons">person</i>
+                        <p >
+                            Mon Profile
+                        </p>
+                    </a>
+                    <a class="nav-link" th:href="@{/mySecretaireProfil}" th:if="${#authentication.principal.type == 4}" >
+                        <i class="material-icons">person</i>
+                        <p >
+                            Mon Profile
                         </p>
                     </a>
 

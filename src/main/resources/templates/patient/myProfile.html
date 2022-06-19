@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="include/css :: head"></div>
+<body class="">
+<div class="wrapper ">
+  <div th:replace="include/sidebar :: sidebar-fragment"></div>
+  <div class="main-panel">
+    <!-- Navbar -->
+    <nav th:replace="include/navbar2 :: navbar"></nav>
+    <!-- End Navbar -->
+    <div class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-8">
+            <div class="card">
+              <div class="card-header card-header-icon card-header-rose">
+                <div class="card-icon">
+                  <i class="material-icons">perm_identity</i>
+                </div>
+                <h4 class="card-title">Mon Profil
+                </h4>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="bmd-label-floating">Nom</label>
+                      <input type="text" class="form-control" th:text="${myInfo.nom}" disabled>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="bmd-label-floating">Prenom</label>
+                      <input type="text" class="form-control" th:text="${myInfo.prenom}" disabled>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label class="bmd-label-floating">Région</label>
+                      <input type="text" class="form-control" th:text="${myInfo.region}" disabled>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label class="bmd-label-floating">CIN</label>
+                      <input type="text" class="form-control" th:text="${myInfo.cin}" disabled>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label class="bmd-label-floating">Groupe Sanguin</label>
+                      <input type="text" class="form-control" th:text="${myInfo.groupSanguin}" disabled>
+                    </div>
+                  </div>
+                  <div class="col-md-3" th:if="${myInfo.mobil != null}">
+                    <div class="form-group">
+                      <label class="bmd-label-floating">Téléphone</label>
+                      <input type="text" class="form-control" th:text="${myInfo.mobil == null ? '' : myInfo.mobil}" disabled>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label class="bmd-label-floating">Email</label>
+                      <input type="text" class="form-control" th:text="${myInfo.email}" disabled>
+                    </div>
+                  </div>
+                </div>
+                <div class="row" th:if="${myInfo.addresse != null}">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label class="bmd-label-floating">Addresse</label>
+                      <input type="text" class="form-control" th:text="${myInfo.addresse == null ? '' : myInfo.addresse}" disabled>
+                    </div>
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card card-profile">
+              <div class="card-avatar">
+                <img class="img" src="/assets/img/default-avatar.png" />
+
+              </div>
+              <div class="card-body">
+                <h6 class="card-category text-gray" th:text="${myInfo.sexe}"></h6>
+                <h4 class="card-title" th:text="${'Né le : '+ myInfo.dateNaissance}"></h4>
+                <a th:if="${myInfo.dossierMedicale != null}" class="btn btn-rose" th:href="@{/dossier/show/{id}(id = ${myInfo.dossierMedicale.id})}"> Voir mon dossier </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div th:replace="include/js :: js"></div>
+</body>
+</html>

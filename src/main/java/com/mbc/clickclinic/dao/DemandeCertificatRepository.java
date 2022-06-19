@@ -13,6 +13,7 @@ public interface DemandeCertificatRepository extends JpaRepository<DemandeCertif
 
     DemandeCertificat findDemandeCertificatByPatient(Patient patient);
     List<DemandeCertificat> findDemandeCertificatsByMedecin(Medecin medecin);
-    DemandeCertificat findDemandeCertificatByPatientAndMedecin(Patient patient, Medecin medecin);
+    DemandeCertificat findDemandeCertificatByPatientAndMedecinAndStatus(Patient patient, Medecin medecin, Integer status);
+    DemandeCertificat findDemandeCertificatByPatientAndStatus(Patient patient, Integer status);
 
 }

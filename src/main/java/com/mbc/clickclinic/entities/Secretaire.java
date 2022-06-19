@@ -11,7 +11,6 @@ import java.util.Objects;
 @Getter
 @Setter
 @RequiredArgsConstructor
-@ToString
 public class Secretaire extends Personne {
 
     @Override

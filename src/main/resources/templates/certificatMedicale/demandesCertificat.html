@@ -27,6 +27,7 @@
                                     <th>CIN</th>
                                     <th>Type</th>
                                     <th>Statut</th>
+                                    <th class="disabled-sorting text-right">Actions</th>
                                     </thead>
                                     <tfoot>
                                     <tr>
@@ -35,6 +36,7 @@
                                         <th>CIN</th>
                                         <th>Type</th>
                                         <th>Statut</th>
+                                        <th class="text-right">Actions</th>
                                     </tr>
                                     </tfoot>
                                     <tbody>
@@ -44,6 +46,9 @@
                                         <td th:text="${demande.patient == null ? '' : demande.patient.cin}"></td>
                                         <td th:text="${demande.typeCertification == null ? '' : demande.typeCertification.type}"></td>
                                         <td th:text="${demande.status == 0 ? 'En cours' : 'Accordée'}"></td>
+                                        <td>
+                                            <a th:if="${demande.status == 0}" th:href="@{/deleteDemande/{id}(id=${demande.id})}" onclick="return confirm('Etes vous sure ?');" class="btn btn-link btn-danger btn-just-icon remove"><i class="material-icons">close</i></a>
+                                        </td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -62,13 +67,7 @@
                             <div class="card-body table-responsive">
                                 <form method="POST" th:action="@{/createCertificat}" th:object="${certificatMedical}" class="form-horizontal">
                                     <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group"></div>
-                                            <label class="bmd-label-floating">Medecin </label>
-                                            <select class="selectpicker" data-size="7" data-style="btn btn-primary btn-round" title="Medecin" th:field="*{medecin}">
-                                                <option th:each="medecin : ${medecinList}" th:value="${medecin.id}" th:text="${medecin.nom} + ' ' + ${medecin.prenom}"></option>
-                                            </select>
-                                        </div>
+                                        <input type="hidden" th:value="${medecin.id}" th:field="*{medecin}">
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6">
@@ -117,7 +116,6 @@
                 </div>
             </div>
         </div>
-        <div th:replace="include/footer :: footer"></div>
     </div>
 </div>
 <div th:replace="include/js :: js"></div>

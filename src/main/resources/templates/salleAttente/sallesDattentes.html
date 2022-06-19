@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <div th:replace="include/css :: head"></div>
 <body class="">
@@ -35,15 +35,15 @@
                       </div>
                       <div class="card-body">
                         <div class="card-body">
-                          <div class="table-responsive">
-                            <table class="table">
+                          <div class="material-datatables">
+                            <table id="datatables" class="table table-striped table-no-bordered table-hover datatable" cellspacing="0" width="100%" style="width:100%">
                               <thead>
                               <tr>
                                 <th class="text-center">Nom</th>
                                 <th>Prenom</th>
                                 <th>CIN</th>
                                 <th>Sexe</th>
-                                <th class="text-right">Actions</th>
+                                <th class="disabled-sorting text-right">Actions</th>
                               </tr>
                               </thead>
                               <div th:if="${medecin.salleDattente != null}">
@@ -55,17 +55,18 @@
                                 <td th:text="${patient.sexe}"></td>
                                 <td class="td-actions text-right">
                                   <!--Insert button for infoPatient here(for both sec and doc), as well as button to remove from salleDattente(for secretary), button to go to consultation(for doctor), button to go to paiement(for secretary)      -->
-                                  <a th:href="@{/dossier/show/{id}(id=${patient.dossierMedicale.id})}" type="button" rel="tooltip" class="btn btn-info btn-round text-right" >
+                                  <a th:if="${patient.dossierMedicale != null}" th:href="@{/dossier/show/{id}(id=${patient.dossierMedicale.id})}" type="button" rel="tooltip" class="btn btn-info btn-round text-right" >
                                     <i class="material-icons">person</i>
                                   </a>
-                                  <a th:href="@{/salles/patients/delete(ids=${patient.salleDattente.id}, idp=${patient.id})}" type="button" rel="tooltip" class="btn btn-danger btn-round text-right">
-                                    <i class="material-icons">fast_forward</i>
+                                  <a sec:authorize="hasAuthority('SECRETAIRE')" th:href="@{/salles/patients/delete(ids=${patient.salleDattente.id}, idp=${patient.id})}" type="button" rel="tooltip" class="btn btn-danger btn-round text-right">
+                                    <i class="material-icons">delete</i>
                                   </a>
                                 </td>
                               </tr>
                               </tbody>
                               </div>
                             </table>
+                          </div>
                           </div>
                         </div>
                       </div>
@@ -78,13 +79,48 @@
         </div>
       </div>
 
-
-      <footer th:replace="include/footer :: footer"></footer>
     </div>
   </div>
 
   <!--   Core JS Files   -->
   <div th:replace="include/js :: js"></div>
+  <script>
+    $(document).ready(function() {
+      $('.datatable').DataTable({
+        "pagingType": "full_numbers",
+        "lengthMenu": [
+          [10, 25, 50, -1],
+          [10, 25, 50, "All"]
+        ],
+        responsive: true,
+        language: {
+          search: "_INPUT_",
+          searchPlaceholder: "Search records",
+        }
+      });
+
+      var table = $('.datatable').DataTable();
+
+      // Edit record
+      table.on('click', '.edit', function() {
+        $tr = $(this).closest('tr');
+        var data = table.row($tr).data();
+        alert('You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.');
+      });
+
+      // Delete a record
+      table.on('click', '.remove', function(e) {
+        $tr = $(this).closest('tr');
+        table.row($tr).remove().draw();
+        e.preventDefault();
+      });
+
+      //Like record
+      table.on('click', '.like', function() {
+        alert('You clicked on Like button');
+      });
+    });
+  </script>
 </body>
 
 </html>

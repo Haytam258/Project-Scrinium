@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <div th:replace="include/css :: head"></div>
 
@@ -33,11 +33,7 @@
                                             <option th:each="type : ${typeCertList}" th:value="${type.id}" th:text="${type.type}"></option>
                                         </select>
                                     </div>
-                                    <div class="col-lg-5 col-md-6 col-sm-3">
-                                        <select class="selectpicker" data-size="7" data-style="btn btn-primary btn-round" title="Patient" th:field="*{patient}" required>
-                                            <option th:each="patient : ${patientList}" th:value="${patient.id}" th:text="${patient.nom}"></option>
-                                        </select>
-                                    </div>
+                                    <input type="hidden" th:value="${patient.id}" th:field="*{patient}">
                                     <div class="card-footer ">
                                         <button type="submit" class="btn btn-fill btn-rose">Submit</button>
                                     </div>

@@ -17,4 +17,5 @@ public interface SecretaireService {
     List<Secretaire> Secretaires();
     Secretaire SecretaireById(int id);
     Secretaire saveSecretaire(Secretaire secretaire, Model model);
+    Secretaire findSecretaireByEmail(String email);
 }

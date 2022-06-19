@@ -1,7 +1,24 @@
 0,BONJOUR *,*,*,<random>#Newline                <li>Bonjour à vous#Comma je suis Alice#Comma comment pourrais-je vous aider ?</li>#Newline                <li>Bonjour et bienvenue à Scrinium#Comma comment je peux vous aider ?</li>#Newline                <li>Bonjour#Comma vous êtes le bienvenue à Scrinium#Comma quelles sont vos questions ? </li>#Newline            </random>,test.aiml
 0,BONJOUR,*,*,<srai>Bonjour *</srai>,test.aiml
-0,BONNE JOURNÉE,*,*,Bonne journée à vous  <get name="username"/> et merci pour cette conversation !,test.aiml
-0,SALUT, JE SUIS *,*,*,Salut <set name="username"> <star/></set> ! et bienvenue à Scrinium#Comma quelles sont vos questions ?,test.aiml
+0,BONNE JOURNÉE,*,*,Bonne journée à vous et merci pour cette conversation !,test.aiml
+0,BONNE JOURNÉE *,*,*,Bonne journée à vous et je vous remercie pour cette conversation !,test.aiml
+0,BONNE SOIRÉE,*,*,Bonne soirée à vous et merci pour cette conversation !,test.aiml
+0,BONNE SOIRÉE *,*,*,Passez une bonne soirée !,test.aiml
+0,AU REVOIR,*,*,Au revoir et à plus !,test.aiml
+0,AU REVOIR *,*,*,<srai>Au revoir</srai>,test.aiml
+0,SALUT, JE SUIS *,*,*,Salut <set name="username"><star/></set> ! et bienvenue à Scrinium#Comma quelles sont vos questions ?,test.aiml
+0,SALUT JE SUIS *,*,*,Bonjour <set name="username"><star/></set> ! et bienvenue à Scrinium#Comma quelles sont vos questions ?,test.aiml
+0,SALUT,*,*,Salut ! bienvenue à Scrinium#Comma quelles sont vos questions ?,test.aiml
+0,* OUVERTURE *,*,*,<random>#Newline                <li>Nous sommes ouvert de 8h du matin à 20h du soir#Comma chaque jour sauf le dimanche !</li>#Newline                <li>Nous ouvrons de 8h à 20h#Comma disponible tous les jours hors le dimanche !</li>#Newline                <li>Notre clinique est ouverte de 8h à 20h#Comma tous les jours sauf le dimanche !</li>#Newline            </random>,test.aiml
+0,* OUVERTURE,*,*,<srai><star/> ouverture <star/> </srai>,test.aiml
+0,* D'OUVERTURE *,*,*,<srai><star/> ouverture <star/></srai>,test.aiml
+0,* OUVREZ *,*,*,Nous sommes ouvert de 8h du matin à 20h du soir#Comma chaque jour sauf le dimanche !,test.aiml
+0,* FERMEZ *,*,*,Nous fermons en général après 20h#Comma et le dimanche !,test.aiml
+0,* DE FERMETURE *,*,*,<srai><star/> fermeture <star/></srai>,test.aiml
+0,* FERMETURE *,*,*,<random>#Newline                <li>Nous fermons le dimanche et chaque jour après 20h !</li>#Newline                <li>Nous ne sommes pas disponible après 20h et le dimanche !</li>#Newline                <li>Notre clinique ferme après 20h et lors du dimanche !</li>#Newline            </random>,test.aiml
+0,* FERMETURE,*,*,<srai><star/> fermeture <star/></srai>,test.aiml
+0,* SCRINIUM *,*,*,Scrinium est un projet spécifique à la gestion d'une clinique médicale !,test.aiml
+0,* SCRINIUM *?,*,*,Scrinium est un projet spécifique à la gestion d'une clinique médicale !,test.aiml
 0,THIS IS *,*,*,Hello <star/> !!#Newline            How can I help you ?,test.aiml
 0,MY NAME IS *,*,*,Hello <star/> !!#Newline            How can I help you ?,test.aiml
 0,I AM *,*,*,Hello <star/> !!#Newline            How can I help you ?,test.aiml

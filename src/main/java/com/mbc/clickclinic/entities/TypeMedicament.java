@@ -14,7 +14,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @RequiredArgsConstructor
-@AllArgsConstructor @ToString
+@AllArgsConstructor
 public class TypeMedicament {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

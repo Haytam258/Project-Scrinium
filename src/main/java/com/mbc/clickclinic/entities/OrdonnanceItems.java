@@ -10,7 +10,6 @@ import javax.persistence.*;
 @Setter
 @RequiredArgsConstructor
 @AllArgsConstructor
-@ToString
 public class OrdonnanceItems {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

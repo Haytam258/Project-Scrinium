@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<div th:replace="include/css :: head"></div>v
+<div th:replace="include/css :: head"></div>
 
 <body class="">
 <div class="wrapper ">
@@ -23,6 +23,13 @@
                             </div>
                             <div class="card-body ">
                                 <form method="POST" action="#" th:object="${newpatient}" th:action="@{/modifyPatient}">
+                                    <input type="hidden" th:if="${newpatient.dossierMedicale != null}" th:value="${newpatient.dossierMedicale.id}" th:field="*{dossierMedicale}">
+                                    <input type="hidden" th:if="${newpatient.salleDattente != null}" th:value="${newpatient.salleDattente.id}" th:field="*{salleDattente}">
+                                    <input type="hidden" th:if="${newpatient.demandeCertificat != null}" th:value="${newpatient.demandeCertificat.id}" th:field="*{demandeCertificat}">
+                                    <input type="hidden" th:if="${newpatient.sexe != null}" th:value="${newpatient.sexe}" th:field="*{sexe}">
+                                    <input type="hidden" th:if="${newpatient.groupSanguin != null}" th:value="${newpatient.groupSanguin}" th:field="*{groupSanguin}">
+                                    <input type="hidden" th:value="${newpatient.id}" th:field="*{id}">
+                                    <input type="hidden" th:value="${newpatient.dateNaissance}" th:field="*{dateNaissance}">
                                     <div class="form-group">
                                         <label for="exampleEmail" class="bmd-label-floating">Email Address</label>
                                         <input type="email" class="form-control" id="exampleEmail" th:field="*{email}" required>
@@ -54,6 +61,10 @@
                                     <div class="form-group">
                                         <label for="cin" class="bmd-label-floating">CIN</label>
                                         <input type="text" class="form-control" id="cin" th:field="*{cin}" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="adresse" class="bmd-label-floating">Adresse</label>
+                                        <input type="text" class="form-control" id="adresse" th:field="*{addresse}" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="mobile" class="bmd-label-floating">Mobile</label>

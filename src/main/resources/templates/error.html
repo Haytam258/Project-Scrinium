@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="include/css :: head"></div>
+<body class="" style="background-image: url('/assets/img/login.jpg');">
+<div class="wrapper ">
+    <nav th:replace="include/navbar :: navbar"></nav>
+    <div class="wrapper wrapper-full-page">
+        <div class="page-header">
+            <div class="container-fluid content">
+                <!--   you can change the color of the filter page using: data-color="blue | purple | green | orange | red | rose " -->
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-6 col-sm-8 ml-auto mr-auto">
+                            <div class="card card-login card-hidden">
+                                <div class="card-body ">
+                                    <h2 class="card-description text-center">Error 404</h2>
+                                    <h3 class="card-description text-center">La page que vous essayez d'accéder n'existe pas !</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<div th:replace="include/js :: js"></div>
+</html>

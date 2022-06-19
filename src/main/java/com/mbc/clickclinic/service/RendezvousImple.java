@@ -20,14 +20,16 @@ public class RendezvousImple implements RendezvousService{
     private final PatientService patientService;
     private final MedecinService medecinService;
     private final AgendaService agendaService;
+    private final ConsultationService consultationService;
 
     //Lazy in order to break the bean dependency cycle.
     @Autowired
-    public RendezvousImple(RendezvousRepository rendezvousRepository, @Lazy PatientService patientService, MedecinService medecinService, AgendaService agendaService){
+    public RendezvousImple(RendezvousRepository rendezvousRepository, @Lazy PatientService patientService, MedecinService medecinService, AgendaService agendaService, @Lazy ConsultationService consultationService){
         this.rendezvousRepository = rendezvousRepository;
         this.medecinService = medecinService;
         this.patientService = patientService;
         this.agendaService = agendaService;
+        this.consultationService = consultationService;
     }
     public List<Rendezvous> rendezvousByDate(LocalDate date){
         return rendezvousRepository.findRendezvousByDateRv(date);
@@ -81,6 +83,13 @@ public class RendezvousImple implements RendezvousService{
 
     @Override
     public void deleteRendezvous(Rendezvous rendezvous) {
+        rendezvous.setPatient(null);
+        rendezvous.setMedecin(null);
+        Consultation consultation = rendezvous.getConsultation();
+        if(consultation != null){
+            rendezvous.setConsultation(null);
+            consultationService.deleteConsultation(consultation);
+        }
         rendezvousRepository.delete(rendezvous);
     }
 
@@ -137,6 +146,10 @@ public class RendezvousImple implements RendezvousService{
         List<Rendezvous> rendezvousList = rendezvousRepository.findRendezvousByPatient(patient);
         rendezvousList.removeIf(rendezvous -> rendezvous.getDateRv().isBefore(LocalDate.now()));
         return rendezvousList;
+    }
+
+    public List<Rendezvous> getDemandesRendezByPatient(Patient patient){
+        return rendezvousRepository.findRendezvousByPatientAndStatut(patient, 2);
     }
 
     public Rendezvous AddConsultationToRendezVous(Consultation consultation, Rendezvous rendezvous){

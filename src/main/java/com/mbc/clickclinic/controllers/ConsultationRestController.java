@@ -4,6 +4,7 @@ import com.mbc.clickclinic.entities.*;
 import com.mbc.clickclinic.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -32,12 +33,15 @@ public class ConsultationRestController {
         this.dossierMedicalService = dossierMedicalService;
     }
 
+
+    @PreAuthorize("hasAnyAuthority('ADMIN','MEDECIN')")
     @GetMapping("/consultations")
     public String getConsultations(Model model){
         model.addAttribute("allConsultations",consultationService.Consultations());
         return "consultation/consultationList";
     }
 
+    @PreAuthorize("hasAuthority('MEDECIN')")
     @PostMapping("/createConsultation")
     public String createConsultation(@ModelAttribute(value = "consultation") Consultation consultation, Model model){
         if(consultation.getRendezvous().getPatient().getDossierMedicale() == null){
@@ -52,6 +56,7 @@ public class ConsultationRestController {
         return "redirect:/createOrdonnance";
     }
 
+    @PreAuthorize("hasAuthority('MEDECIN')")
     @GetMapping("/createOrdonnance")
     public String createOrdonnance(Model model){
         Ordonnance ordonnance = new Ordonnance();
@@ -64,10 +69,21 @@ public class ConsultationRestController {
         return "ordonnance/createOrdonnance";
     }
 
+    @PreAuthorize("hasAuthority('MEDECIN')")
     @PostMapping("/createOrdonnance")
     public String createOrdonnance(@ModelAttribute("ordonnance") Ordonnance ordonnance, Model model){
         List<OrdonnanceItems> ordonnanceItems = ordonnance.getOrdonnanceItemsList();
         ordonnanceItems.removeIf(ordonnanceItems1 -> ordonnanceItems1.getMedicament() == null);
+        if(ordonnanceItems.size() == 0){
+            model.addAttribute("ajouterMedicament","Veuillez ajouter un médicament au minimum !");
+            for(int i = 0; i < 4; i++){
+                ordonnance.add(new OrdonnanceItems());
+            }
+            model.addAttribute("ordonnance", ordonnance);
+            model.addAttribute("consultations", consultationService.getTodayConsultation());
+            model.addAttribute("medicaments", medicamentService.Medicaments());
+            return "ordonnance/createOrdonnance";
+        }
         ordonnance.setOrdonnanceItemsList(ordonnanceItems);
         for(OrdonnanceItems ordonnanceItem : ordonnanceItems){
             ordonnanceItem.setOrdonnance(ordonnance);
@@ -79,6 +95,7 @@ public class ConsultationRestController {
         return "redirect:/consultations";
     }
 
+    @PreAuthorize("hasAuthority('MEDECIN')")
     @GetMapping("/createConsultation")
     public String createConsultation(Model model){
         model.addAttribute("consultation", new Consultation());
@@ -87,17 +104,15 @@ public class ConsultationRestController {
     }
 
 
+    @PreAuthorize("hasAnyAuthority('MEDECIN')")
     @GetMapping("/consultations/{id}")
     public String getConsultation(@PathVariable Integer id, Model model){
         model.addAttribute("consultationAsked",consultationService.ConsultationlById(id));
         return "consultation/showConsultation";
     }
 
-    @PostMapping("/updateConsultation")
-    public Consultation updateConsultation(@RequestBody Consultation consultation){
-        return consultationService.updateConsultation(consultation);
-    }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','MEDECIN')")
     @GetMapping("/deleteConsultation/{id}")
     public String deleteConsultation(@PathVariable Integer id){
         consultationService.deleteConsultation(consultationService.ConsultationlById(id));
@@ -127,10 +142,5 @@ public class ConsultationRestController {
         return "consultation/showConsultation";
     }
 
-   /* @PostMapping("/consultation/addPayment")
-    public Consultation addPaymentToConsultation(@RequestParam Long idp, @RequestParam Long idc){
-        paymentService.setConsultationForPaiement(consultationService.ConsultationlById(idc.intValue()), paymentService.paymentById(idp.intValue()));
-        return consultationService.ConsultationlById(idc.intValue());
-    }*/
 
 }

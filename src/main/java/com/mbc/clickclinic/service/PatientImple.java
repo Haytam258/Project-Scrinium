@@ -1,12 +1,12 @@
 package com.mbc.clickclinic.service;
 
 import com.mbc.clickclinic.dao.PatientRepository;
-import com.mbc.clickclinic.entities.Medecin;
-import com.mbc.clickclinic.entities.Patient;
-import com.mbc.clickclinic.entities.Rendezvous;
+import com.mbc.clickclinic.dao.PersonneRepository;
+import com.mbc.clickclinic.entities.*;
 import com.mbc.clickclinic.security.GeneralRole;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -21,12 +21,25 @@ public class PatientImple implements PatientService{
 
     private final PatientRepository patientRepository;
     private final RendezvousService rendezvousService;
+    private final MedecinService medecinService;
+    private final PersonneRepository personneRepository;
+    private final SecretaireService secretaireService;
+    private final DossierMedicalService dossierM;
 
     @Autowired
-    public PatientImple(PatientRepository patientRepository, RendezvousService rendezvousService){
+    public PatientImple(PatientRepository patientRepository, RendezvousService rendezvousService, @Lazy MedecinService medecinService, PersonneRepository personneRepository, @Lazy SecretaireService secretaireService, @Lazy DossierMedicalService dossierM){
         this.patientRepository = patientRepository;
         this.rendezvousService = rendezvousService;
+        this.secretaireService = secretaireService;
+        this.personneRepository = personneRepository;
+        this.medecinService = medecinService;
+        this.dossierM = dossierM;
     }
+
+    public Patient getPatientByEmail(String email){
+        return patientRepository.findPatientByEmail(email);
+    }
+
     @Override
     public Patient savePatient(Patient patient) {
         /*BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
@@ -64,7 +77,8 @@ public class PatientImple implements PatientService{
     }
 
     public Patient savePatient(Patient patient, Model model){
-        if(patientRepository.findPatientByEmail(patient.getEmail()) != null){
+        if(medecinService.getMedecinByEmail(patient.getEmail()) != null || personneRepository.findPersonneByEmail(patient.getEmail()) != null ||
+                patientRepository.findPatientByEmail(patient.getEmail()) != null || secretaireService.findSecretaireByEmail(patient.getEmail()) != null){
             model.addAttribute("emailExist", "Email exists !");
             return null;
         }
@@ -81,6 +95,16 @@ public class PatientImple implements PatientService{
 
     @Override
     public void deletePatient(Patient patient) {
+        DossierMedicale dossierMedicale = patient.getDossierMedicale();
+        List<Rendezvous> rendezvousList = patient.getRendezvousList();
+        if(rendezvousList != null || rendezvousList.size() != 0){
+            for(Rendezvous rendezvous : rendezvousList){
+                rendezvousService.deleteRendezvous(rendezvous);
+            }
+        }
+        dossierM.deleteDossier(dossierMedicale);
+        patient.setSalleDattente(null);
+        patient.setDossierMedicale(null);
         patientRepository.delete(patient);
     }
 

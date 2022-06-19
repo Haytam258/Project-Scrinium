@@ -12,13 +12,12 @@ import java.util.Objects;
 @Entity
 @Getter
 @Setter
-@ToString
 @RequiredArgsConstructor
 @AllArgsConstructor
 public class Medecin extends Personne {
     private String specialite; //profil
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "agenda_id")
     @JsonManagedReference(value = "medecin_agenda")
     private List<Agenda> agenda;
@@ -29,7 +28,7 @@ public class Medecin extends Personne {
     @ToString.Exclude
     private SalleDattente salleDattente;
 
-    @OneToMany(mappedBy = "medecin")
+    @OneToMany(mappedBy = "medecin", cascade = CascadeType.ALL)
     @JsonManagedReference(value = "medecin_rendez")
     @ToString.Exclude
     private List<Rendezvous> rendezvousList;
@@ -45,17 +44,21 @@ public class Medecin extends Personne {
         this.agenda.remove(agenda1);
     }
 
-    @OneToMany(mappedBy = "medecin")
+    @OneToMany(mappedBy = "medecin", cascade = CascadeType.ALL )
     @JsonManagedReference(value = "medecin_certificat")
     @ToString.Exclude
     private List<CertificatMedicale> certificatMedicaleList;
 
-    @OneToMany(mappedBy = "medecin")
+    @OneToMany(mappedBy = "medecin", cascade = CascadeType.ALL)
     @JsonManagedReference(value = "medecin_demande")
     @ToString.Exclude
     private List<DemandeCertificat> demandeCertificatList;
 
-    @OneToMany( mappedBy = "medecin", cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE })
+    public void remove(DemandeCertificat demandeCertificat){
+        demandeCertificatList.remove(demandeCertificat);
+    }
+
+    @OneToMany( mappedBy = "medecin", cascade = CascadeType.ALL)
     @JsonManagedReference(value = "conges_medecin")
     @ToString.Exclude
     private List<Conges> conges;

@@ -20,4 +20,5 @@ public interface PatientService {
     public Patient savePatient(Patient patient, Model model);
     List<Patient> getPatientsOfToday(LocalDate date);
     public String[] patientsEmail();
+    public Patient getPatientByEmail(String email);
 }

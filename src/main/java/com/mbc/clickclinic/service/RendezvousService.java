@@ -32,5 +32,6 @@ public interface RendezvousService {
     List<Rendezvous> getAllRendezvousByMedecin(Medecin medecin);
     List<Rendezvous> rendezvousByDateAndStatut(LocalDate date, Integer statut);
     List<Rendezvous> rendezvousByStatut(Integer statut);
+    public List<Rendezvous> getDemandesRendezByPatient(Patient patient);
 
 }

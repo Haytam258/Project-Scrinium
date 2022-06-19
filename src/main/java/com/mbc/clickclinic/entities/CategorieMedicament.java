@@ -13,7 +13,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @RequiredArgsConstructor
-@AllArgsConstructor @ToString
+@AllArgsConstructor
 public class CategorieMedicament {
 
     @Id

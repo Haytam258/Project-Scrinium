@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <div th:replace="include/css :: head"></div>
 <body class="">
 <div class="wrapper ">
@@ -31,7 +31,7 @@
                                             <th>Date</th>
                                             <th>Heure</th>
                                             <th>Médecin</th>
-                                            <th class="disabled-sorting text-right">Action</th>
+                                            <th sec:authorize="hasAuthority('MEDECIN')" class="disabled-sorting text-right">Action</th>
                                         </tr>
                                         </thead>
                                         <tfoot>
@@ -40,7 +40,7 @@
                                             <th>Date</th>
                                             <th>Heure</th>
                                             <th>Médecin</th>
-                                            <th class="text-right">Action</th>
+                                            <th sec:authorize="hasAuthority('MEDECIN')" class="text-right">Action</th>
                                         </tr>
                                         </tfoot>
                                         <tbody>
@@ -49,7 +49,7 @@
                                             <td th:text="*{agenda.dateDebut} + ' to '+ *{agenda.dateFin}"></td>
                                             <td th:text="*{agenda.heureDebut == null ? 'N/A' : agenda.heureDebut} + ' to ' + *{agenda.heureFin == null ? 'N/A' : agenda.heureFin}"></td>
                                             <td th:text="*{agenda.medecin == null ? '' : agenda.medecin.prenom + '  '+ agenda.medecin.nom}"></td>
-                                            <td class="td-actions text-right">
+                                            <td sec:authorize="hasAuthority('MEDECIN')" class="td-actions text-right">
                                                 <a th:href="@{/agenda/modify/{id}(id = ${agenda.id})}" rel="tooltip" class="btn btn-link btn-success btn-just-icon success" >
                                                     <i class="material-icons">edit</i>
                                                 </a>
@@ -67,7 +67,6 @@
                 </div>
             </div>
         </div>
-        <div th:replace="include/footer :: footer"></div>
     </div>
 </div>
 <div th:replace="include/js :: js"></div>

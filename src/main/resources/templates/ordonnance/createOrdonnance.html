@@ -26,7 +26,7 @@
                                             <div class="form-group">
                                                 <label class="bmd-label-floating" for="id_patient">Faite pour la consultation du patient :</label>
                                                 <div class="col-lg-5 col-md-6 col-sm-3">
-                                                    <select th:field="*{consultation}" name="id_patient" id="id_patient" class="form-control" >
+                                                    <select th:field="*{consultation}" name="id_patient" id="id_patient" class="form-control" required>
                                                         <option th:value="NULL" th:text="NULL"></option>
                                                         <option th:each="consultation : ${consultations}" th:value="${consultation.id}" th:text="${consultation.rendezvous.patient.nom + ' ' + consultation.rendezvous.patient.prenom + ' - Heure : ' + consultation.rendezvous.heure}"></option>
                                                     </select>

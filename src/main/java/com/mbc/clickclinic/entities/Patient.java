@@ -15,7 +15,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @RequiredArgsConstructor
-@AllArgsConstructor @ToString
+@AllArgsConstructor 
 public class Patient extends Personne{
     private String groupSanguin;
     //private LocalDate dateCreation = LocalDate.now();
@@ -26,7 +26,7 @@ public class Patient extends Personne{
     @JsonBackReference(value = "salle_patient")
     private SalleDattente salleDattente;
 
-    @OneToMany(mappedBy = "patient", cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE })
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
     @JsonManagedReference(value = "patient_rendez")
     @ToString.Exclude
     private List<Rendezvous> rendezvousList;
@@ -38,7 +38,7 @@ public class Patient extends Personne{
         rendezvousList.add(rendezvous);
     }
 
-    @OneToMany(mappedBy = "patient")
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
     @JsonManagedReference(value = "patient_certificat")
     @ToString.Exclude
     private List<CertificatMedicale> certificatMedicaleList;

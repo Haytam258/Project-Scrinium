@@ -23,22 +23,44 @@
                                 <div style="float:right; margin-bottom:20px;">
                                     <a th:href="@{/conges/create}" class="btn btn-primary">Demander Conges</a>
                                 </div>
-                                <div class="material-datatables">
-                                    <table class="table table-striped table-no-bordered table-hover" id="datatables" style="width: 100%;">
-                                        <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Date</th>
-                                            <th>Jours demandes</th>
-                                            <th>Statut</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-
-                                        </tr>
-                                        </tbody>
-                                    </table>
+                                <div class="card-body material-datatables">
+                                    <div class="table-responsive">
+                                        <table id="datatables" class="table" style="width:100%">
+                                            <thead>
+                                            <tr>
+                                                <th>Nom</th>
+                                                <th>Specialite</th>
+                                                <th>Date</th>
+                                                <th>Jours demandes</th>
+                                                <th>Statut</th>
+                                                <th class="disabled-sorting text-right">Actions</th>
+                                            </tr>
+                                            </thead>
+                                            <tfoot>
+                                            <tr>
+                                                <th>Nom</th>
+                                                <th>Specialite</th>
+                                                <th>Date</th>
+                                                <th>Jours demandes</th>
+                                                <th>Statut</th>
+                                                <th class="text-right">Actions</th>
+                                            </tr>
+                                            <tbody>
+                                            <tr th:each="conges : ${mesConges}">
+                                                <td th:text="${conges.medecin == null ? '' : conges.medecin.prenom + ' ' + conges.medecin.nom}"></td>
+                                                <td th:text="${conges.medecin == null ? '' : conges.medecin.specialite}"></td>
+                                                <td th:text="${conges.date}"></td>
+                                                <td th:text="${conges.nbrJours}"></td>
+                                                <td th:text="${conges.reponse}"></td>
+                                                <td class="td-actions text-right">
+                                                    <a th:if="${conges.reponse == 'En cours'}" th:href="@{/conges/refuse/{id}(id=${conges.id})}" rel="tooltip" class="btn btn-danger btn-round" data-original-title="" title="">
+                                                        <i class="material-icons">close</i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -46,7 +68,6 @@
                 </div>
             </div>
         </div>
-        <div th:replace="include/footer :: footer"></div>
     </div>
 </div>
 <div th:replace="include/js :: js"></div>

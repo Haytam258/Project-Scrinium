@@ -20,14 +20,16 @@ public class AdminImple implements AdminService{
     private final ConsultationService consultationService;
     private final PersonneRepository personneRepository;
     private final RendezvousService rendezvousService;
+    private final SecretaireService secretaireService;
 
-    public AdminImple(MedecinService medecinService, PatientService patientService, PaymentService paymentService, ConsultationService consultationService, PersonneRepository personneRepository, @Lazy RendezvousService rendezvousService){
+    public AdminImple(MedecinService medecinService, PatientService patientService, PaymentService paymentService, ConsultationService consultationService, PersonneRepository personneRepository, @Lazy RendezvousService rendezvousService, @Lazy SecretaireService secretaireService){
         this.medecinService = medecinService;
         this.patientService = patientService;
         this.paymentService = paymentService;
         this.consultationService = consultationService;
         this.personneRepository = personneRepository;
         this.rendezvousService = rendezvousService;
+        this.secretaireService = secretaireService;
     }
 
 
@@ -191,7 +193,8 @@ public class AdminImple implements AdminService{
 
     public Personne createAdmin(Personne personne, Model model){
         personne.setRole(GeneralRole.ADMIN.getRole());
-        if(personneRepository.findPersonneByEmail(personne.getEmail()) != null){
+        if(medecinService.getMedecinByEmail(personne.getEmail()) != null || personneRepository.findPersonneByEmail(personne.getEmail()) != null ||
+                patientService.getPatientByEmail(personne.getEmail()) != null || secretaireService.findSecretaireByEmail(personne.getEmail()) != null){
             model.addAttribute("emailAdminExist", "Cet email est déjà utilisé par un autre Admin !");
             return null;
         }

@@ -7,6 +7,7 @@ import com.mbc.clickclinic.service.ConsultationService;
 import com.mbc.clickclinic.service.PatientService;
 import com.mbc.clickclinic.service.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -30,6 +31,7 @@ public class PaymentRestController {
         this.patientService = patientService;
     }
 
+    @PreAuthorize("hasAuthority('SECRETAIRE')")
     @GetMapping("/createPaiement")
     public String createPaiement(Model model){
         model.addAttribute("paiement", new Payment());
@@ -37,7 +39,7 @@ public class PaymentRestController {
         return "paiement/createPaiement";
     }
 
-
+    @PreAuthorize("hasAuthority('SECRETAIRE')")
     @PostMapping("/createPaiement")
     public String createPayement(@ModelAttribute(value = "paiement") Payment payment, Model model){
         model.addAttribute("allConsultations", consultationService.Consultations());
@@ -60,18 +62,21 @@ public class PaymentRestController {
         return "paiement/createPaiement";
     }
 
+    @PreAuthorize("hasAnyAuthority('SECRETAIRE', 'ADMIN')")
     @GetMapping("/payments")
     public String getPayments(Model model){
         model.addAttribute("allPayments", paymentService.payments());
         return "paiement/paiementList";
     }
 
+    @PreAuthorize("hasAnyAuthority('SECRETAIRE', 'ADMIN')")
     @GetMapping("/payments/modify/{id}")
     public String modifyPayment(@PathVariable("id") Integer id, Model model){
         model.addAttribute("payment",paymentService.paymentById(id));
         return "paiement/modifyPaiement";
     }
 
+    @PreAuthorize("hasAnyAuthority('SECRETAIRE', 'ADMIN')")
     @PostMapping("/modifyPayment")
     public String modifyPayment(@ModelAttribute("payment") Payment payment, Model model){
         payment.setDatePaiement(LocalDateTime.now());
@@ -92,25 +97,4 @@ public class PaymentRestController {
         return "redirect:/payments";
     }
 
-    @GetMapping("/payments/{id}")
-    public Payment getPayment(@PathVariable Long id){
-        return paymentService.paymentById(id.intValue());
-    }
-
-    /*@GetMapping("/deletePayment/{id}")
-    public String deletePayment(@PathVariable Integer id){
-        paymentService.deletePayment(paymentService.paymentById(id));
-        return "redirect:/payments";
-        <a th:href="@{/deletePayment/{id}(id=${paiement.id})}" onclick="return confirm('Etes vous sure ?');" class="btn btn-link btn-danger btn-just-icon remove"><i class="material-icons">close</i></a>
-    }*/
-
-    @GetMapping("/payment/consultation/{id}")
-    public Payment getPayementByConsultation(@PathVariable Long id){
-        return paymentService.getPaymentByConsultation(consultationService.ConsultationlById(id.intValue()));
-    }
-
-    /*@GetMapping("/payment/patient/{id}")
-    public Optional<Payment> getPaymentOfPatient(@PathVariable Long id){
-        return paymentService.getPayementOfPatient(patientService.PatientById(id.intValue()));
-    }*/
 }

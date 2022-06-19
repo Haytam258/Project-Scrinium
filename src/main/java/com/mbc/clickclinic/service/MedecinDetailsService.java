@@ -4,10 +4,7 @@ import com.mbc.clickclinic.dao.MedecinRepository;
 import com.mbc.clickclinic.dao.PatientRepository;
 import com.mbc.clickclinic.dao.PersonneRepository;
 import com.mbc.clickclinic.dao.SecretaireRepository;
-import com.mbc.clickclinic.entities.Medecin;
-import com.mbc.clickclinic.entities.Patient;
-import com.mbc.clickclinic.entities.Personne;
-import com.mbc.clickclinic.entities.Secretaire;
+import com.mbc.clickclinic.entities.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -27,6 +24,7 @@ public class MedecinDetailsService implements UserDetailsService {
     private final PatientRepository patientRepository;
     private final SecretaireRepository secretaireRepository;
     private final PersonneRepository personneRepository;
+
     @Autowired
     public MedecinDetailsService(MedecinRepository medecinRepository, PatientRepository patientRepository, SecretaireRepository secretaireRepository, PersonneRepository personneRepository){
         this.medecinRepository = medecinRepository;
@@ -48,18 +46,18 @@ public class MedecinDetailsService implements UserDetailsService {
                     }
                     Collection<GrantedAuthority> grantedAuthorityCollection = new ArrayList<>();
                     grantedAuthorityCollection.add(new SimpleGrantedAuthority(personne.getRole()));
-                    return new User(personne.getEmail(), personne.getPassword(), grantedAuthorityCollection);
+                    return new CustomUser(personne.getEmail(), personne.getPassword(),1 ,personne.getId() ,personne.getNom(),personne.getPrenom(),grantedAuthorityCollection);
                 }
                 Collection<GrantedAuthority> grantedAuthorities = new ArrayList<>();
                 grantedAuthorities.add(new SimpleGrantedAuthority(secretaire.getRole()));
-                return new User(secretaire.getEmail(), secretaire.getPassword(), grantedAuthorities);
+                return new CustomUser(secretaire.getEmail(), secretaire.getPassword(),4,secretaire.getId() ,secretaire.getNom() ,secretaire.getPrenom() ,grantedAuthorities);
             }
             Collection<GrantedAuthority> authorityCollection = new ArrayList<>();
             authorityCollection.add(new SimpleGrantedAuthority(patient.getRole()));
-            return new User(patient.getEmail(), patient.getPassword(), authorityCollection);
+            return new CustomUser(patient.getEmail(), patient.getPassword(),3, patient.getId(), patient.getNom(),patient.getPrenom(),authorityCollection);
         }
         Collection<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority(medecin.getRole()));
-        return new User(medecin.getEmail(), medecin.getPassword(), authorities);
+        return new CustomUser(medecin.getEmail(), medecin.getPassword(),2, medecin.getId(), medecin.getNom() ,medecin.getPrenom(),authorities);
     }
 }

@@ -2,6 +2,7 @@ package com.mbc.clickclinic.controllers;
 
 
 import com.mbc.clickclinic.dao.MedecinRepository;
+import com.mbc.clickclinic.entities.CustomUser;
 import com.mbc.clickclinic.entities.Medecin;
 import com.mbc.clickclinic.entities.Personne;
 import com.mbc.clickclinic.service.AdminService;
@@ -31,10 +32,10 @@ public class AdminController {
         this.adminService = adminService;
     }
 
-    //@PreAuthorize("hasAuthority('MEDECIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/adminDashboard")
     public String dashboard(Model model){
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Medecin medecin = medecinService.findMedecinByEmail(user.getUsername());
         if(medecin != null){
             model.addAttribute("test", medecin);
@@ -51,12 +52,14 @@ public class AdminController {
         return "admin/adminDashboard";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/createAdmin")
     public String createAdmin(Model model){
         model.addAttribute("adminPerson", new Personne());
         return "admin/createAdmin";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/saveAdmin")
     public String createAdmin(@ModelAttribute("adminPerson") Personne admin, Model model){
         if(adminService.createAdmin(admin,model) == null){
@@ -66,5 +69,11 @@ public class AdminController {
             model.addAttribute("createSuccess", "Admin créé avec succès !");
         }
         return "redirect:/createAdmin";
+    }
+
+
+    @GetMapping("/forbidden")
+    public String forbiddenPage(Model model){
+        return "forbidden";
     }
 }

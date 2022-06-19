@@ -7,6 +7,7 @@ import com.mbc.clickclinic.service.AnnonceService;
 import com.mbc.clickclinic.service.EmailService;
 import com.mbc.clickclinic.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +29,7 @@ public class AnnonceRestController {
         this.patientService = patientService;
     }
 
+    @PreAuthorize("hasAuthority('SECRETAIRE')")
     @PostMapping("/createAnnonce")
     public String createAnnonce(@ModelAttribute(value = "newAnnonce") Annonce annonce, Model model){
         annonce.setDateCreation(LocalDate.now());
@@ -48,28 +50,21 @@ public class AnnonceRestController {
         return "annonce/createAnnonce";
     }
 
+    @PreAuthorize("hasAuthority('SECRETAIRE')")
     @GetMapping("/createAnnonce")
     public String createAnnonce(Model model){
         model.addAttribute("newAnnonce", new Annonce());
         return "annonce/createAnnonce";
     }
 
-    @PostMapping("/modifyAnnonce")
-    public Annonce modifyAnnonce(@RequestBody Annonce annonce){
-        return annonceService.updateNotification(annonce);
-    }
-
+    @PreAuthorize("hasAuthority('SECRETAIRE')")
     @GetMapping("/annonces")
     public String getAnnonces(Model model){
         model.addAttribute("annonceList",annonceService.getAllAnnonce());
         return "annonce/annonceList";
     }
 
-    @GetMapping("/annonces/{id}")
-    public Annonce getAnnonce(@PathVariable Long id){
-        return annonceService.getAnnonce(id.intValue());
-    }
-
+    @PreAuthorize("hasAuthority('SECRETAIRE')")
     @GetMapping("/deleteAnnonce/{id}")
     public String deleteAnnonce(@PathVariable Integer id){
         annonceService.deleteNotification(annonceService.getAnnonce(id));

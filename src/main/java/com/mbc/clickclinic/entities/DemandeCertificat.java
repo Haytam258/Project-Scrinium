@@ -12,7 +12,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @RequiredArgsConstructor
-@AllArgsConstructor @ToString
+@AllArgsConstructor
 public class DemandeCertificat {
 
     @Id
@@ -23,7 +23,7 @@ public class DemandeCertificat {
 
     //On précise les cascades car si on met cascade ALL, alors la suppression de la demande entrainera la suppression automatique du médecin et du patient associé.
     // (CascadeType.DELETE (REMOVE) est responsable de cela.
-    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH})
+    @OneToOne
     @JoinColumn(name = "patient_id")
     @JsonBackReference(value = "patient_demande")
     private Patient patient;

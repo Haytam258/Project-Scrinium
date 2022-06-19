@@ -19,6 +19,10 @@ public interface DemandeCertificatService {
     List<DemandeCertificat> getDemandesByMedecin(Medecin medecin);
     DemandeCertificat getDemandesByPatient(Patient patient);
     List<DemandeCertificat> getDemandesCertificats();
-    DemandeCertificat getDemandeByPatientAndMedecin(Patient patient, Medecin medecin);
+    DemandeCertificat getDemandeByPatientAndMedecinAndStatus(Patient patient, Medecin medecin, Integer Status);
     List<DemandeCertificat> getUntreatedDemandes();
+    public DemandeCertificat getPatientUntreatedDemande(Patient patient);
+    public List<Patient> getPatientsWithDemandeForMedecin(Medecin medecin);
+    public void deleteDemande(DemandeCertificat demandeCertificat);
+    DemandeCertificat getDemandeByPatientAndStatus(Patient patient, Integer status);
 }

@@ -7,6 +7,7 @@ import com.mbc.clickclinic.service.MedecinService;
 import com.mbc.clickclinic.service.PatientService;
 import com.mbc.clickclinic.service.SalleDattenteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +28,7 @@ public class SalleDattenteRestController {
         this.medecinService = medecinService;
     }
 
+    @PreAuthorize("hasAnyAuthority('MEDECIN','SECRETAIRE','ADMIN')")
     @GetMapping("/salles")
     public String getSalles(Model model){
         List<SalleDattente> salles = salleDattenteService.getSalles();
@@ -35,16 +37,8 @@ public class SalleDattenteRestController {
         return "salleAttente/sallesDattentes";
     }
 
-    @GetMapping("/salles/{id}")
-    public SalleDattente getSalle(@PathVariable Long id){
-        return salleDattenteService.getSalleById(id.intValue());
-    }
 
-    @PostMapping("/updateSalle")
-    public SalleDattente updateSalle(@RequestBody SalleDattente salleDattente){
-        return salleDattenteService.saveSalleDattente(salleDattente);
-    }
-
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/createSalle")
     public String createSalle(Model model){
         model.addAttribute("salleDattente", new SalleDattente());
@@ -52,6 +46,7 @@ public class SalleDattenteRestController {
         return "salleAttente/createSalle";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/createSalle")
     public String createSalle(@ModelAttribute SalleDattente salleDattente, Model model){
         Medecin medecin = salleDattente.getMedecin();
@@ -67,6 +62,7 @@ public class SalleDattenteRestController {
         return "salleAttente/createSalle";
     }
 
+    @PreAuthorize("hasAnyAuthority('MEDECIN','SECRETAIRE')")
     @GetMapping("/salles/patients/add")
     public String addPatientToSalle(@RequestParam Integer idp, @RequestParam Integer ids, Model model){
         salleDattenteService.addPatientToSalle(salleDattenteService.getSalleById(ids),patientService.PatientById(idp));
@@ -75,6 +71,7 @@ public class SalleDattenteRestController {
         return "redirect:/salles";
     }
 
+    @PreAuthorize("hasAuthority('SECRETAIRE')")
     @GetMapping("/salles/patients/delete")
     public String deletePatientFromSalle(@RequestParam Integer idp, @RequestParam Integer ids, Model model){
         salleDattenteService.deletePatientFromSalle(salleDattenteService.getSalleById(ids), patientService.PatientById(idp));

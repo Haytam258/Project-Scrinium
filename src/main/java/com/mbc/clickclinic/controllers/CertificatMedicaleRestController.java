@@ -1,15 +1,15 @@
 package com.mbc.clickclinic.controllers;
 
 
-import com.mbc.clickclinic.entities.CertificatMedicale;
-import com.mbc.clickclinic.entities.DemandeCertificat;
-import com.mbc.clickclinic.entities.TypeCertification;
+import com.mbc.clickclinic.entities.*;
 import com.mbc.clickclinic.service.CertificatMedicaleService;
 import com.mbc.clickclinic.service.DemandeCertificatService;
 import com.mbc.clickclinic.service.MedecinService;
 import com.mbc.clickclinic.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,18 +34,46 @@ public class CertificatMedicaleRestController {
         this.patientService = patientService;
     }
 
+    @PreAuthorize("hasAuthority('MEDECIN')")
     @GetMapping("/createCertificat")
     public String createCertificat(){
         return "redirect:/demandesCertificat";
     }
 
+    @PreAuthorize("hasAuthority('MEDECIN')")
+    @GetMapping("/deleteDemande/{id}")
+    public String deleteDemande(@PathVariable(value = "id")Integer id, Model model){
+        demandeCertificatService.deleteDemande(demandeCertificatService.getDemandeCertificatById(id));
+        return "redirect:/createCertificat";
+    }
+
+    @PreAuthorize("hasAuthority('PATIENT')")
+    @GetMapping("/maDemandeCertificat")
+    public String maDemandeCertificat(Model model){
+        CustomUser customUser = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Patient patient = patientService.PatientById(customUser.getId());
+        model.addAttribute("maDemande", demandeCertificatService.getDemandeByPatientAndStatus(patient,0));
+        return "certificatMedicale/maDemandeCertificat";
+    }
+
+    @PreAuthorize("hasAuthority('PATIENT')")
+    @GetMapping("/deleteMyDemande/{id}")
+    public String deleteMyDemande(@PathVariable(value = "id") Integer id, Model model){
+        demandeCertificatService.deleteDemande(demandeCertificatService.getDemandeCertificatById(id));
+        return "redirect:/maDemandeCertificat";
+    }
+
+    @PreAuthorize("hasAuthority('MEDECIN')")
     @PostMapping("/createCertificat")
     public String createCertificat(@ModelAttribute(value = "certificatMedical") CertificatMedicale certificatMedicale, Model model){
-        model.addAttribute("allDemandes", demandeCertificatService.getDemandesCertificats());
+        CustomUser customUser = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Medecin medecin = medecinService.medecinById(customUser.getId());
+        model.addAttribute("allDemandes", demandeCertificatService.getDemandesByMedecin(medecin));
         model.addAttribute("typeCertList", demandeCertificatService.getTypesCertificat());
-        model.addAttribute("patientList", patientService.patients());
-        model.addAttribute("medecinList", medecinService.medecins());
-       DemandeCertificat demandeCertificat = demandeCertificatService.getDemandeByPatientAndMedecin(certificatMedicale.getPatient(), certificatMedicale.getMedecin());
+        model.addAttribute("patientList", demandeCertificatService.getPatientsWithDemandeForMedecin(medecin));
+        model.addAttribute("medecin", medecin);
+        certificatMedicale.setMedecin(medecin);
+       DemandeCertificat demandeCertificat = demandeCertificatService.getDemandeByPatientAndMedecinAndStatus(certificatMedicale.getPatient(), certificatMedicale.getMedecin(),0);
        if(demandeCertificat != null){
            if(certificatMedicale != null){
                model.addAttribute("certificatSuccess", "certificat créé avec succès !");
@@ -53,12 +81,12 @@ public class CertificatMedicaleRestController {
            else {
                model.addAttribute("certificatFail", "Création échouée, assurez vous des données !");
            }
-           demandeCertificat.setCertificatMedicale(certificatMedicale);
-           demandeCertificat.setStatus(1);
-           certificatMedicale.setDemandeCertificat(demandeCertificat);
+           demandeCertificat.getPatient().setDemandeCertificat(null);
            certificatMedicale.setDateCreation(LocalDate.now());
            certificatMedicaleService.saveCertificatMedical(certificatMedicale);
-           demandeCertificatService.saveDemandeCertificat(demandeCertificat);
+           patientService.savePatient(demandeCertificat.getPatient());
+           demandeCertificat.setTypeCertification(null);
+           demandeCertificatService.deleteDemande(demandeCertificat);
        }
        else {
            model.addAttribute("demandeNotThere", "Ce patient n'a pas fait de demande ");
@@ -66,34 +94,50 @@ public class CertificatMedicaleRestController {
        return "certificatMedicale/demandesCertificat";
     }
 
+    @PreAuthorize("hasAuthority('PATIENT')")
     @GetMapping("/createDemandeCertificat")
     public String createDemandeCertificat(Model model){
         model.addAttribute("demandeCertificatMedical", new DemandeCertificat());
         model.addAttribute("medecinListC", medecinService.medecins());
         model.addAttribute("typeCertList", demandeCertificatService.getTypesCertificat());
-        model.addAttribute("patientList", patientService.patients());
+        CustomUser customUser = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("patient", patientService.PatientById(customUser.getId()));
         return "certificatMedicale/demanderCertificat";
     }
 
+    @PreAuthorize("hasAuthority('PATIENT')")
     @PostMapping("/createDemandeCertificat")
     public String createDemandeCertificat(@ModelAttribute(value = "demandeCertificatMedical") DemandeCertificat demandeCertificat, Model model){
-        demandeCertificat.setStatus(0);
-        DemandeCertificat demande = demandeCertificatService.saveDemandeCertificat(demandeCertificat);
-        if(demande != null){
-            model.addAttribute("demandeSuccess", "Demande effectuée avec succès !");
+        CustomUser customUser = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Patient patient = patientService.PatientById(customUser.getId());
+        model.addAttribute("patient", patient);
+        if(patient.getDemandeCertificat() == null){
+            demandeCertificat.setStatus(0);
+            demandeCertificat.setPatient(patient);
+            patientService.PatientById(customUser.getId()).setDemandeCertificat(demandeCertificat);
+            DemandeCertificat demande = demandeCertificatService.saveDemandeCertificat(demandeCertificat);
+            patientService.savePatient(patient);
+            if(demande != null){
+                model.addAttribute("demandeSuccess", "Demande effectuée avec succès !");
+            }
+            else {
+                model.addAttribute("demandeFail", "Création échouée, assurez vous que les données de la demande sont correctes !");
+            }
         }
         else {
-            model.addAttribute("demandeFail", "Création échouée, assurez vous que les données de la demande sont correctes !");
+            model.addAttribute("demandeFail", "Vous n'avez droit qu'à une seule demande de certificat ! Si votre demande est acceptée par le médecin, vous le verez dans vos certificats, sinon veuillez attendre sa réponse");
         }
         return "certificatMedicale/demanderCertificat";
     }
 
+    @PreAuthorize("hasAnyAuthority('MEDECIN', 'ADMIN')")
     @GetMapping("/createTypeCertificat")
     public String createTypeCertificat(Model model){
         model.addAttribute("typeCertificat", new TypeCertification());
         return "certificatMedicale/createTypeCertificat";
     }
 
+    @PreAuthorize("hasAnyAuthority('MEDECIN', 'ADMIN')")
     @PostMapping("/createTypeCertificat")
     public String createTypeCertificat(@ModelAttribute(value = "typeCertificat") TypeCertification typeCertification, Model model){
         TypeCertification type = demandeCertificatService.saveTypeCertification(typeCertification);
@@ -107,35 +151,40 @@ public class CertificatMedicaleRestController {
 
     }
 
+    @PreAuthorize("hasAuthority('MEDECIN')")
     @GetMapping("/demandesCertificat")
     public String getDemandesCertificat(Model model){
-        model.addAttribute("allDemandes", demandeCertificatService.getDemandesCertificats());
+        CustomUser customUser = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Medecin medecin = medecinService.medecinById(customUser.getId());
+        model.addAttribute("allDemandes", demandeCertificatService.getDemandesByMedecin(medecin));
         model.addAttribute("certificatMedical", new CertificatMedicale());
         model.addAttribute("typeCertList", demandeCertificatService.getTypesCertificat());
-        model.addAttribute("patientList", patientService.patients());
-        model.addAttribute("medecinList", medecinService.medecins());
+        model.addAttribute("patientList", demandeCertificatService.getPatientsWithDemandeForMedecin(medecin));
+        model.addAttribute("medecin", medecin);
         return "certificatMedicale/demandesCertificat";
     }
 
-    @GetMapping("/certificats/{id}")
-    public CertificatMedicale getCertificat(@PathVariable Long id){
-        return certificatMedicaleService.CertificatMedicalById(id.intValue());
-    }
 
+    @PreAuthorize("hasAnyAuthority('MEDECIN', 'ADMIN')")
     @PostMapping("/deleteCertificat/{id}")
     public String deleteCertificat(@PathVariable Integer id){
         certificatMedicaleService.deleteCertificatMedical(certificatMedicaleService.CertificatMedicalById(id));
         return "redirect:/certificats";
     }
 
-    @PostMapping("/updateCertificat")
-    public CertificatMedicale updateCertificat(@RequestBody CertificatMedicale certificatMedicale){
-        return certificatMedicaleService.updateCertificatMedical(certificatMedicale);
-    }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','MEDECIN')")
     @GetMapping("/certificats")
     public String getCertificats(Model model){
         model.addAttribute("allCertificats", certificatMedicaleService.CertificatMedicals());
         return "certificatMedicale/certificatList";
+    }
+
+    @PreAuthorize("hasAuthority('PATIENT')")
+    @GetMapping("/myCertificats")
+    public String myCertificats(Model model){
+        CustomUser customUser = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("allMyCertificats", certificatMedicaleService.getCertificatMedicalesOfPatient(patientService.PatientById(customUser.getId())));
+        return "certificatMedicale/mesCertificats";
     }
 }

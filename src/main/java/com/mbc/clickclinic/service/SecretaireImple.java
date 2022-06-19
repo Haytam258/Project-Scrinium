@@ -1,9 +1,11 @@
 package com.mbc.clickclinic.service;
 
+import com.mbc.clickclinic.dao.PersonneRepository;
 import com.mbc.clickclinic.dao.SecretaireRepository;
 import com.mbc.clickclinic.entities.Secretaire;
 import com.mbc.clickclinic.security.GeneralRole;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
@@ -13,10 +15,16 @@ import java.util.List;
 public class SecretaireImple implements SecretaireService{
 
     private final SecretaireRepository secretaireRepository;
+    private final PersonneRepository personneRepository;
+    private final MedecinService medecinService;
+    private final PatientService patientService;
 
     @Autowired
-    public SecretaireImple(SecretaireRepository secretaireRepository){
+    public SecretaireImple(SecretaireRepository secretaireRepository, @Lazy MedecinService medecinService, @Lazy PatientService patientService, PersonneRepository personneRepository){
         this.secretaireRepository = secretaireRepository;
+        this.medecinService = medecinService;
+        this.patientService = patientService;
+        this.personneRepository = personneRepository;
     }
     @Override
     public Secretaire saveSecretaire(Secretaire secretaire) {
@@ -25,7 +33,8 @@ public class SecretaireImple implements SecretaireService{
     }
 
     public Secretaire saveSecretaire(Secretaire secretaire, Model model){
-        if(secretaireRepository.findSecretaireByEmail(secretaire.getEmail()) != null){
+        if(medecinService.getMedecinByEmail(secretaire.getEmail()) != null || personneRepository.findPersonneByEmail(secretaire.getEmail()) != null ||
+                patientService.getPatientByEmail(secretaire.getEmail()) != null || secretaireRepository.findSecretaireByEmail(secretaire.getEmail()) != null){
             model.addAttribute("emailExists", "Cet Email existe déjà !");
             return null;
         }
@@ -34,6 +43,11 @@ public class SecretaireImple implements SecretaireService{
             return null;
         }
         return saveSecretaire(secretaire);
+    }
+
+    @Override
+    public Secretaire findSecretaireByEmail(String email) {
+        return secretaireRepository.findSecretaireByEmail(email);
     }
 
     @Override

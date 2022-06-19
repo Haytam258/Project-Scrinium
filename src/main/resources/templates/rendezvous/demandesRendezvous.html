@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <div th:replace="include/css :: head"></div>
 <body class="">
 <div class="wrapper ">
@@ -17,7 +17,7 @@
                                 <div class="card-icon">
                                     <i class="material-icons">assignment</i>
                                 </div>
-                                <h4 class="card-title">Liste de tous les rendez vous</h4>
+                                <h4 class="card-title">Liste de toutes les demandes de rendez vous</h4>
                             </div>
                             <div class="card-body">
                                 <div class="toolbar">
@@ -56,7 +56,7 @@
                                             <td th:text="${rendez.medecin == null ? '' : rendez.medecin.nom + ' ' + rendez.medecin.prenom}"></td>
                                             <td th:text="${rendez.statut == 2 ? 'Demande reçue' : 'Effectué'}"></td>
                                             <td class="text-right">
-                                                <a th:if="${rendez.patient.dossierMedicale != null}" th:href="@{/dossier/show/{id}(id=${rendez.patient.dossierMedicale.id})}" rel="tooltip" class="btn btn-success btn-link" href="" data-original-title="" title="">
+                                                <a sec:authorize="hasAuthority('MEDECIN')" th:if="${rendez.patient.dossierMedicale != null}" th:href="@{/dossier/show/{id}(id=${rendez.patient.dossierMedicale.id})}" rel="tooltip" class="btn btn-success btn-link" href="" data-original-title="" title="">
                                                     <i class="material-icons">visibility</i>
                                                     <div class="ripple-container"></div>
                                                 </a>
@@ -79,7 +79,6 @@
         </div>
 
 
-        <footer th:replace="include/footer :: footer"></footer>
     </div>
 </div>
 

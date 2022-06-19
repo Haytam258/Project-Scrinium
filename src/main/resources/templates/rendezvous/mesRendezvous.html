@@ -58,7 +58,7 @@
                                                     <i class="material-icons">assignment_ind</i>
                                                     <div class="ripple-container"></div>
                                                 </a>
-                                                <a th:if="${rendez.statut == 0}" th:href="@{/deleteRendezvous/{id}(id = ${rendez.id})}" onclick="return confirm('Etes vous sure ?');" href="#" class="btn btn-link btn-danger btn-just-icon remove" ><i class="material-icons">close</i></a>
+                                                <a th:if="${rendez.statut == 0}" th:href="@{/deleteMonRendezvous/{id}(id = ${rendez.id})}" onclick="return confirm('Etes vous sure ?');" href="#" class="btn btn-link btn-danger btn-just-icon remove" ><i class="material-icons">close</i></a>
                                             </td>
                                         </tr>
                                         </tbody>
@@ -75,8 +75,6 @@
             </div>
         </div>
 
-
-        <footer th:replace="include/footer :: footer"></footer>
     </div>
 </div>
 

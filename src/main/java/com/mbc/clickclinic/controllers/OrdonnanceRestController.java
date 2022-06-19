@@ -19,28 +19,4 @@ public class OrdonnanceRestController {
         this.ordonnanceService = ordonnanceService;
     }
 
-    @GetMapping("/ordonnances")
-    public List<Ordonnance> getOrdonnances(){
-        return ordonnanceService.Ordonnances();
-    }
-
-    @GetMapping("/ordonnances/{id}")
-    public Ordonnance getOrdonnance(@PathVariable Long id){
-        return ordonnanceService.OrdonnanceById(id.intValue());
-    }
-
-    /*@PostMapping("/createOrdonnance")
-    public Ordonnance createOrdonnance(@RequestBody Ordonnance ordonnance){
-        return ordonnanceService.saveOrdonnance(ordonnance);
-    }*/
-
-    @PostMapping("/updateOrdonnance")
-    public Ordonnance updateOrdonnance(@RequestBody Ordonnance ordonnance){
-        return ordonnanceService.updateOrdonnance(ordonnance);
-    }
-
-    @PostMapping("/deleteOrdonnance/{id}")
-    public void deleteOrdonnance(@PathVariable Long id){
-        ordonnanceService.deleteOrdonnance(ordonnanceService.OrdonnanceById(id.intValue()));
-    }
 }

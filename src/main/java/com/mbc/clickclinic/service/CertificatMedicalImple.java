@@ -3,6 +3,7 @@ package com.mbc.clickclinic.service;
 import com.mbc.clickclinic.dao.CertificatMedicaleRepository;
 import com.mbc.clickclinic.dao.PatientRepository;
 import com.mbc.clickclinic.entities.CertificatMedicale;
+import com.mbc.clickclinic.entities.Patient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +26,10 @@ public class CertificatMedicalImple implements CertificatMedicaleService {
     @Override
     public CertificatMedicale saveCertificatMedical(CertificatMedicale certificatMedical) {
         return certifRepo.saveAndFlush(certificatMedical);
+    }
+
+    public List<CertificatMedicale> getCertificatMedicalesOfPatient(Patient patient){
+        return certifRepo.findCertificatMedicalesByPatient(patient);
     }
 
     @Override

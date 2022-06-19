@@ -16,6 +16,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 //@Configuration
 @EnableWebSecurity
@@ -43,6 +44,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
+    @Bean
+    public AuthenticationSuccessHandler myAuthenticationHandler(){
+        return new AuthenticationHandler();
+    }
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(medecinDetailsService);
@@ -50,7 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.formLogin().loginPage("/login").usernameParameter("email").passwordParameter("password").defaultSuccessUrl("/adminDashboard").and().logout().logoutUrl("/logout");
+        http.formLogin().loginPage("/login").usernameParameter("email").passwordParameter("password").successHandler(myAuthenticationHandler()).and().logout().logoutUrl("/logout");
         http.authorizeRequests().antMatchers("/resources/**","/static/**","/resources/templates/include/**","/assets/**").permitAll();
         http.authorizeHttpRequests().antMatchers("/admin").hasAuthority("ADMIN").antMatchers("/login","/chatRoom","/getResponse","/resources/**","/static/**","/resources/templates/include/**","/assets/**","/include/**","/static/assets/js/**","/static/assets/css/**","/static/assets/scss/**").permitAll()
                 .antMatchers("/resources/**","/static/**","/include/**").permitAll()

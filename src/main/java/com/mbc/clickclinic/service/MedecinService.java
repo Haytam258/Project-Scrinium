@@ -10,8 +10,6 @@ import java.util.List;
 public interface MedecinService {
     Medecin saveMedecin(Medecin medecin);
     void deleteMedecin(Medecin medecin);
-    Medecin updateMedecin(Medecin medecin);
-    Medecin findMedecinBykw(String kw);
     Medecin findMedecinByNom(String mName);
     List<Medecin> medecins();
     Medecin medecinById(Integer id);

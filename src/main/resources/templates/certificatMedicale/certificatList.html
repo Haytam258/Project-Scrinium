@@ -54,7 +54,8 @@
                                             <td th:text="${certificat.patient == null ? 'N/A' : certificat.patient.cin}"></td>
                                             <td th:text="${certificat.dateCreation}"></td>
                                             <td th:text="${certificat.typeCertification.type}"></td>
-                                            <td th:text="${certificat.demandeCertificat.status == 0 ? 'En traitement' : 'Accordé'}"></td>
+                                            <td th:if="${certificat.demandeCertificat != null}" th:text="${certificat.demandeCertificat.status == 0 ? 'En traitement' : 'Accordé'}"></td>
+                                            <td th:if="${certificat.demandeCertificat == null}"> Accordé </td>
                                             <td class="text-right">
                                                 <a th:href="@{/patients/{id}(id=${certificat.patient.id})}" class="btn btn-link btn-info btn-just-icon like" ><i class="material-icons">info</i></a>
                                                 <a th:href="@{/deleteCertificat/{id}(id=${certificat.id})}" onclick="return confirm('Etes vous sure ?');" class="btn btn-link btn-danger btn-just-icon remove"><i class="material-icons">close</i></a>
@@ -75,7 +76,6 @@
         </div>
 
 
-        <footer th:replace="include/footer :: footer"></footer>
     </div>
 </div>
 

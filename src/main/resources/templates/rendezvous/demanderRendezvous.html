@@ -39,12 +39,7 @@
                                             <option th:each="medecin : ${medecinList}" th:value="${medecin.id}" th:text="${medecin.nom} + ' - ' + ${medecin.specialite}"></option>
                                         </select>
                                     </div>
-                                    <div class="row">
-                                        <label class="bmd-label-floating">Patient :</label>
-                                        <select class="selectpicker" data-size="7" data-style="btn btn-primary btn-round" title="Patient" th:field="*{patient}" required>
-                                            <option th:each="patient : ${patientList}" th:value="${patient.id}" th:text="${patient.nom}"></option>
-                                        </select>
-                                    </div>
+                                    <input type="hidden" th:value="${patient.id}" th:field="*{patient}">
                                     <button type="submit" class="btn btn-fill btn-primary">Create New Rendez vous</button>
                                     <div class="form-group has-success" th:if="${rendezCreated != null}">
                                         <span class="alert text-success" th:text="${rendezCreated}"> </span>

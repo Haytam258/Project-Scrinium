@@ -21,14 +21,141 @@
     <category>
         <pattern>Bonne journée</pattern>
         <template>
-            Bonne journée à vous  <get name="username"/> et merci pour cette conversation !
+            Bonne journée à vous et merci pour cette conversation !
+        </template>
+    </category>
+
+    <category>
+        <pattern>Bonne journée *</pattern>
+        <template>
+            Bonne journée à vous et je vous remercie pour cette conversation !
+        </template>
+    </category>
+
+    <category>
+        <pattern>Bonne soirée</pattern>
+        <template>
+            Bonne soirée à vous et merci pour cette conversation !
+        </template>
+    </category>
+
+    <category>
+        <pattern>Bonne soirée *</pattern>
+        <template>
+            Passez une bonne soirée !
+        </template>
+    </category>
+
+    <category>
+        <pattern>Au revoir</pattern>
+        <template>
+            Au revoir et à plus !
+        </template>
+    </category>
+
+    <category>
+        <pattern>Au revoir *</pattern>
+        <template>
+            <srai>Au revoir</srai>
         </template>
     </category>
 
     <category>
         <pattern>Salut, je suis *</pattern>
         <template>
-            Salut <set name="username"> <star/></set> ! et bienvenue à Scrinium, quelles sont vos questions ?
+            Salut <set name="username"><star/></set> ! et bienvenue à Scrinium, quelles sont vos questions ?
+        </template>
+    </category>
+
+    <category>
+        <pattern>Salut je suis *</pattern>
+        <template>
+            Bonjour <set name="username"><star/></set> ! et bienvenue à Scrinium, quelles sont vos questions ?
+        </template>
+    </category>
+
+    <category>
+        <pattern>Salut</pattern>
+        <template>
+            Salut ! bienvenue à Scrinium, quelles sont vos questions ?
+        </template>
+    </category>
+
+    <category>
+        <pattern>* ouverture *</pattern>
+        <template>
+            <random>
+                <li>Nous sommes ouvert de 8h du matin à 20h du soir, chaque jour sauf le dimanche !</li>
+                <li>Nous ouvrons de 8h à 20h, disponible tous les jours hors le dimanche !</li>
+                <li>Notre clinique est ouverte de 8h à 20h, tous les jours sauf le dimanche !</li>
+            </random>
+        </template>
+    </category>
+
+    <category>
+        <pattern>* ouverture</pattern>
+        <template>
+            <srai><star/> ouverture <star/> </srai>
+        </template>
+    </category>
+
+    <category>
+        <pattern>* d'ouverture *</pattern>
+        <template>
+            <srai><star/> ouverture <star/></srai>
+        </template>
+    </category>
+
+    <category>
+        <pattern>* ouvrez *</pattern>
+        <template>
+            Nous sommes ouvert de 8h du matin à 20h du soir, chaque jour sauf le dimanche !
+        </template>
+    </category>
+
+    <category>
+        <pattern>* fermez *</pattern>
+        <template>
+            Nous fermons en général après 20h, et le dimanche !
+        </template>
+    </category>
+
+    <category>
+        <pattern>* de fermeture *</pattern>
+        <template>
+            <srai><star/> fermeture <star/></srai>
+        </template>
+    </category>
+
+    <category>
+        <pattern>* fermeture *</pattern>
+        <template>
+            <random>
+                <li>Nous fermons le dimanche et chaque jour après 20h !</li>
+                <li>Nous ne sommes pas disponible après 20h et le dimanche !</li>
+                <li>Notre clinique ferme après 20h et lors du dimanche !</li>
+            </random>
+        </template>
+    </category>
+
+    <category>
+        <pattern>* fermeture</pattern>
+        <template>
+            <srai><star/> fermeture <star/></srai>
+        </template>
+    </category>
+
+    <category>
+        <pattern>* scrinium *</pattern>
+        <template>
+            Scrinium est un projet spécifique à la gestion d'une clinique médicale !
+        </template>
+    </category>
+
+    <category>
+        <pattern>* scrinium *?</pattern>
+        <template>
+            Scrinium est un projet spécifique à la gestion d'une clinique médicale !
         </template>
     </category>
 

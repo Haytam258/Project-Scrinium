@@ -17,7 +17,7 @@
                                 <div class="card-icon">
                                     <i class="material-icons">assignment</i>
                                 </div>
-                                <h4 class="card-title">Liste de tous les médecins</h4>
+                                <h4 class="card-title">Liste de toutes mes certifications</h4>
                             </div>
                             <div class="card-body">
                                 <div class="toolbar">
@@ -28,39 +28,29 @@
                                         <thead>
                                         <tr>
                                             <th>Nom Médecin</th>
-                                            <th>Prenom Médecin</th>
-                                            <th>Région</th>
-                                            <th>Sexe</th>
-                                            <th>Date de naissance</th>
-                                            <th>Email</th>
-                                            <th>Spécialité</th>
+                                            <th>Date de création</th>
+                                            <th>Type certification</th>
+                                            <th>Status</th>
                                             <th class="disabled-sorting text-right">Actions</th>
                                         </tr>
                                         </thead>
                                         <tfoot>
                                         <tr>
-                                            <th>Nom Patient</th>
-                                            <th>Prenom Patient</th>
-                                            <th>Région</th>
-                                            <th>Sexe</th>
-                                            <th>Date de naissance</th>
-                                            <th>Email</th>
-                                            <th>Spécialité</th>
+                                            <th>Nom Médecin</th>
+                                            <th>Date de création</th>
+                                            <th>Type certification</th>
+                                            <th>Status</th>
                                             <th class="text-right">Actions</th>
                                         </tr>
                                         </tfoot>
                                         <tbody>
-                                        <tr th:each="medecin : ${allMedecins}">
-                                            <td th:text="${medecin.nom}"></td>
-                                            <td th:text="${medecin.prenom}"></td>
-                                            <td th:text="${medecin.region}"></td>
-                                            <td th:text="${medecin.sexe}"></td>
-                                            <td th:text="${medecin.dateNaissance}"></td>
-                                            <td th:text="${medecin.email}"></td>
-                                            <td th:text="${medecin.specialite}"></td>
+                                        <tr th:each="certificat : ${allMyCertificats}">
+                                            <td th:text="${certificat.medecin == null ? 'N/A' : certificat.medecin.nom}"></td>
+                                            <td th:text="${certificat.dateCreation}"></td>
+                                            <td th:text="${certificat.typeCertification.type}"></td>
+                                            <td th:text="${certificat.demandeCertificat.status == 0 ? 'En traitement' : 'Accordé'}"></td>
                                             <td class="text-right">
-                                                <a sec:authorize="hasAuthority('ADMIN')" th:href="@{/deleteMedecin/{id}(id = ${medecin.id})}" onclick="return confirm('Etes vous sure ?');" href="#" class="btn btn-link btn-danger btn-just-icon remove" ><i class="material-icons">close</i></a>
-                                                <a sec:authorize="hasAuthority('SECRETAIRE')" th:href="@{/agenda/index/{id}(id=${medecin.id})}" class="btn btn-link btn-info btn-just-icon like" ><i class="material-icons">view_agenda</i></a>
+                                                <a th:href="@{/medecins/{id}(id=${certificat.medecin.id})}" class="btn btn-link btn-info btn-just-icon like" ><i class="material-icons">info</i></a>
                                             </td>
                                         </tr>
                                         </tbody>
@@ -76,6 +66,7 @@
                 <!-- end row -->
             </div>
         </div>
+
 
     </div>
 </div>

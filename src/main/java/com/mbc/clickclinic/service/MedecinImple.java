@@ -1,10 +1,14 @@
 package com.mbc.clickclinic.service;
 
 import com.mbc.clickclinic.dao.MedecinRepository;
+import com.mbc.clickclinic.dao.PersonneRepository;
+import com.mbc.clickclinic.dao.SecretaireRepository;
 import com.mbc.clickclinic.entities.Medecin;
 import com.mbc.clickclinic.entities.Patient;
+import com.mbc.clickclinic.entities.Rendezvous;
 import com.mbc.clickclinic.security.GeneralRole;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
@@ -14,10 +18,18 @@ import java.util.List;
 public class MedecinImple implements MedecinService{
 
     private final MedecinRepository medecinRepository;
+    private final SecretaireRepository secretaireRepository;
+    private final PatientService patientService;
+    private final PersonneRepository personneRepository;
+    private final RendezvousService rendezvousService;
 
     @Autowired
-    public MedecinImple(MedecinRepository medecinRepository){
+    public MedecinImple(MedecinRepository medecinRepository, @Lazy PatientService patientService, SecretaireRepository secretaireRepository, PersonneRepository personneRepository,@Lazy RendezvousService rendezvousService){
         this.medecinRepository = medecinRepository;
+        this.patientService = patientService;
+        this.personneRepository = personneRepository;
+        this.secretaireRepository = secretaireRepository;
+        this.rendezvousService = rendezvousService;
     }
 
 
@@ -31,16 +43,10 @@ public class MedecinImple implements MedecinService{
         return medecinRepository.saveAndFlush(medecin);
     }
 
-    /*public Patient savePatient(Patient patient, Model model){
-        if(patientRepository.findPatientByEmail(patient.getEmail()) != null){
-            model.addAttribute("emailExist", "Email exists !");
-            return null;
-        }
-        return patientRepository.saveAndFlush(patient);
-    }*/
 
     public Medecin saveMedecin(Medecin medecin, Model model){
-        if(medecinRepository.findMedecinByEmail(medecin.getEmail()) != null){
+        if(medecinRepository.findMedecinByEmail(medecin.getEmail()) != null || personneRepository.findPersonneByEmail(medecin.getEmail()) != null ||
+                patientService.getPatientByEmail(medecin.getEmail()) != null || secretaireRepository.findSecretaireByEmail(medecin.getEmail()) != null){
             model.addAttribute("emailMedecinExist", "Email exits !");
             return null;
         }
@@ -53,19 +59,15 @@ public class MedecinImple implements MedecinService{
 
     @Override
     public void deleteMedecin(Medecin medecin) {
+        List<Rendezvous> rendezvousList = medecin.getRendezvousList();
+        if(rendezvousList != null || rendezvousList.size() != 0){
+            for(Rendezvous rendezvous : rendezvousList){
+                rendezvousService.deleteRendezvous(rendezvous);
+            }
+        }
         medecinRepository.delete(medecin);
     }
 
-    @Override
-    public Medecin updateMedecin(Medecin medecin) {
-        return null;
-    }
-
-    //What is kw ?
-    @Override
-    public Medecin findMedecinBykw(String kw) {
-        return null;
-    }
 
     @Override
     public Medecin findMedecinByNom(String mName) {

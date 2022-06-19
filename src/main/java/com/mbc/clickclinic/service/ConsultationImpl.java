@@ -1,11 +1,9 @@
 package com.mbc.clickclinic.service;
 
 import com.mbc.clickclinic.dao.ConsultationRepository;
-import com.mbc.clickclinic.entities.Consultation;
-import com.mbc.clickclinic.entities.DossierMedicale;
-import com.mbc.clickclinic.entities.Payment;
-import com.mbc.clickclinic.entities.Rendezvous;
+import com.mbc.clickclinic.entities.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -17,10 +15,14 @@ import java.util.Optional;
 public class ConsultationImpl implements ConsultationService{
 
     private final ConsultationRepository consultationRepository;
+    private final OrdonnanceService ordonnanceService;
+    private final RendezvousService rendezvousService;
 
     @Autowired
-    public ConsultationImpl(ConsultationRepository consultationRepository){
+    public ConsultationImpl(ConsultationRepository consultationRepository, @Lazy OrdonnanceService ordonnanceService, @Lazy RendezvousService rendezvousService){
         this.consultationRepository = consultationRepository;
+        this.ordonnanceService = ordonnanceService;
+        this.rendezvousService = rendezvousService;
     }
 
 
@@ -38,7 +40,13 @@ public class ConsultationImpl implements ConsultationService{
 
     @Override
     public void deleteConsultation(Consultation consultation) {
-        consultationRepository.delete(consultation);
+        if(consultation.getRendezvous() != null){
+            rendezvousService.deleteRendezvous(consultation.getRendezvous());
+        }
+        else {
+            consultationRepository.delete(consultation);
+        }
+
     }
 
     //Meme remarque ici (Voir CertificatMedicalImple)

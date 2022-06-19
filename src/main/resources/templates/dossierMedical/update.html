@@ -48,10 +48,10 @@
                                 </div>
                             </div>
                             <div>
-                                <input type="hidden" name="patient" th:field="*{patient}">
+                                <input type="hidden" name="patient" th:value="${patient}" th:field="*{patient}">
                             </div>
                             <div>
-                                <input type="hidden" name="id_dossier" th:field="*{id}">
+                                <input type="hidden" name="id_dossier" th:value="${dossierMedical.id}" th:field="*{id}">
                             </div>
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-fill btn-primary">Submit</button>
@@ -61,7 +61,6 @@
                 </div>
             </div>
         </div>
-        <div th:replace="include/footer :: footer"></div>
     </div>
 </div>
 <div th:replace="include/js :: js"></div>

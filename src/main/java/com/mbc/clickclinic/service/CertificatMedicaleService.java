@@ -1,6 +1,7 @@
 package com.mbc.clickclinic.service;
 
 import com.mbc.clickclinic.entities.CertificatMedicale;
+import com.mbc.clickclinic.entities.Patient;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -16,5 +17,6 @@ public interface CertificatMedicaleService {
     //fon
     CertificatMedicale CertificatMedicalOfPatient(int idPatient,String nomPatient);
     CertificatMedicale CertificatMedicalOfPatientInDate(Date date);
+    public List<CertificatMedicale> getCertificatMedicalesOfPatient(Patient patient);
 
 }

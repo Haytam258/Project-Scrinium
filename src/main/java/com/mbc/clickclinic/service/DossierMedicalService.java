@@ -11,6 +11,6 @@ public interface DossierMedicalService {
     public List<DossierMedicale> getAllDossiersByMedecin(Medecin medecin);
     public DossierMedicale getDossierById(int idDossier);
     public DossierMedicale updateDossier(DossierMedicale dossierMedicale);
-    public void deleteDossier(int idDossier);
+    public void deleteDossier(DossierMedicale dossierMedicale);
 
 }
