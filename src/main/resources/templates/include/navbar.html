@@ -49,6 +49,12 @@
                             Mon Profile
                         </p>
                     </a>
+                    <a class="nav-link" th:href="@{/adminDashboard}" th:if="${#authentication.principal.type == 1}" >
+                        <i class="material-icons">dashboard</i>
+                        <p >
+                            Admin Dashboard
+                        </p>
+                    </a>
 
                 </li>
             </ul>

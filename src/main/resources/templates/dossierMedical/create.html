@@ -28,7 +28,7 @@
                                     <div class="form-group">
                                         <label for="id_patient" class="bmd-label-floating">Nom Patient</label>
                                         <select th:field="*{patient}" name="id_patient" id="id_patient" class="form-control" >
-                                            <option th:each="patient : ${patients}" th:value="${patient.id}" th:text="${patient.prenom + ' ' + patient.nom}"></option>
+                                            <option th:each="patient : ${patients}" th:value="${patient.id}" th:text="${patient.prenom + ' ' + patient.nom + ' ' + patient.cin}"></option>
                                         </select>
                                     </div>
                                 </div>
