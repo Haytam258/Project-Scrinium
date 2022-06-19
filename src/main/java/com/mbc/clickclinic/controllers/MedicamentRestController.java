@@ -34,8 +34,13 @@ public class MedicamentRestController {
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/createMedicament")
     public String createMedicament(@ModelAttribute Medicament medicament, Model model){
-        medicamentService.saveMedicament(medicament);
-        model.addAttribute("medicamentSuccess", "Medicament créé avec succès !");
+        if(medicamentService.MedicamentByCodeATC(medicament.getCodeATC()) != null){
+            model.addAttribute("medicamentFail", "Ce médicament avec ce Code ATC existe déjà !");
+        }
+        else {
+            medicamentService.saveMedicament(medicament);
+            model.addAttribute("medicamentSuccess", "Medicament créé avec succès !");
+        }
         return "medicament/createMedicament";
     }
 

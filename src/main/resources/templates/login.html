@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <div th:replace="include/css :: head"></div>
 <body class="" style="background-image: url('/assets/img/login.jpg');">
 <div class="wrapper ">
@@ -10,7 +10,7 @@
                 <!--   you can change the color of the filter page using: data-color="blue | purple | green | orange | red | rose " -->
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-lg-4 col-md-6 col-sm-8 ml-auto mr-auto">
+                        <div class="col-lg-4 col-md-6 col-sm-8 ml-auto mr-auto" sec:authorize="!isAuthenticated()" >
                             <form class="form" method="POST" th:action="@{/login}">
                                 <div class="card card-login card-hidden">
                                     <div class="card-body ">
@@ -45,7 +45,18 @@
                                 </div>
                             </form>
                         </div>
+                        <div class="row">
+                            <div class="col-lg-4 col-md-6 col-sm-8 ml-auto mr-auto" sec:authorize="isAuthenticated()" >
+                                    <div class="card card-login card-hidden">
+                                        <div class="card-body ">
+                                            <h2 class="card-description text-center">You are already logged in !</h2>
+                                            <h3 class="card-description text-center">Vous êtes déjà connecté !</h3>
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
                     </div>
+                </div>
             </div>
         </div>
     </div>

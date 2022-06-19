@@ -1,12 +1,10 @@
 package com.mbc.clickclinic.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.hibernate.Hibernate;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
@@ -30,6 +28,11 @@ public class Annonce {
         Annonce annonce = (Annonce) o;
         return id != null && Objects.equals(id, annonce.id);
     }
+
+    @OneToOne
+    @JoinColumn(name = "patient_id")
+    @JsonManagedReference("annonce_patient")
+    private Patient patient;
 
     @Override
     public int hashCode() {

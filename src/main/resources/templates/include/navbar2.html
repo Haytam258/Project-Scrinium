@@ -40,13 +40,15 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="material-icons">notifications</i>
-                            <span class="notification" th:text="${annonces.size()}"></span>
+                            <span class="notification" th:if="${annonces.size() > 0}">!</span>
+                            <span class="notification" th:if="${annonces.size() == 0}"></span>
                             <p class="d-lg-none d-md-block">
                                 Some Actions
                             </p>
                         </a>
                         <div th:if="${annonces.size() > 0}" class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="#" th:each="annonce : ${annonces}" th:text="${annonce.message} + ' : ' + ${annonce.objet}" ></a>
+                            <a class="dropdown-item" href="#" th:each="annonce : ${annonces}" th:if="${annonce.patient == null}" th:text="${annonce.message} + ' : ' + ${annonce.objet}" ></a>
+                            <a class="dropdown-item" href="#" th:each="annonce : ${annonces}" th:if="${annonce.patient != null and annonce.patient.email == #authentication.principal.username }" th:text="${annonce.message} + ' : ' + ${annonce.objet}" ></a>
                         </div>
                     </li>
                     <li class="nav-item dropdown" sec:authorize="isAuthenticated()">

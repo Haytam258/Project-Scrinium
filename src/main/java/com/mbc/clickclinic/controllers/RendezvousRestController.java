@@ -1,12 +1,14 @@
 package com.mbc.clickclinic.controllers;
 
 
+import com.mbc.clickclinic.entities.Annonce;
 import com.mbc.clickclinic.entities.CustomUser;
 import com.mbc.clickclinic.entities.Patient;
 import com.mbc.clickclinic.entities.Rendezvous;
 import com.mbc.clickclinic.service.*;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -26,14 +28,16 @@ public class RendezvousRestController {
     private final PatientService patientService;
     private final ConsultationService consultationService;
     private final EmailService emailService;
+    private final AnnonceService annonceService;
 
     @Autowired
-    public RendezvousRestController(RendezvousService rendezvousService, PatientService patientService, MedecinService medecinService, ConsultationService consultationService, EmailService emailService){
+    public RendezvousRestController(RendezvousService rendezvousService, PatientService patientService, MedecinService medecinService, ConsultationService consultationService, EmailService emailService, @Lazy AnnonceService annonceService){
         this.rendezvousService = rendezvousService;
         this.patientService = patientService;
         this.medecinService = medecinService;
         this.consultationService = consultationService;
         this.emailService = emailService;
+        this.annonceService = annonceService;
     }
 
     @PreAuthorize("hasAnyAuthority('SECRETAIRE','MEDECIN','ADMIN')")
@@ -124,6 +128,12 @@ public class RendezvousRestController {
     public String demandeAccepte(Model model, @PathVariable("id") Integer id){
         Rendezvous rendezvous = rendezvousService.RendezvousById(id);
         if(EmailValidator.getInstance().isValid(rendezvous.getPatient().getEmail())){
+            Annonce annonce = new Annonce();
+            annonce.setPatient(rendezvous.getPatient());
+            annonce.setObjet("Demande rendez vous acceptée");
+            annonce.setMessage("Rendez vous le : " + rendezvous.getDateRv() +" à " + rendezvous.getHeure());
+            annonce.setDateCreation(LocalDate.now());
+            annonceService.saveNotification(annonce);
             //emailService.sendSimpleMessage(rendezvous.getPatient().getEmail(),"Votre rendez vous a été accepté !\n Votre date de rendez vous est : " + rendezvous.getDateRv() + " - l'heure : " + rendezvous.getHeure(),"Demande de rendez vous acceptée");
         }
         rendezvous.setStatut(0);
@@ -144,6 +154,12 @@ public class RendezvousRestController {
     @GetMapping("/deleteRendezvous/{id}")
     public String deleteRendezvous(@PathVariable Integer id){
         Rendezvous rendezvous = rendezvousService.RendezvousById(id);
+        Annonce annonce = new Annonce();
+        annonce.setPatient(rendezvous.getPatient());
+        annonce.setObjet("Rendez vous demandé supprimé");
+        annonce.setMessage("le rendez vous du  : " + rendezvous.getDateRv() + "a été refusé ou supprimé");
+        annonce.setDateCreation(LocalDate.now());
+        annonceService.saveNotification(annonce);
         /*if(EmailValidator.getInstance().isValid(rendezvous.getPatient().getEmail())){
             //emailService.sendSimpleMessage(rendezvous.getPatient().getEmail(),"Votre demande de rendez vous a été refusé !","Demande de rendez vous refusée");
         }*/

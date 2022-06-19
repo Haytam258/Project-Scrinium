@@ -2,10 +2,7 @@ package com.mbc.clickclinic.controllers;
 
 
 import com.mbc.clickclinic.entities.*;
-import com.mbc.clickclinic.service.CertificatMedicaleService;
-import com.mbc.clickclinic.service.DemandeCertificatService;
-import com.mbc.clickclinic.service.MedecinService;
-import com.mbc.clickclinic.service.PatientService;
+import com.mbc.clickclinic.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -25,13 +22,15 @@ public class CertificatMedicaleRestController {
     private final MedecinService medecinService;
     private final DemandeCertificatService demandeCertificatService;
     private final PatientService patientService;
+    private final AnnonceService annonceService;
 
     @Autowired
-    public CertificatMedicaleRestController(CertificatMedicaleService certificatMedicaleService, MedecinService medecinService, DemandeCertificatService demandeCertificatService,@Lazy PatientService patientService){
+    public CertificatMedicaleRestController(CertificatMedicaleService certificatMedicaleService, MedecinService medecinService, DemandeCertificatService demandeCertificatService,@Lazy PatientService patientService, @Lazy AnnonceService annonceService){
         this.certificatMedicaleService = certificatMedicaleService;
         this.medecinService = medecinService;
         this.demandeCertificatService = demandeCertificatService;
         this.patientService = patientService;
+        this.annonceService = annonceService;
     }
 
     @PreAuthorize("hasAuthority('MEDECIN')")
@@ -43,7 +42,14 @@ public class CertificatMedicaleRestController {
     @PreAuthorize("hasAuthority('MEDECIN')")
     @GetMapping("/deleteDemande/{id}")
     public String deleteDemande(@PathVariable(value = "id")Integer id, Model model){
-        demandeCertificatService.deleteDemande(demandeCertificatService.getDemandeCertificatById(id));
+        Annonce annonce = new Annonce();
+        DemandeCertificat demandeCertificat = demandeCertificatService.getDemandeCertificatById(id);
+        annonce.setPatient(demandeCertificat.getPatient());
+        annonce.setObjet("Votre certificat a été refusé ");
+        annonce.setMessage("Le certificat demandé au médecin " + demandeCertificat.getMedecin().getNom() + " a été refusé ");
+        annonce.setDateCreation(LocalDate.now());
+        annonceService.saveNotification(annonce);
+        demandeCertificatService.deleteDemande(demandeCertificat);
         return "redirect:/createCertificat";
     }
 
@@ -77,6 +83,12 @@ public class CertificatMedicaleRestController {
        if(demandeCertificat != null){
            if(certificatMedicale != null){
                model.addAttribute("certificatSuccess", "certificat créé avec succès !");
+               Annonce annonce = new Annonce();
+               annonce.setPatient(certificatMedicale.getPatient());
+               annonce.setObjet("Certificat créé");
+               annonce.setMessage("Votre certificat de type " + certificatMedicale.getTypeCertification().getType() + " demandé du médecin " + certificatMedicale.getMedecin().getNom() + " a été créé");
+               annonce.setDateCreation(LocalDate.now());
+               annonceService.saveNotification(annonce);
            }
            else {
                model.addAttribute("certificatFail", "Création échouée, assurez vous des données !");
