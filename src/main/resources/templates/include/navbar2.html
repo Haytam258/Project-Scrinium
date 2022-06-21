@@ -49,6 +49,8 @@
                         <div th:if="${annonces.size() > 0}" class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                             <a class="dropdown-item" href="#" th:each="annonce : ${annonces}" th:if="${annonce.patient == null}" th:text="${annonce.message} + ' : ' + ${annonce.objet}" ></a>
                             <a class="dropdown-item" href="#" th:each="annonce : ${annonces}" th:if="${annonce.patient != null and annonce.patient.email == #authentication.principal.username }" th:text="${annonce.message} + ' : ' + ${annonce.objet}" ></a>
+                            <a class="dropdown-item" href="#" th:each="annonce : ${annonces}" th:if="${annonce.medecin != null and annonce.medecin.email == #authentication.principal.username }" th:text="${annonce.message} + ' : ' + ${annonce.objet}" ></a>
+
                         </div>
                     </li>
                     <li class="nav-item dropdown" sec:authorize="isAuthenticated()">

@@ -78,9 +78,8 @@ public class PatientRestController {
         else {
             if(patientService.savePatient(patient, model) != null){
                 model.addAttribute("patientCreated", "Le patient a été enregistré !");
-                if(EmailValidator.getInstance().isValid(patient.getEmail())){
-                    //emailService.sendSimpleMessage(patient.getEmail(),"Bienvenu à Scrinium \nVotre compte de la clinique Scrinium a été créé.","Compte Créé");
-                }
+                emailService.sendSimpleMessage(patient.getEmail(),"Bienvenu à Scrinium \nVotre compte de la clinique Scrinium a été créé.\nNous espérons" +
+                        "que notre service vous sera satisfaisant !\n-Scrinium","Compte Créé");
             }
         }
         return "patient/createPatient";
@@ -125,9 +124,7 @@ public class PatientRestController {
         else {
             if(patientService.savePatient(patient, model) != null){
                 model.addAttribute("patientCreated", "Vos informations ont été modifiées !");
-                if(EmailValidator.getInstance().isValid(patient.getEmail())){
-                    //emailService.sendSimpleMessage(patient.getEmail(),"Votre compte Scrinium a été modifié avec succès !","Compte Modifié");
-                }
+                emailService.sendSimpleMessage(patient.getEmail(),"Votre compte Scrinium a été modifié avec succès !","Compte Modifié");
             }
         }
         return "patient/patientProfile";
@@ -137,9 +134,7 @@ public class PatientRestController {
     @GetMapping("/deletePatient/{id}")
     public String deletePatient(@PathVariable Integer id){
         Patient patient = patientService.PatientById(id);
-        if(EmailValidator.getInstance().isValid(patient.getEmail())){
-            //emailService.sendSimpleMessage(patient.getEmail(),"Votre compte Scrinium a été supprimé.","Compte Supprimé Scrinium");
-        }
+        emailService.sendSimpleMessage(patient.getEmail(),"Votre compte Scrinium a été supprimé.","Compte Supprimé Scrinium");
         patientService.deletePatient(patient);
         return "redirect:/patients";
     }

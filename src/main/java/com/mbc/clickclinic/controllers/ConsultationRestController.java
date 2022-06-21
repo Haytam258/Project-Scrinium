@@ -5,6 +5,7 @@ import com.mbc.clickclinic.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -22,22 +23,30 @@ public class ConsultationRestController {
     private final RendezvousService rendezvousService;
     private final MedicamentService medicamentService;
     private final DossierMedicalService dossierMedicalService;
+    private final PatientService patientService;
 
     @Autowired
-    public ConsultationRestController(ConsultationService consultationService, OrdonnanceService ordonnanceService,@Lazy MedecinService medecinService,@Lazy RendezvousService rendezvousService, MedicamentService medicamentService,DossierMedicalService dossierMedicalService){
+    public ConsultationRestController(ConsultationService consultationService, OrdonnanceService ordonnanceService,@Lazy MedecinService medecinService,@Lazy RendezvousService rendezvousService, MedicamentService medicamentService,DossierMedicalService dossierMedicalService, @Lazy PatientService patientService){
         this.consultationService = consultationService;
         this.ordonnanceService = ordonnanceService;
         this.medecinService = medecinService;
         this.rendezvousService = rendezvousService;
         this.medicamentService = medicamentService;
         this.dossierMedicalService = dossierMedicalService;
+        this.patientService = patientService;
     }
 
 
     @PreAuthorize("hasAnyAuthority('ADMIN','MEDECIN')")
     @GetMapping("/consultations")
     public String getConsultations(Model model){
-        model.addAttribute("allConsultations",consultationService.Consultations());
+        CustomUser customUser = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        List<Consultation> consultations = consultationService.Consultations();
+        Medecin medecin = medecinService.getMedecinByEmail(customUser.getUsername());
+        if(medecin != null){
+            consultations.removeIf(consultation -> consultation.getRendezvous().getMedecin() != medecin);
+        }
+        model.addAttribute("allConsultations",consultations);
         return "consultation/consultationList";
     }
 
@@ -47,11 +56,14 @@ public class ConsultationRestController {
         if(consultation.getRendezvous().getPatient().getDossierMedicale() == null){
             return "redirect:/dossier/create";
         }
+        Patient patient = consultation.getRendezvous().getPatient();
+        patient.setSalleDattente(null);
         consultation.setDossierMedicale(consultation.getRendezvous().getPatient().getDossierMedicale());
         consultationService.saveConsultation(consultation);
         Rendezvous rendezvous = rendezvousService.RendezvousById(consultation.getRendezvous().getId());
         rendezvous.setConsultation(consultation);
         rendezvous.setStatut(1);
+        patientService.savePatient(patient);
         rendezvousService.updateRendezvous(rendezvous);
         return "redirect:/createOrdonnance";
     }

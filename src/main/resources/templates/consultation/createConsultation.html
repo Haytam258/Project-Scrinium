@@ -30,7 +30,7 @@
                                                             <label class="bmd-label-floating">Faite pour le patient :</label>
                                                             <div class="col-lg-5 col-md-6 col-sm-3">
                                                                 <select class="selectpicker" data-size="7" data-style="btn btn-primary btn-round" title="Patient" th:field="*{rendezvous}" required>
-                                                                    <option th:each="rendezvous : ${rendezList}" th:value="${rendezvous.id}" th:text="${rendezvous.patient.nom + ' - Heure : ' + rendezvous.heure}"></option>
+                                                                    <option th:each="rendezvous : ${rendezList}" th:if="${rendezvous.medecin.id == #authentication.principal.id}" th:value="${rendezvous.id}" th:text="${rendezvous.patient.nom + ' - Heure : ' + rendezvous.heure}"></option>
                                                                 </select>
                                                             </div>
                                                         </div>

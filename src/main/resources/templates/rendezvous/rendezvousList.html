@@ -56,8 +56,12 @@
                                             <td th:text="${rendez.medecin == null ? '' : rendez.medecin.nom + ' ' + rendez.medecin.prenom}"></td>
                                             <td th:text="${rendez.statut == 0 ? 'A faire' : 'Effectué'}"></td>
                                             <td class="text-right">
-                                                <a th:if="${rendez.patient != null and rendez.patient.dossierMedicale != null}" th:href="@{/dossier/show/{id}(id=${rendez.patient.dossierMedicale.id})}" rel="tooltip" class="btn btn-success btn-link" href="" data-original-title="" title="">
+                                                <a sec:authorize="hasAnyAuthority('MEDECIN')" th:if="${rendez.patient != null and rendez.patient.dossierMedicale != null}" th:href="@{/dossier/show/{id}(id=${rendez.patient.dossierMedicale.id})}" rel="tooltip" class="btn btn-success btn-link" href="" data-original-title="" title="">
                                                     <i class="material-icons">visibility</i>
+                                                    <div class="ripple-container"></div>
+                                                </a>
+                                                <a sec:authorize="hasAnyAuthority('SECRETAIRE')" th:if="${rendez.patient != null and rendez.statut == 0}" th:href="@{/modifyRendezvous/{id}(id=${rendez.id})}" rel="tooltip" class="btn btn-success btn-link" href="" data-original-title="" title="">
+                                                    <i class="material-icons">mode_edit</i>
                                                     <div class="ripple-container"></div>
                                                 </a>
                                                 <a sec:authorize="hasAnyAuthority('SECRETAIRE','MEDECIN')"  th:href="@{/deleteRendezvous/{id}(id = ${rendez.id})}" onclick="return confirm('Etes vous sure ?');" href="#" class="btn btn-link btn-danger btn-just-icon remove" ><i class="material-icons">close</i></a>

@@ -35,8 +35,8 @@
                       </div>
                       <div class="card-body">
                         <div class="card-body">
-                          <div class="material-datatables">
-                            <table id="datatables" class="table table-striped table-no-bordered table-hover datatable" cellspacing="0" width="100%" style="width:100%">
+                          <div class="table-responsive">
+                            <table class="table">
                               <thead>
                               <tr>
                                 <th class="text-center">Nom</th>
@@ -55,8 +55,14 @@
                                 <td th:text="${patient.sexe}"></td>
                                 <td class="td-actions text-right">
                                   <!--Insert button for infoPatient here(for both sec and doc), as well as button to remove from salleDattente(for secretary), button to go to consultation(for doctor), button to go to paiement(for secretary)      -->
-                                  <a th:if="${patient.dossierMedicale != null}" th:href="@{/dossier/show/{id}(id=${patient.dossierMedicale.id})}" type="button" rel="tooltip" class="btn btn-info btn-round text-right" >
+                                  <a sec:authorize="hasAuthority('MEDECIN')" th:if="${patient.dossierMedicale != null}" th:href="@{/dossier/show/{id}(id=${patient.dossierMedicale.id})}" type="button" rel="tooltip" class="btn btn-info btn-round text-right" >
                                     <i class="material-icons">person</i>
+                                  </a>
+                                  <a sec:authorize="hasAuthority('MEDECIN')" th:if="${patient.dossierMedicale == null}" th:href="@{/dossier/create}" type="button" rel="tooltip" class="btn btn-rose btn-round text-right" >
+                                    <i class="material-icons">description</i>
+                                  </a>
+                                  <a sec:authorize="hasAuthority('MEDECIN')" th:if="${patient.dossierMedicale != null}" th:href="@{/createConsultation}" type="button" rel="tooltip" class="btn btn-primary btn-round text-right" >
+                                    <i class="material-icons">receipt_long</i>
                                   </a>
                                   <a sec:authorize="hasAuthority('SECRETAIRE')" th:href="@{/salles/patients/delete(ids=${patient.salleDattente.id}, idp=${patient.id})}" type="button" rel="tooltip" class="btn btn-danger btn-round text-right">
                                     <i class="material-icons">delete</i>

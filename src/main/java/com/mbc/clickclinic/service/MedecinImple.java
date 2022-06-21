@@ -57,6 +57,10 @@ public class MedecinImple implements MedecinService{
         return saveMedecin(medecin);
     }
 
+    public List<Medecin> getMedecinBySpecialty(String specialite){
+        return medecinRepository.findMedecinsBySpecialite(specialite);
+    }
+
     @Override
     public void deleteMedecin(Medecin medecin) {
         List<Rendezvous> rendezvousList = medecin.getRendezvousList();

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="include/css :: head"></div>
+<link href="../static/assets/css/styles.css" rel="stylesheet" th:href="@{/assets/css/styles.css}"/>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet" />
+<body style="background-image: url('/assets/img/login.jpg');">
+    <!-- Responsive navbar-->
+    <nav th:replace="include/navbar :: navbar"></nav>
+    <!-- Header-->
+    <header class="py-5 mt-5">
+        <div class="container px-lg-5">
+            <div class="p-4 p-lg-5 bg-transparent rounded-3 text-center">
+                <div class="m-4 m-lg-5">
+                    <h1 class="display-5 fw-bold">Bienvenue à Scrinium Project!</h1>
+                    <p class="fs-4">Des médecins de haute qualité, plusieurs années d'expérience et une diversité en spécialité, tous cela se trouve dans notre application Scrinium !</p>
+                    <a class="btn btn-primary btn-lg" th:href="@{/login}">Connectez-vous</a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Page Content-->
+    <section class="pt-4">
+        <div class="container px-lg-5">
+            <!-- Page Features-->
+            <div class="row gx-lg-5">
+                <div class="col-lg-6 col-xxl-4 mb-5">
+                    <div class="card bg-light border-0 h-100">
+                        <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
+                            <div class="feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4"><i class="bi bi-collection"></i></div>
+                            <h2 class="fs-4 fw-bold text-black">Simplicité</h2>
+                            <p class="mb-0 text-black">Répartis en menu, tous vos besoins sont là !</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-xxl-4 mb-5">
+                    <div class="card bg-light border-0 h-100">
+                        <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
+                            <div class="feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4"><i class="bi bi-cloud-download"></i></div>
+                            <h2 class="fs-4 fw-bold text-black">Rapidité</h2>
+                            <p class="mb-0 text-black">En quelques boutons, votre rendez-vous sera envoyé à notre staff pour le traiter !</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-xxl-4 mb-5">
+                    <div class="card bg-light border-0 h-100">
+                        <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
+                            <div class="feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4"><i class="bi bi-card-heading"></i></div>
+                            <h2 class="fs-4 fw-bold text-black">Qualité</h2>
+                            <p class="mb-0 text-black">Notre application est conçue pour assurer la qualité de votre expérience !</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-xxl-4 mb-5">
+                    <div class="card bg-light border-0 h-100">
+                        <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
+                            <div class="feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4"><i class="bi bi-bootstrap"></i></div>
+                            <h2 class="fs-4 fw-bold text-black">Diversité</h2>
+                            <p class="mb-0 text-black">Nous avons plusieurs médecins en des domaines diverses (Ophtalmologue, Dermatologue, etc)</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-xxl-4 mb-5">
+                    <div class="card bg-light border-0 h-100">
+                        <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
+                            <div class="feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4"><i class="bi bi-code"></i></div>
+                            <h2 class="fs-4 fw-bold text-black">Expertise</h2>
+                            <p class="mb-0 text-black">Nos médecins sont des experts maitrisant leurs domaines et sont très capable !</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-xxl-4 mb-5">
+                    <div class="card bg-light border-0 h-100">
+                        <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
+                            <div class="feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4"><i class="bi bi-patch-check"></i></div>
+                            <h2 class="fs-4 fw-bold text-black">Confiance à 100%</h2>
+                            <p class="mb-0 text-black">Grace à l'expérience de nos médecins, vous êtes à 100% dans le bon endroit pour se soigner ! </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div th:replace="include/js :: js"></div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../static/assets/js/scripts.js" th:src="@{/assets/js/scripts.js}"></script>
+</body>
+</html>

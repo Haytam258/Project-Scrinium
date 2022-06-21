@@ -1,5 +1,7 @@
+
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 <div th:replace="include/css :: head"></div>
 <body class="">
 <div class="wrapper ">
@@ -12,13 +14,13 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-9">
-                        <form action="#" th:action="@{/demanderRendezvous}" th:object="${rendezvous}" method="post">
+                        <form action="#" th:action="@{/modifyRendezvous}" th:object="${rendezvous}" method="post">
                             <div class="card ">
                                 <div class="card-header card-header-primary card-header-icon">
                                     <div class="card-icon">
                                         <i class="material-icons">mail_outline</i>
                                     </div>
-                                    <h4 class="card-title">Demander un rendez vous</h4>
+                                    <h4 class="card-title">Modifier le rendez vous de <span th:text="${rendezvous == null or rendezvous.patient == null ? '': rendezvous.patient.cin +' ' + rendezvous.patient.nom + ' la date : '+ rendezvous.dateRv}"></span></h4>
                                 </div>
                                 <div class="card-body ">
                                     <div class="form-group row">
@@ -36,11 +38,12 @@
                                     <div class="row">
                                         <label class="bmd-label-floating">Medecin :</label>
                                         <select class="selectpicker" data-size="7" data-style="btn btn-primary btn-round" title="Medecin" th:field="*{medecin}" required>
-                                            <option th:each="medecin : ${medecinList}" th:value="${medecin.id}" th:text="${medecin.nom} + ' - ' + ${medecin.specialite}"></option>
+                                            <option th:each="medecin : ${medecins}" th:value="${medecin.id}" th:text="${medecin.nom + ' ' + medecin.prenom +' - ' + medecin.specialite}"></option>
                                         </select>
                                     </div>
-                                    <input type="hidden" th:value="${patient.id}" th:field="*{patient}">
-                                    <button type="submit" class="btn btn-fill btn-primary">Create New Rendez vous</button>
+                                    <input type="hidden" th:field="*{patient}" th:value="${patient}">
+                                    <input type="hidden" th:field="*{id}" th:value="${rendezvous.id}">
+                                    <button type="submit" class="btn btn-fill btn-primary">Modifier Rendez vous</button>
                                     <div class="form-group has-success" th:if="${rendezCreated != null}">
                                         <span class="alert text-success" th:text="${rendezCreated}"> </span>
 
@@ -71,6 +74,14 @@
     </div>
 </div>
 <div th:replace="include/js :: js"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+<script>
+
+    $("#id_patient").select2({
+        placeholder: "Selectionner un patient",
+        allowClear: true,
+    });
+</script>
 
 </body>
 </html>

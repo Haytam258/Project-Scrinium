@@ -17,59 +17,57 @@
                                 <div class="card-icon">
                                     <i class="material-icons">assignment</i>
                                 </div>
-                                <h4 class="card-title">Mes demandes de Conges</h4>
+                                <h4 class="card-title">Liste de mes prochains rendez vous</h4>
                             </div>
-                            <div class="card-body material-datatables">
-                                <div class="table-responsive">
-                                    <table id="datatables" class="table" style="width:100%">
+                            <div class="card-body">
+                                <div class="toolbar">
+                                    <!--        Here you can write extra buttons/actions for the toolbar              -->
+                                </div>
+                                <div class="material-datatables">
+                                    <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                                         <thead>
                                         <tr>
-                                            <th>Nom</th>
-                                            <th>Specialite</th>
-                                            <th>Date</th>
-                                            <th>Jours demandes</th>
+                                            <th>Date Rendez vous</th>
+                                            <th>Heure Rendez vous</th>
+                                            <th>Médecin</th>
                                             <th>Statut</th>
-                                            <th class="disabled-sorting text-right">Actions</th>
                                         </tr>
                                         </thead>
                                         <tfoot>
                                         <tr>
-                                            <th>Nom</th>
-                                            <th>Specialite</th>
-                                            <th>Date</th>
-                                            <th>Jours demandes</th>
+                                            <th>Date Rendez vous</th>
+                                            <th>Heure Rendez vous</th>
+                                            <th>Médecin</th>
                                             <th>Statut</th>
-                                            <th class="text-right">Actions</th>
                                         </tr>
+                                        </tfoot>
                                         <tbody>
-                                        <tr th:each="conges : ${congesList}">
-                                            <td th:text="${conges.medecin == null ? '' : conges.medecin.prenom + ' ' + conges.medecin.nom}"></td>
-                                            <td th:text="${conges.medecin == null ? '' : conges.medecin.specialite}"></td>
-                                            <td th:text="${conges.date}"></td>
-                                            <td th:text="${conges.nbrJours}"></td>
-                                            <td th:text="${conges.reponse}"></td>
-                                            <td class="td-actions text-right">
-                                                <a th:if="${conges.reponse == 'En cours'}"  th:href="@{/conges/accept/{id}(id=${conges.id})}" rel="tooltip" class="btn btn-success btn-round" data-original-title="" title="">
-                                                    <i class="fas fa-check-circle fa-4x" style="color:green;font-size:20px"></i>
-                                                </a>
-                                                <a th:if="${conges.reponse == 'En cours'}" th:href="@{/conges/refuse/{id}(id=${conges.id})}" rel="tooltip" class="btn btn-danger btn-round" data-original-title="" title="">
-                                                    <i class="material-icons">close</i>
-                                                </a>
-                                            </td>
+                                        <tr th:each="rendez : ${rendezvousList}">
+                                            <td th:text="${rendez.dateRv}"></td>
+                                            <td th:text="${rendez.heure}"></td>
+                                            <td th:text="${rendez.medecin == null ? '' : rendez.medecin.nom + ' ' + rendez.medecin.prenom}"></td>
+                                            <td th:text="${rendez.statut == 0 ? 'A faire' : 'Effectué'}"></td>
                                         </tr>
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
+                            <!-- end content-->
                         </div>
+                        <!--  end card  -->
                     </div>
+                    <!-- end col-md-12 -->
                 </div>
+                <!-- end row -->
             </div>
         </div>
+
     </div>
 </div>
+
+
+
 <div th:replace="include/js :: js"></div>
-</body>
 <script>
     $(document).ready(function() {
         $('#datatables').DataTable({
@@ -107,5 +105,5 @@
         });
     });
 </script>
-
+</body>
 </html>

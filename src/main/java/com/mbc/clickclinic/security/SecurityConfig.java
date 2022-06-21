@@ -58,7 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.formLogin().loginPage("/login").usernameParameter("email").passwordParameter("password").successHandler(myAuthenticationHandler()).and().logout().logoutUrl("/logout");
         http.authorizeRequests().antMatchers("/resources/**","/static/**","/resources/templates/include/**","/assets/**").permitAll();
-        http.authorizeHttpRequests().antMatchers("/admin").hasAuthority("ADMIN").antMatchers("/login","/chatRoom","/getResponse","/resources/**","/static/**","/resources/templates/include/**","/assets/**","/include/**","/static/assets/js/**","/static/assets/css/**","/static/assets/scss/**").permitAll()
+        http.authorizeHttpRequests().antMatchers("/admin").hasAuthority("ADMIN").antMatchers("/login","/chatRoom","/getResponse","/homepage","/resources/**","/static/**","/resources/templates/include/**","/assets/**","/include/**","/static/assets/js/**","/static/assets/css/**","/static/assets/scss/**").permitAll()
                 .antMatchers("/resources/**","/static/**","/include/**").permitAll()
                 .anyRequest().authenticated().and().exceptionHandling().accessDeniedPage("/forbidden");
     }

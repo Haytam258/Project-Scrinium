@@ -34,6 +34,11 @@ public class Annonce {
     @JsonManagedReference("annonce_patient")
     private Patient patient;
 
+    @OneToOne
+    @JoinColumn(name = "medecin_id")
+    @JsonManagedReference("annonce_medecin")
+    private Medecin medecin;
+
     @Override
     public int hashCode() {
         return getClass().hashCode();

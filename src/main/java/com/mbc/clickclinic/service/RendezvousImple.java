@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.Duration;
 import java.time.LocalDate;
@@ -81,6 +82,42 @@ public class RendezvousImple implements RendezvousService{
         return rendezvousRepository.saveAndFlush(rendezvous);
     }
 
+    public Rendezvous saveRendezvous(Rendezvous rendezvous, RedirectAttributes redirectAttributes) {
+        List<Rendezvous> rend = rendezvousRepository.findRendezvousByDateRv(rendezvous.getDateRv());
+        if(rend.size() != 0){
+            for (Iterator<Rendezvous> rendezvousIterator = rend.iterator(); rendezvousIterator.hasNext();) {
+                Rendezvous rendez = rendezvousIterator.next();
+                //On supposera qu'un rendezvous passera 1 heure maximum, donc on vérifie que la date est libre avant de l'insérer. Le statut 0 indique que le rendezvous n'est pas
+                //encore fait.
+                // REST : if(rendezvous.getHeure() <= rendez.getHeure()+ 1 && rendezvous.getHeure() >= rendez.getHeure() - 1 && rendez.getStatut() == 0 && rendezvous.getStatut() == 0)
+                //HTML Transition : if(rendezvous.getHeure().getHour() <= rendez.getHeure().getHour() + 1 && rendezvous.getHeure().getHour() >= rendez.getHeure().getHour() - 1 && rendez.getStatut() == 0 && rendezvous.getStatut() == 0){
+                if(Math.abs(ChronoUnit.MINUTES.between(rendezvous.getHeure(), rendez.getHeure())) <= 30 && rendez.getStatut() == 0 && rendezvous.getStatut() == 0){
+                    redirectAttributes.addAttribute("rendezvousMinute", "les rendez vous doivent etre séparés par 30 minutes !");
+                    return null;
+                }
+                if(rendezvous.getPatient() == rendez.getPatient() && rendezvous.getMedecin() == rendez.getMedecin() && rendezvous.getDateRv().isEqual(rendez.getDateRv())){
+                    redirectAttributes.addFlashAttribute("rendezvousAlready", "Ce patient a déjà un rendez vous avec ce médecin le jour que vous avez choisi !");
+                    return null;
+                }
+            }
+        }
+        if(rendezvous.getDateRv().isBefore(LocalDate.now())){
+            redirectAttributes.addFlashAttribute("rendezVousImpossible", "Un rendez vous avant aujourd'hui est impossible !");
+            return null;
+        }
+        List<Agenda> agendaList = agendaService.getAgendaByMedecin(rendezvous.getMedecin());
+        if(agendaList.size() != 0){
+            for(Agenda agenda : agendaList){
+                if(rendezvous.getDateRv().isAfter(agenda.getDateDebut()) && rendezvous.getDateRv().isBefore(agenda.getDateFin()) && agenda.getStatut() == 1){
+                    redirectAttributes.addFlashAttribute("agendaConstraint",  agenda.getDescription());
+                    return null;
+                }
+            }
+        }
+
+        return rendezvousRepository.saveAndFlush(rendezvous);
+    }
+
     @Override
     public void deleteRendezvous(Rendezvous rendezvous) {
         rendezvous.setPatient(null);
@@ -145,6 +182,13 @@ public class RendezvousImple implements RendezvousService{
     public List<Rendezvous> getRendezvousByPatient(Patient patient){
         List<Rendezvous> rendezvousList = rendezvousRepository.findRendezvousByPatient(patient);
         rendezvousList.removeIf(rendezvous -> rendezvous.getDateRv().isBefore(LocalDate.now()));
+        return rendezvousList;
+    }
+
+    public List<Rendezvous> getRendezvousHistoriqueOfPatient(Patient patient){
+        List<Rendezvous> rendezvousList = rendezvousRepository.findRendezvousByPatient(patient);
+        rendezvousList.removeIf(rendezvous1 -> rendezvous1.getStatut() == 0);
+        rendezvousList.removeIf(rendezvous1 -> rendezvous1.getDateRv().isAfter(LocalDate.now()));
         return rendezvousList;
     }
 

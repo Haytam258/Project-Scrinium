@@ -14,6 +14,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 import java.time.LocalDate;
@@ -63,6 +64,44 @@ public class RendezvousRestController {
         return "rendezvous/mesDemandesRendezvous";
     }
 
+    @PreAuthorize("hasAuthority('PATIENT')")
+    @GetMapping("/historiqueRendezVous")
+    public String historiqueRendezvous(Model model){
+        CustomUser customUser = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Patient patient = patientService.PatientById(customUser.getId());
+        List<Rendezvous> rendezvous = rendezvousService.getRendezvousHistoriqueOfPatient(patient);
+        model.addAttribute("rendezvousList", rendezvous);
+        return "rendezvous/monHistorique";
+    }
+
+    @PreAuthorize("hasAuthority('SECRETAIRE')")
+    @GetMapping("/modifyRendezvous/{id}")
+    public String modifyRendezvous(@PathVariable(value = "id") Integer id, Model model){
+        Rendezvous rendezvous = rendezvousService.RendezvousById(id);
+        model.addAttribute("patient", rendezvous.getPatient());
+        model.addAttribute("medecins", medecinService.getMedecinBySpecialty(rendezvous.getMedecin().getSpecialite()));
+        model.addAttribute("rendezvous", rendezvous);
+        return "rendezvous/modifyRendezvous";
+    }
+
+    @PreAuthorize("hasAuthority('SECRETAIRE')")
+    @PostMapping("/modifyRendezvous")
+    public String modifyRendezvous(@ModelAttribute("rendezvous")Rendezvous rendezvous, RedirectAttributes redirectAttributes){
+        LocalDate localDateTime = LocalDate.parse(rendezvous.getDateRv().toString());
+        rendezvous.setDateRv(localDateTime);
+        Rendezvous rendezvous1 = rendezvousService.saveRendezvous(rendezvous, redirectAttributes);
+        if(rendezvous1 != null){
+            redirectAttributes.addFlashAttribute("rendezCreated", "rendez vous modifié avec succès !");
+            String body = "Bonjour " + rendezvous1.getPatient().getNom() + "! \nVotre dernier rendez vous a été modifié et " +
+                    "vous aurez un rendez vous le " + rendezvous1.getDateRv() + " à " + rendezvous1.getHeure() + " avec le médecin " + rendezvous1.getMedecin().getSpecialite() + " " +rendezvous1.getMedecin().getNom() +
+                    "! \nLa clinique Scrinium vous souhaite une bonne continuation !\n-Scrinium";
+            emailService.sendSimpleMessage(rendezvous1.getPatient().getEmail(), body , "Rendez vous modifié");
+            return "redirect:/allRendezvous";
+        }
+        return "redirect:/modifyRendezvous/" + rendezvous.getId();
+    }
+
+
     @PreAuthorize("hasAuthority('SECRETAIRE')")
    @GetMapping("/createRendezvous")
     public String createRendezPage(Model model){
@@ -80,6 +119,10 @@ public class RendezvousRestController {
         Rendezvous rendezvous1 = rendezvousService.saveRendezvous(rendezvous, model);
         if(rendezvous1 != null){
             model.addAttribute("rendezCreated", "rendez vous créé avec succès !");
+            String body = "Bonjour " + rendezvous1.getPatient().getNom() + "! \nVotre rendez vous a été décidé " +
+                    "vous aurez un rendez vous le " + rendezvous1.getDateRv() + " à " + rendezvous1.getHeure() + " avec le médecin " + rendezvous1.getMedecin().getSpecialite() + " " +rendezvous1.getMedecin().getNom() +
+                    "! \nLa clinique Scrinium vous souhaite une bonne continuation !\n-Scrinium";
+            emailService.sendSimpleMessage(rendezvous1.getPatient().getEmail(),body, "Rendez vous créé");
         }
         model.addAttribute("medecinList", medecinService.medecins());
         model.addAttribute("patientList", patientService.patients());
@@ -127,15 +170,16 @@ public class RendezvousRestController {
     @GetMapping("/demandesRendezvous/accept/{id}")
     public String demandeAccepte(Model model, @PathVariable("id") Integer id){
         Rendezvous rendezvous = rendezvousService.RendezvousById(id);
-        if(EmailValidator.getInstance().isValid(rendezvous.getPatient().getEmail())){
-            Annonce annonce = new Annonce();
-            annonce.setPatient(rendezvous.getPatient());
-            annonce.setObjet("Demande rendez vous acceptée");
-            annonce.setMessage("Rendez vous le : " + rendezvous.getDateRv() +" à " + rendezvous.getHeure());
-            annonce.setDateCreation(LocalDate.now());
-            annonceService.saveNotification(annonce);
-            //emailService.sendSimpleMessage(rendezvous.getPatient().getEmail(),"Votre rendez vous a été accepté !\n Votre date de rendez vous est : " + rendezvous.getDateRv() + " - l'heure : " + rendezvous.getHeure(),"Demande de rendez vous acceptée");
-        }
+        Annonce annonce = new Annonce();
+        annonce.setPatient(rendezvous.getPatient());
+        annonce.setObjet("Demande rendez vous acceptée");
+        annonce.setMessage("Rendez vous le : " + rendezvous.getDateRv() +" à " + rendezvous.getHeure());
+        annonce.setDateCreation(LocalDate.now());
+        annonceService.saveNotification(annonce);
+        String body = "Bonjour " + rendezvous.getPatient().getNom() + "! \nVotre demande de rendez vous a été acceptée et " +
+                "vous aurez un rendez vous le " + rendezvous.getDateRv() + " à " + rendezvous.getHeure() + " avec le médecin " + rendezvous.getMedecin().getSpecialite() + " " +rendezvous.getMedecin().getNom() +
+                "! \nLa clinique Scrinium vous souhaite une bonne continuation !\n-Scrinium";
+        emailService.sendSimpleMessage(rendezvous.getPatient().getEmail(),body,"Demande de rendez vous acceptée");
         rendezvous.setStatut(0);
         rendezvousService.updateRendezvous(rendezvous);
         return "redirect:/demandesRendezvous";
@@ -160,9 +204,11 @@ public class RendezvousRestController {
         annonce.setMessage("le rendez vous du  : " + rendezvous.getDateRv() + "a été refusé ou supprimé");
         annonce.setDateCreation(LocalDate.now());
         annonceService.saveNotification(annonce);
-        /*if(EmailValidator.getInstance().isValid(rendezvous.getPatient().getEmail())){
-            //emailService.sendSimpleMessage(rendezvous.getPatient().getEmail(),"Votre demande de rendez vous a été refusé !","Demande de rendez vous refusée");
-        }*/
+        String body = "Bonjour " + rendezvous.getPatient().getNom() + "! \nVotre rendez vous du " + rendezvous.getDateRv() + " à l'heure " +
+                rendezvous.getHeure() + " avec le médecin "+ rendezvous.getMedecin().getNom() + " spécialité "+ rendezvous.getMedecin().getSpecialite()
+                +" a été refusé / supprimé ! Il se peut qu'il y a un empêchement ce jour-ci, veuillez redemander un rendez vous pour un autre jour " +
+                "! \nLa clinique Scrinium vous souhaite une bonne continuation !\n-Scrinium";
+        emailService.sendSimpleMessage(rendezvous.getPatient().getEmail(),body,"Rendez vous refusé / supprimé");
         rendezvousService.deleteRendezvous(rendezvous);
         return "redirect:/allRendezvous";
     }

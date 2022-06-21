@@ -3,6 +3,7 @@ package com.mbc.clickclinic.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,6 +16,7 @@ public class EmailImple implements EmailService {
         this.javaMailSender = javaMailSender;
     }
 
+    @Async("processExecutor")
     public void sendSimpleMessage(String to, String body, String subject){
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
         simpleMailMessage.setFrom("scrinium.projet@gmail.com");
@@ -26,6 +28,7 @@ public class EmailImple implements EmailService {
     }
 
     @Override
+    @Async("processExecutor")
     public void sendToAll(String[] to, String body, String subject) {
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
         simpleMailMessage.setFrom("scrinium.projet@gmail.com");

@@ -21,6 +21,14 @@
                         </p>
                     </a>
                 </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link" th:href="@{/homepage}" >
+                        <i class="material-icons">home</i>
+                        <p>
+                            Homepage
+                        </p>
+                    </a>
+                </li>
                 <li class="nav-item dropdown" sec:authorize="!isAuthenticated()">
                     <a class="nav-link" th:href="@{/login}" >
                         <i class="material-icons">person</i>

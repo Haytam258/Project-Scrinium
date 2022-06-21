@@ -308,6 +308,12 @@
                 <span class="sidebar-normal"> Mes Demandes de Rendez vous </span>
               </a>
             </li>
+            <li class="nav-item " sec:authorize="hasAuthority('PATIENT')">
+              <a class="nav-link" th:href="@{/historiqueRendezVous}">
+                <span class="sidebar-mini"> P </span>
+                <span class="sidebar-normal"> Historique de mes rendez vous </span>
+              </a>
+            </li>
           </ul>
         </div>
       </li>

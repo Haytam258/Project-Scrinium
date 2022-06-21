@@ -8,6 +8,7 @@ import com.mbc.clickclinic.entities.Patient;
 import com.mbc.clickclinic.entities.Rendezvous;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -17,6 +18,7 @@ import java.util.List;
 
 
 public interface RendezvousService {
+    public Rendezvous saveRendezvous(Rendezvous rendezvous, RedirectAttributes redirectAttributes);
     Rendezvous saveRendezvous(Rendezvous rendezvous, Model model);
     void deleteRendezvous(Rendezvous rendezvous);
     Rendezvous updateRendezvous(Rendezvous rendezvous);
@@ -33,5 +35,6 @@ public interface RendezvousService {
     List<Rendezvous> rendezvousByDateAndStatut(LocalDate date, Integer statut);
     List<Rendezvous> rendezvousByStatut(Integer statut);
     public List<Rendezvous> getDemandesRendezByPatient(Patient patient);
+    public List<Rendezvous> getRendezvousHistoriqueOfPatient(Patient patient);
 
 }

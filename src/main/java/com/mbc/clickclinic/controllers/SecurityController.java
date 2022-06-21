@@ -28,5 +28,10 @@ public class SecurityController {
         return "login";
     }
 
+    @GetMapping("/homepage")
+    public String homepage(Model model){
+        return "homepage";
+    }
+
 
 }
