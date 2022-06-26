@@ -17,20 +17,27 @@ public class AgendaImple implements AgendaService {
     private final CongesService congesService;
     private final MedecinService medecinService;
     private final AnnonceService annonceService;
+    private final EmailService emailService;
 
     @Autowired
-    public AgendaImple(AgendaRepository agendaRepository, @Lazy RendezvousService rendezvousService, CongesService congesService, @Lazy MedecinService medecinService, @Lazy AnnonceService annonceService){
+    public AgendaImple(AgendaRepository agendaRepository,EmailService emailService ,@Lazy RendezvousService rendezvousService, CongesService congesService, @Lazy MedecinService medecinService, @Lazy AnnonceService annonceService){
         this.rendezvousService = rendezvousService;
         this.agendaRepository = agendaRepository;
         this.congesService = congesService;
         this.medecinService = medecinService;
         this.annonceService = annonceService;
+        this.emailService = emailService;
     }
 
     public Agenda createAgenda(Agenda agenda){
         List<Rendezvous> rendezvousList = rendezvousService.Rendezvouss();
         for(Rendezvous rendezvous : rendezvousList){
-            if(agenda.getMedecin() == rendezvous.getMedecin() && rendezvous.getDateRv().isBefore(agenda.getDateFin()) && rendezvous.getDateRv().isAfter(agenda.getDateDebut())){
+            if(agenda.getMedecin() == rendezvous.getMedecin() && (rendezvous.getDateRv().isBefore(agenda.getDateFin()) && rendezvous.getDateRv().isAfter(agenda.getDateDebut())) || rendezvous.getDateRv().equals(agenda.getDateDebut()) || rendezvous.getDateRv().equals(agenda.getDateFin())){
+                String body = "Bonjour " + rendezvous.getPatient().getNom() + "! \nVotre rendez vous du " + rendezvous.getDateRv() + " à l'heure " +
+                        rendezvous.getHeure() + " avec le médecin "+ rendezvous.getMedecin().getNom() + " spécialité "+ rendezvous.getMedecin().getSpecialite()
+                        +" a été refusé / supprimé ! car "+agenda.getDescription()+  ", veuillez redemander un rendez vous pour un autre jour " +
+                        "! \nLa clinique Scrinium vous souhaite une bonne continuation !\n-Scrinium";
+                emailService.sendSimpleMessage(rendezvous.getPatient().getEmail(),body,"Rendez vous refusé / supprimé");
                 rendezvousService.deleteRendezvous(rendezvous);
             }
         }

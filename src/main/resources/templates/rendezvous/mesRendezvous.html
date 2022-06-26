@@ -44,7 +44,7 @@
                                         </tr>
                                         </tfoot>
                                         <tbody>
-                                        <tr th:each="rendez : ${rendezvousList}">
+                                        <tr th:each="rendez : ${rendezvousList}" th:if="${rendez.statut != 2}">
                                             <td th:text="${rendez.dateRv}"></td>
                                             <td th:text="${rendez.heure}"></td>
                                             <td th:text="${rendez.medecin == null ? '' : rendez.medecin.nom + ' ' + rendez.medecin.prenom}"></td>
