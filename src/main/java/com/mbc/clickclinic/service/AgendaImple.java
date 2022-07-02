@@ -43,7 +43,7 @@ public class AgendaImple implements AgendaService {
         }
         Annonce annonce = new Annonce();
         annonce.setDateCreation(LocalDate.now());
-        annonce.setMessage("Médecin ne sera pas disponible du" + agenda.getDateDebut() + " jusqu'à " + agenda.getDateFin());
+        annonce.setMessage("Médecin " + agenda.getMedecin().getNom() + " " + agenda.getMedecin().getPrenom() + "ne sera pas disponible du " + agenda.getDateDebut() + " jusqu'à " + agenda.getDateFin());
         annonce.setObjet("Annulation des rendez vous");
         annonceService.saveNotification(annonce);
         return agendaRepository.saveAndFlush(agenda);

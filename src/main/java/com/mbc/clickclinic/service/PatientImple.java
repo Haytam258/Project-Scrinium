@@ -86,6 +86,18 @@ public class PatientImple implements PatientService{
             model.addAttribute("numbers", "Nom ou prénom contient un nombre !");
             return null;
         }
+        if(!patient.getNom().matches("[a-zA-Z \\-\\.\\']*$") || !patient.getPrenom().matches("[a-zA-Z \\-\\.\\']*$")){
+            model.addAttribute("numbers", "Nom ou prénom contient des caractères spéciaux comme ( ou & ...");
+            return null;
+        }
+        if(patientRepository.findPatientByCin(patient.getCin()) != null){
+            model.addAttribute("uniqueCIN", "ce CIN existe déjà, il doit etre unique !");
+            return null;
+        }
+        if(patient.getDateNaissance().isAfter(LocalDate.now())){
+            model.addAttribute("impossible", "Vérifiez la date de naissance !");
+            return null;
+        }
         if(!EmailValidator.getInstance().isValid(patient.getEmail())){
             model.addAttribute("emailInvalid", "Email est invalide, Vérifiez votre saisie !");
             return null;
@@ -102,7 +114,9 @@ public class PatientImple implements PatientService{
                 rendezvousService.deleteRendezvous(rendezvous);
             }
         }
-        dossierM.deleteDossier(dossierMedicale);
+        if(dossierMedicale != null){
+            dossierM.deleteDossier(dossierMedicale);
+        }
         patient.setSalleDattente(null);
         patient.setDossierMedicale(null);
         patientRepository.delete(patient);

@@ -25,20 +25,20 @@
                                 <div class="col-md-5">
                                     <div class="form-group">
                                         <div class="col-lg-5 col-md-6 col-sm-3">
-                                            <label for="medecin" class="bmd-label-floating">Evenement</label>
+                                            <label for="medecin" class="bmd-label-floating">Médecin</label>
                                             <input type="text" th:value="${agenda.medecin == null ? '' : agenda.medecin.nom + ' ' + agenda.medecin.prenom}" class="form-control" name="description" id="medecin" disabled readonly>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-5 pr-md-1">
                                     <div class="form-group bmd-form-group">
-                                        <label for="description" class="bmd-label-floating">Evenement</label>
+                                        <label for="description" class="bmd-label-floating">Ancien Evenement</label>
                                         <input type="text" th:value="${agenda.description}" class="form-control" name="description" id="description" disabled readonly>
                                     </div>
                                 </div>
                                 <div class="col-md-5 pr-md-1">
                                     <div class="form-group bmd-form-group">
-                                        <label for="jour" class="bmd-label-floating">Jour</label>
+                                        <label for="jour" class="bmd-label-floating">Ancien Jour</label>
                                         <input type="text" th:value="${agenda.jour}" class="form-control" name="jour" id="jour" readonly disabled>
                                     </div>
                                 </div>
@@ -47,7 +47,7 @@
                                 <div class="col-md-5 pr-md-1">
                                     <div class="card ">
                                         <div class="card-header card-header-rose card-header-text">
-                                            <h4 class="card-title">Date Debut</h4>
+                                            <h4 class="card-title">Ancienne Date Debut</h4>
                                         </div>
                                         <div class="card-body ">
                                             <div class="form-group bmd-form-group is-filled">
@@ -59,7 +59,7 @@
                                 <div class="col-md-5 pr-md-1">
                                     <div class="card ">
                                         <div class="card-header card-header-rose card-header-text">
-                                            <h4 class="card-title">Date Fin</h4>
+                                            <h4 class="card-title">Ancienne Date Fin</h4>
                                         </div>
                                         <div class="card-body ">
                                             <div class="form-group bmd-form-group is-filled">
@@ -73,7 +73,7 @@
                                 <div class="col-md-5 pr-md-1">
                                     <div class="card ">
                                         <div class="card-header card-header-rose card-header-text">
-                                            <h4 class="card-title">Heure Debut</h4>
+                                            <h4 class="card-title">Ancienne Heure Debut</h4>
                                         </div>
                                         <div class="card-body ">
                                             <div class="form-group bmd-form-group is-filled">
@@ -85,7 +85,7 @@
                                 <div class="col-md-5 pr-md-1">
                                     <div class="card ">
                                         <div class="card-header card-header-rose card-header-text">
-                                            <h4 class="card-title">Heure Fin</h4>
+                                            <h4 class="card-title">Ancienne Heure Fin</h4>
                                         </div>
                                         <div class="card-body ">
                                             <div class="form-group bmd-form-group is-filled">
@@ -100,6 +100,7 @@
                                 <input type="hidden" th:value="${agenda.medecin}" th:field="*{medecin}">
                                 <input type="hidden" th:value="${agenda.id}" th:field="*{id}">
                                 <input th:if="${agenda.conges != null}" type="hidden" th:value="${agenda.conges.id}" th:field="*{conges}">
+                                <h4 class="text-justify justify-content-center"> Nouvelle information d'agenda</h4>
                                 <div class="col-md-5 pr-md-1">
                                     <div class="form-group bmd-form-group">
                                         <label for="description2" class="bmd-label-floating">Evenement</label>

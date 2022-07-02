@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -102,6 +103,7 @@ public class CongesController {
             annonce.setMedecin(medecin);
             annonce.setMessage("Votre congès a été refusé ");
             annonce.setObjet("Congès refusé");
+            annonce.setDateCreation(LocalDate.now());
             annonceService.saveNotification(annonce);
             congesService.refuseConges(id);
             emailService.sendSimpleMessage(medecin.getEmail(),body,"Congès annulé ");

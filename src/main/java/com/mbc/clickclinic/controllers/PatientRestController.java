@@ -78,7 +78,7 @@ public class PatientRestController {
         else {
             if(patientService.savePatient(patient, model) != null){
                 model.addAttribute("patientCreated", "Le patient a été enregistré !");
-                emailService.sendSimpleMessage(patient.getEmail(),"Bienvenu à Scrinium \nVotre compte de la clinique Scrinium a été créé.\nNous espérons" +
+                emailService.sendSimpleMessage(patient.getEmail(),"Bienvenu à Scrinium \nVotre compte de la clinique Scrinium a été créé.\nNous espérons " +
                         "que notre service vous sera satisfaisant !\n-Scrinium","Compte Créé");
             }
         }
@@ -130,11 +130,10 @@ public class PatientRestController {
         return "patient/patientProfile";
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','SECRETAIRE')")
     @GetMapping("/deletePatient/{id}")
     public String deletePatient(@PathVariable Integer id){
         Patient patient = patientService.PatientById(id);
-        emailService.sendSimpleMessage(patient.getEmail(),"Votre compte Scrinium a été supprimé.","Compte Supprimé Scrinium");
         patientService.deletePatient(patient);
         return "redirect:/patients";
     }

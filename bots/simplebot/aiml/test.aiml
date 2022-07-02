@@ -61,6 +61,20 @@
     </category>
 
     <category>
+        <pattern>Bonjour, je suis *</pattern>
+        <template>
+            Bonjour <set name="username"><star/></set> ! Quelles sont vos questions ?
+        </template>
+    </category>
+
+    <category>
+        <pattern>Bonjour je suis *</pattern>
+        <template>
+            Bonjour <set name="username"><star/></set> ! et bienvenue à Scrinium, quelles sont vos questions ?
+        </template>
+    </category>
+
+    <category>
         <pattern>Salut, je suis *</pattern>
         <template>
             Salut <set name="username"><star/></set> ! et bienvenue à Scrinium, quelles sont vos questions ?
@@ -154,6 +168,20 @@
 
     <category>
         <pattern>* scrinium *?</pattern>
+        <template>
+            Scrinium est un projet spécifique à la gestion d'une clinique médicale !
+        </template>
+    </category>
+
+    <category>
+        <pattern>* scrinium ?</pattern>
+        <template>
+            Scrinium est un projet spécifique à la gestion d'une clinique médicale !
+        </template>
+    </category>
+
+    <category>
+        <pattern>* scrinium </pattern>
         <template>
             Scrinium est un projet spécifique à la gestion d'une clinique médicale !
         </template>

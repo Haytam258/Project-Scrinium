@@ -32,6 +32,22 @@ public class MedicamentRestController {
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
+    @GetMapping("/modifyMedicament/{id}")
+    public String modifyMedicament(@PathVariable("id") Integer id, Model model){
+        model.addAttribute("medicament", medicamentService.MedicamentById(id));
+        model.addAttribute("typeMedicament", medicamentService.typeMedicaments());
+        model.addAttribute("categorieMedicament", medicamentService.categorieMedicaments());
+        return "medicament/modifyMedicament";
+    }
+
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @PostMapping("/modifyMedicament")
+    public String modifyMedicament(@ModelAttribute("medicament") Medicament medicament, Model model){
+        medicamentService.saveMedicament(medicament);
+        return "redirect:/medicaments";
+    }
+
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/createMedicament")
     public String createMedicament(@ModelAttribute Medicament medicament, Model model){
         if(medicamentService.MedicamentByCodeATC(medicament.getCodeATC()) != null){

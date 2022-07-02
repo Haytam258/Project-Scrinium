@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="include/css :: head"></div>
+
+<body class="">
+<div class="wrapper ">
+  <div th:replace="include/sidebar :: sidebar-fragment"></div>
+  <div class="main-panel">
+    <!-- Navbar -->
+    <nav th:replace="include/navbar2 :: navbar"></nav>
+    <!-- End Navbar -->
+    <div class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card ">
+              <div class="card-header card-header-rose card-header-icon">
+                <div class="card-icon">
+                  <i class="material-icons">mail_outline</i>
+                </div>
+                <h4 class="card-title">Modifier un médicament</h4>
+              </div>
+              <div class="card-body ">
+                <form method="POST" action="#" th:object="${medicament}" th:action="@{/modifyMedicament}">
+                  <input type="hidden" th:value="${medicament.id}" th:field="*{id}">
+                  <div class="form-group">
+                    <label for="libelle" class="bmd-label-floating">Libellé</label>
+                    <input type="text" class="form-control" id="libelle" th:field="*{libelle}" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="fabriquant" class="bmd-label-floating">Fabriquant</label>
+                    <input type="text" class="form-control" id="fabriquant" th:field="*{fabriquant}" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="codeATC" class="bmd-label-floating">Code ATC</label>
+                    <input type="text" class="form-control" id="codeATC" th:field="*{codeATC}" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="nomGenerique" class="bmd-label-floating">Nom Générique</label>
+                    <input type="text" class="form-control" id="nomGenerique" th:field="*{nomGenerique}" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="prix" class="bmd-label-floating">Prix Achat</label>
+                    <input type="number" class="form-control" pattern="/^[+-]?((\.\d+)|(\d+(\.\d+)?)|(\d+\.))$/" th:field="*{prixAchat}" id="prix" required>
+                  </div>
+                  <div class="col-lg-5 col-md-6 col-sm-3">
+                    <select class="selectpicker" data-size="7" data-style="btn btn-primary btn-round" title="Type Medicament" th:field="*{typeMedicament}" >
+                      <option th:each="type : ${typeMedicament}" th:value="${type.id}" th:text="${type.form}"></option>
+                    </select>
+                  </div>
+
+                  <div class="col-lg-5 col-md-6 col-sm-3">
+                    <select class="selectpicker" data-size="7" data-style="btn btn-primary btn-round" title="Categorie Medicament" th:field="*{categorieMedicament}" >
+                      <option th:each="categorie : ${categorieMedicament}" th:text="${categorie.classeTherapeutique}" th:value="${categorie.id}"></option>
+                    </select>
+                  </div>
+                  <div class="card-footer ">
+                    <button type="submit" class="btn btn-fill btn-rose">Submit</button>
+                  </div>
+                  <div class="form-group has-success" th:if="${medicamentSuccess != null}">
+                    <span class="alert text-success" th:text="${medicamentSuccess}"> </span>
+
+                  </div>
+                  <div class="form-group has-danger" th:if="${medicamentFail != null}">
+                    <span class="alert text-danger" th:text="${medicamentFail}"> </span>
+
+                  </div>
+
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<!--   Core JS Files   -->
+<div th:replace="include/js :: js"></div>
+</body>
+
+</html>

@@ -60,6 +60,9 @@
                                             <td th:text="${medicament.categorieMedicament == null ? '' : medicament.categorieMedicament.classeTherapeutique}"></td>
                                             <td class="text-right">
                                                 <a th:href="@{/deleteMedicament/{id}(id=${medicament.id})}" onclick="return confirm('Etes vous sure ?');" class="btn btn-link btn-danger btn-just-icon remove"><i class="material-icons">close</i></a>
+                                                <a th:href="@{/modifyMedicament/{id}(id = ${medicament.id})}" rel="tooltip" class="btn btn-link btn-success btn-just-icon success" >
+                                                    <i class="material-icons">edit</i>
+                                                </a>
                                             </td>
                                         </tr>
                                         </tbody>

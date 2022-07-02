@@ -22,4 +22,5 @@ public interface AdminService {
     public List<Integer> getPaymentPerMonthByMedecin(Medecin medecin);
     public Integer getThisYearPaymentByMedecin(Medecin medecin);
     public Integer getThisMonthPaymentByMedecin(Medecin medecin);
+    public float getTauxAbsence();
 }

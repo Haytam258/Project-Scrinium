@@ -14,5 +14,6 @@ public interface PatientRepository extends JpaRepository<Patient, Integer> {
     public Patient findPatientByNom(String nom);
    // public List<Patient> findPatientByDateCreation(LocalDate date);
     Patient findPatientByEmail(String email);
+    Patient findPatientByCin(String cin);
 
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 @Service
@@ -21,8 +22,10 @@ public class AdminImple implements AdminService{
     private final PersonneRepository personneRepository;
     private final RendezvousService rendezvousService;
     private final SecretaireService secretaireService;
+    private final AgendaService agendaService;
 
-    public AdminImple(MedecinService medecinService, PatientService patientService, PaymentService paymentService, ConsultationService consultationService, PersonneRepository personneRepository, @Lazy RendezvousService rendezvousService, @Lazy SecretaireService secretaireService){
+    public AdminImple(MedecinService medecinService, PatientService patientService, PaymentService paymentService, ConsultationService consultationService, PersonneRepository personneRepository,
+                      @Lazy RendezvousService rendezvousService, @Lazy SecretaireService secretaireService, @Lazy AgendaService agendaService){
         this.medecinService = medecinService;
         this.patientService = patientService;
         this.paymentService = paymentService;
@@ -30,11 +33,28 @@ public class AdminImple implements AdminService{
         this.personneRepository = personneRepository;
         this.rendezvousService = rendezvousService;
         this.secretaireService = secretaireService;
+        this.agendaService = agendaService;
     }
 
 
     public Integer getPatientCount(){
         return patientService.patients().size();
+    }
+
+    public float getTauxAbsence(){
+        List<Medecin> medecinList = medecinService.medecins();
+        float taux = 0.00F;
+        for(Medecin medecin : medecinList){
+            List<Agenda> agendaList = agendaService.getAgendaByMedecin(medecin);
+            float tauxMedecin = 0.00F;
+            for(Agenda agenda : agendaList){
+                if(agenda.getDateDebut().getYear() == LocalDate.now().getYear()){
+                    tauxMedecin += (double) ChronoUnit.DAYS.between(agenda.getDateDebut(), agenda.getDateFin())*100/365;
+                }
+            }
+            taux += tauxMedecin/medecinList.size();
+        }
+        return taux;
     }
 
     public List<Integer> getRendezvousCountByMonth(){
